@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.telephony.TelephonyManager;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -16,6 +18,36 @@ import java.io.FileNotFoundException;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    /**
+     * 判断字符串是否为空
+     * http://bbs.3gstdy.com
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isEmptyString(String str) {
+        return (str == null || str.length() == 0);
+    }
+
+    /**
+     * 将图片bitmap转换为base64字符串
+     * http://bbs.3gstdy.com
+     *
+     * @param bitmap
+     * @return 根据url读取出的图片的Bitmap信息
+     */
+    public static String encodeBitmap(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos);
+            return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
+                    .trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     /**
      * 加载本地图片
      * http://bbs.3gstdy.com
