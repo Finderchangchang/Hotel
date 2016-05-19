@@ -21,6 +21,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.annotation.view.EventListener;
@@ -28,7 +30,7 @@ import net.tsz.afinal.annotation.view.Select;
 
 import java.lang.reflect.Field;
 
-public abstract class FinalActivity extends Activity {
+public abstract class FinalActivity extends AppCompatActivity {
 
 
     public void setContentView(int layoutResID) {
@@ -68,8 +70,18 @@ public abstract class FinalActivity extends Activity {
                     if (viewInject != null) {
 
                         int viewId = viewInject.id();
+                        String hint = viewInject.hint();
+                        String text = viewInject.text();
                         field.set(injectedSource, sourceView.findViewById(viewId));
-
+                        if (hint != "") {
+                            EditText textView = (EditText) sourceView.findViewById(viewId);
+                            textView.setHint(hint);
+                        }
+                        if (text != "") {
+                            TextView textView = (TextView) sourceView.findViewById(viewId);
+                            textView.setText(text);
+                        }
+                        field.set(injectedSource, sourceView.findViewById(viewId));
                         setListener(injectedSource, field, viewInject.click(), Method.Click);
                         setListener(injectedSource, field, viewInject.longClick(), Method.LongClick);
                         setListener(injectedSource, field, viewInject.itemClick(), Method.ItemClick);

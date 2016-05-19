@@ -13,7 +13,7 @@ import android.util.Log;
 
 import java.io.File;
 
-public class Utils {
+public class BitmapUtils {
     private static final String TAG = "BitmapCommonUtils";
     private static final long POLY64REV = -7661587058870466123L;
     private static final long INITIALCRC = -1L;
@@ -33,7 +33,7 @@ public class Utils {
 
     }
 
-    public Utils() {
+    public BitmapUtils() {
     }
 
     public static File getDiskCacheDir(Context context, String uniqueName) {

@@ -10,13 +10,10 @@ import android.graphics.Bitmap;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import net.tsz.afinal.bitmap.core.BaseMemoryCacheImpl;
-import net.tsz.afinal.bitmap.core.DiskCache;
-import net.tsz.afinal.bitmap.core.IMemoryCache;
-import net.tsz.afinal.bitmap.core.SoftMemoryCacheImpl;
+
 import net.tsz.afinal.bitmap.core.BytesBufferPool.BytesBuffer;
 import net.tsz.afinal.bitmap.core.DiskCache.LookupRequest;
-import net.tsz.afinal.utils.Utils;
+import net.tsz.afinal.utils.BitmapUtils;
 
 public class BitmapCache {
     private static final int DEFAULT_MEM_CACHE_SIZE = 8388608;
@@ -61,8 +58,8 @@ public class BitmapCache {
 
     public void addToDiskCache(String url, byte[] data) {
         if(this.mDiskCache != null && url != null && data != null) {
-            byte[] key = Utils.makeKey(url);
-            long cacheKey = Utils.crc64Long(key);
+            byte[] key = BitmapUtils.makeKey(url);
+            long cacheKey = BitmapUtils.crc64Long(key);
             ByteBuffer buffer = ByteBuffer.allocate(key.length + data.length);
             buffer.put(key);
             buffer.put(data);
@@ -82,8 +79,8 @@ public class BitmapCache {
         if(this.mDiskCache == null) {
             return false;
         } else {
-            byte[] key = Utils.makeKey(url);
-            long cacheKey = Utils.crc64Long(key);
+            byte[] key = BitmapUtils.makeKey(url);
+            long cacheKey = BitmapUtils.crc64Long(key);
 
             try {
                 LookupRequest request = new LookupRequest();
@@ -96,7 +93,7 @@ public class BitmapCache {
                     }
                 }
 
-                if(Utils.isSameKey(key, request.buffer)) {
+                if(BitmapUtils.isSameKey(key, request.buffer)) {
                     buffer.data = request.buffer;
                     buffer.offset = key.length;
                     buffer.length = request.length - buffer.offset;

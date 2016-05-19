@@ -15,6 +15,10 @@ import java.lang.annotation.Target;
 public @interface CodeNote {
     int id();
 
+    String hint() default "";
+
+    String text() default "";
+
     String click() default "";
 
     String longClick() default "";

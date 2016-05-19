@@ -5,9 +5,8 @@ package net.tsz.afinal.bitmap.core;
  * Email:1031066280@qq.com
  */
 import android.graphics.Bitmap;
-import net.tsz.afinal.bitmap.core.IMemoryCache;
-import net.tsz.afinal.bitmap.core.LruMemoryCache;
-import net.tsz.afinal.utils.Utils;
+
+import net.tsz.afinal.utils.BitmapUtils;
 
 public class BaseMemoryCacheImpl implements IMemoryCache {
     private final LruMemoryCache<String, Bitmap> mMemoryCache;
@@ -15,7 +14,7 @@ public class BaseMemoryCacheImpl implements IMemoryCache {
     public BaseMemoryCacheImpl(final int size) {
         this.mMemoryCache = new LruMemoryCache(size) {
             protected int sizeOf(String key, Bitmap bitmap) {
-                return Utils.getBitmapSize(bitmap);
+                return BitmapUtils.getBitmapSize(bitmap);
             }
         };
     }

@@ -29,7 +29,7 @@ import net.tsz.afinal.bitmap.display.SimpleDisplayer;
 import net.tsz.afinal.bitmap.download.Downloader;
 import net.tsz.afinal.bitmap.download.SimpleDownloader;
 import net.tsz.afinal.core.AsyncTask;
-import net.tsz.afinal.utils.Utils;
+import net.tsz.afinal.utils.BitmapUtils;
 
 public class FinalBitmap {
     private FinalBitmap.FinalBitmapConfig mConfig;
@@ -47,7 +47,7 @@ public class FinalBitmap {
     private FinalBitmap(Context context) {
         this.mContext = context;
         this.mConfig = new FinalBitmap.FinalBitmapConfig(context);
-        this.configDiskCachePath(Utils.getDiskCacheDir(context, "afinalCache").getAbsolutePath());
+        this.configDiskCachePath(BitmapUtils.getDiskCacheDir(context, "afinalCache").getAbsolutePath());
         this.configDisplayer(new SimpleDisplayer());
         this.configDownlader(new SimpleDownloader());
     }
