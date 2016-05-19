@@ -1,10 +1,9 @@
-package liuliu.hotel.activity;
+package liuliu.hotel.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import liuliu.hotel.R;
