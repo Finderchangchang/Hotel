@@ -2,7 +2,8 @@ package liuliu.hotel.model;
 
 import java.io.Serializable;
 
-import liuliu.custom.method.Utils;
+import liuliu.hotel.utils.Utils;
+
 
 /**
  * Created by Administrator on 2015/11/11.

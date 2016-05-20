@@ -8,5 +8,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="下载"/>
-
+    <Button
+        android:id="@+id/login_bluth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="蓝牙"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_read"
+        android:text="读取"/>
 </LinearLayout>

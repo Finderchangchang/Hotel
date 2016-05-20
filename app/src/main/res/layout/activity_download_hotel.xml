@@ -43,7 +43,7 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="20dp"
-                    android:Color="@android:color/white"
+                    android:background="@android:color/white"
                     android:text="下载"
                     android:textSize="14sp" />
             </LinearLayout>

@@ -1,5 +1,7 @@
 package liuliu.hotel.utils;
 
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import android.widget.ListView;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URLEncoder;
 
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.base.BaseApplication;
@@ -24,6 +27,58 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    public static String URLEncodeImage(String text) {
+        if (Utils.isEmptyString(text))
+            return "";
+
+        return URLEncoder.encode(text);
+    }
+    /**
+     * 判断字符串是否为空,为空返回空串
+     * http://bbs.3gstdy.com
+     *
+     * @param text
+     * @return
+     */
+    public static String URLEncode(String text) {
+        if (isEmptyString(text))
+            return "";
+        if (text.equals("null"))
+            return "";
+        return text;
+        /*
+         * if(Utils.isEmptyString(text)) return "";
+		 *
+		 * return URLEncoder.encode(text);
+		 */
+    }
+
+    /**
+     * 检查蓝牙设备
+     * http://bbs.3gstdy.com
+     *
+     * @param context,requestcode
+     * @return
+     */
+    public static boolean checkBluetooth(Activity context, int requestCode) {
+        /*
+         * Intent serverIntent = new Intent(context, DeviceListActivity.class);
+		 * context.startActivity(serverIntent); return true;
+		 */
+
+        boolean result = true;
+        BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
+        if (null != ba) {
+            if (!ba.isEnabled()) {
+                result = false;
+                Intent intent = new Intent(
+                        BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                context.startActivityForResult(intent, requestCode);// 或者ba.enable();
+                // //同样的关闭WIFi为ba.disable();
+            }
+        }
+        return result;
+    }
     /**
      * 判断字符串是否为空
      * http://bbs.3gstdy.com
