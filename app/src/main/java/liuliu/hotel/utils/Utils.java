@@ -14,9 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
 
 import liuliu.hotel.base.BaseActivity;
@@ -108,6 +112,7 @@ public class Utils {
         }
         return "";
     }
+
     /**
      * 根据键值对读取存储在本地的数据
      *

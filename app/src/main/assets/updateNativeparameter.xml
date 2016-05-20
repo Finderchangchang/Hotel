@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<MobileInvokeParameter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Type>UpdateNative</Type>
+  <Values>
+    <anyType xsi:type="MobileNativeModel">
+      <HotelId>InputHotelId</HotelId>
+      <AuthorizationCode>InputAuthorizationCode</AuthorizationCode>
+      <SerialId>InputSerialId</SerialId>
+      <Name>InputName</Name>
+      <Sex>InputSex</Sex>
+      <Nation>InputNation</Nation>
+      <Birthday>InputBirthday</Birthday>
+      <CardType>InputCardType</CardType>
+      <CardId>InputCardId</CardId>
+      <Native>InputNative</Native>
+      <Address>InputAddress</Address>
+      <RoomId>InputRoomId</RoomId>
+      <Area>InputArea</Area>
+      <CheckInTime>InputCheckInTime</CheckInTime>
+      <CheckOutTime>InputCheckOutTime</CheckOutTime>
+      <ReceiveTime>InputReceiveTime</ReceiveTime>
+      <CheckInSign>InputCheckInSign</CheckInSign>
+      <HeadPhoto>InputHeadPhoto</HeadPhoto>
+      <Comment>InputComment</Comment>
+    </anyType>
+  </Values>
+</MobileInvokeParameter>
