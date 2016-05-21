@@ -11,7 +11,7 @@ import net.tsz.afinal.annotation.view.CodeNote;
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.SaveKey;
-import liuliu.hotel.model.HotelModel;
+import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.utils.Utils;
 
 /**
@@ -84,7 +84,7 @@ public class SetIpActivity extends BaseActivity {
      * 检测跳页
      */
     private void checkPost() {
-        if (finalDb.findAll(HotelModel.class).size() > 0) {//存在旅馆信息跳转到登陆页面
+        if (finalDb.findAll(DBLGInfo.class).size() > 0) {//存在旅馆信息跳转到登陆页面
             Utils.IntentPost(LoginActivity.class);
         } else {//不存在旅馆信息跳转到配置旅馆代码页面
             Utils.IntentPost(DownHotelActivity.class);

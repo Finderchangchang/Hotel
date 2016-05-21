@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Hotel</string>
+    <string name="app_name">旅馆登记</string>
+    <string name="app_long_name">旅馆业信息管理系统</string>
 </resources>

@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Administrator on 2016/5/20.
  */
 public class DBLGInfo implements Serializable {
+    private int id;
     //旅馆信息
     private String LGDM;//旅馆代码
     private String LGMC;//旅馆名称
@@ -42,5 +43,13 @@ public class DBLGInfo implements Serializable {
 
     public void setQYSCM(String QYSCM) {
         this.QYSCM = QYSCM;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
