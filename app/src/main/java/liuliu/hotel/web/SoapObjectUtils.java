@@ -17,6 +17,7 @@ public class SoapObjectUtils {
         SoapObject provinceSoapObject = (SoapObject) result.getProperty(method + "Result");
         List<Object> list = new ArrayList<>();
         if (provinceSoapObject.getProperty("Sucess").toString().equals("true")) {
+            invokeReturn.setSuccess(true);
             SoapObject soaplist = (SoapObject) provinceSoapObject.getProperty("Obj");
             if (method.equals("GetLGInfoByLGDM")) {
                 DBLGInfo lg = new DBLGInfo();
@@ -24,10 +25,11 @@ public class SoapObjectUtils {
                 lg.setLGDZ(soaplist.getProperty("LGDZ").toString());
                 lg.setLGMC(soaplist.getProperty("LGMC").toString());
                 lg.setQYSCM(soaplist.getProperty("QYSCM").toString());
-
                 list.add(lg);
                 invokeReturn.setData(list);
             }
+        }else{
+            invokeReturn.setSuccess(false);
         }
         return invokeReturn;
     }

@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.base.BaseApplication;
@@ -129,7 +130,24 @@ public class Utils {
         }
 
     }
-
+    /**
+     * 获取系统的当前日期，格式为YYYYMMDD
+     * */
+    public static String getSystemNowDate() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int monthOfYear = calendar.get(Calendar.MONTH) + 1;
+        String monthStr = String.valueOf(monthOfYear);
+        if (monthStr.length() < 2) {
+            monthStr = "0" + monthStr;
+        }
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        String dayStr = String.valueOf(dayOfMonth);
+        if (dayStr.length() < 2) {
+            dayStr = "0" + dayStr;
+        }
+        return String.valueOf(year) + monthStr + dayStr;
+    }
     /**
      * 带参数的跳页
      *

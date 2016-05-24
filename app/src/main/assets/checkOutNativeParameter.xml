@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<MobileInvokeParameter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Type>CheckOutNative</Type>
+  <Values>
+    <anyType xsi:type="xsd:string">InputSerialId</anyType>
+    <anyType xsi:type="xsd:string">InputLeaveTime</anyType>
+  </Values>
+</MobileInvokeParameter>

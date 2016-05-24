@@ -3,12 +3,23 @@ package liuliu.hotel.web;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import liuliu.hotel.model.InvokeReturn;
 import liuliu.hotel.utils.Utils;
@@ -70,6 +81,60 @@ public class JSONUtils {
         return mInvokeReturn;
     }
 
+    public boolean ParseXml(String xmlData) {
+
+        boolean returnBoolean = false;
+
+        DocumentBuilderFactory domfactory;
+        DocumentBuilder dombuilder;
+        Document dom;
+
+        try {
+
+            domfactory = DocumentBuilderFactory.newInstance();
+
+            dombuilder = domfactory.newDocumentBuilder();
+
+            InputStream inputStream = new ByteArrayInputStream(
+                    xmlData.getBytes());
+            dom = dombuilder.parse(inputStream);
+
+            // 找到根Element
+            Element root = dom.getDocumentElement();
+            NodeList nodes = dom.getElementsByTagName("MobileInvokeReturn");
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+
+                Element HotelElement = (Element) (nodes.item(i));
+
+                Element SucessElement = (Element) HotelElement
+                        .getElementsByTagName("Sucess").item(0);
+                String Sucess_str = SucessElement.getFirstChild()
+                        .getNodeValue();
+
+                if (!Sucess_str.equals("true")) {
+                    Element MessageElement = (Element) HotelElement
+                            .getElementsByTagName("Message").item(0);
+
+                    returnBoolean = true;
+                } else {
+                    // 保存或者修改成功
+                    returnBoolean = true;
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+        }
+        return returnBoolean;
+    }
     private static Object getObject(JSONObject jsonObject,String modelName) throws Exception {
         Field[] fields;
         Object objectModel = new Object();

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
+import liuliu.hotel.base.Base64Util;
+import liuliu.hotel.utils.Utils;
 import liuliu.hotel.web.globalfunc;
 
 public class CustomerModel implements Serializable {
@@ -23,11 +25,11 @@ public class CustomerModel implements Serializable {
     private String CheckInTime;//入住时间
     private String CheckOutTime;//离店时间
     private String CheckInSign;//入住表示，当前程序版本号
-    private String Headphoto;//头像
+    private Bitmap Headphoto;//头像
     private String Comment;//备注
 
 
-    public String getXml(String xml,boolean isSave, DBLGInfo info) {
+    public String getXml(String xml, boolean isSave, DBLGInfo info) {
 
         //String xml = gfunc.getAssetsFileData("checkInNativeParameter.xml");
 
@@ -41,29 +43,29 @@ public class CustomerModel implements Serializable {
             xml = xml.replace("InputHotelId", info.getLGDM());
             xml = xml.replace("InputAuthorizationCode",
                     info.getQYSCM());
-            xml = xml.replace("InputSerialId", getSerialId());
-            xml = xml.replace("InputName", getName());
-            xml = xml.replace("InputSex", getSex());
-            xml = xml.replace("InputNation", getNation());
-            xml = xml.replace("InputBirthday", getBirthday());
-            xml = xml.replace("InputCardType", getCardType());
-            xml = xml.replace("InputCardId", getCardId());
 
-            xml = xml.replace("InputNative", getNative());
-            xml = xml.replace("InputAddress", getAddress());
-            xml = xml.replace("InputRoomId", getRoomId());
-            xml = xml.replace("InputArea", getArea());
-            xml = xml.replace("InputCheckInTime", getCheckInTime());
-            xml = xml.replace("InputCheckOutTime", getCheckOutTime());
+            xml = xml.replace("InputSerialId", Utils.URLEncode(getSerialId()));
+            xml = xml.replace("InputName", Utils.URLEncode(getName()));
+            xml = xml.replace("InputSex", Utils.URLEncode(getSex()));
+            xml = xml.replace("InputNation", Utils.URLEncode(getNation()));
+            xml = xml.replace("InputBirthday", Utils.URLEncode(getBirthday()));
+            xml = xml.replace("InputCardType", Utils.URLEncode(getCardType()));
+            xml = xml.replace("InputCardId", Utils.URLEncode(getCardId()));
+
+            xml = xml.replace("InputNative", Utils.URLEncode(getNative()));
+            xml = xml.replace("InputAddress", Utils.URLEncode(getAddress()));
+            xml = xml.replace("InputRoomId", Utils.URLEncode(getRoomId()));
+            xml = xml.replace("InputCheckInTime", Utils.URLEncode(getCheckInTime()));
+            xml = xml.replace("InputCheckOutTime", Utils.URLEncode(getCheckOutTime()));
             xml = xml.replace("InputReceiveTime", "");
-            xml = xml.replace("InputCheckInSigen", getCheckInSign());
+            xml = xml.replace("InputCheckInSigen", Utils.URLEncode(getCheckInSign()));
 
             if (Headphoto != null) {
-//                ByteArrayOutputStream photo = new ByteArrayOutputStream();
-//                Headphoto.compress(Bitmap.CompressFormat.JPEG, 95, photo);
-//                byte[] ba = photo.toByteArray();
-//                String photodata = Base64Util.encode(ba);
-//                xml = xml.replace("InputHeadPhoto", photodata);
+                ByteArrayOutputStream photo = new ByteArrayOutputStream();
+                Headphoto.compress(Bitmap.CompressFormat.JPEG, 95, photo);
+                byte[] ba = photo.toByteArray();
+                String photodata = Base64Util.encode(ba);
+                xml = xml.replace("InputHeadPhoto", photodata);
             } else {
                 xml = xml.replace("InputHeadPhoto", "");
             }
@@ -73,6 +75,15 @@ public class CustomerModel implements Serializable {
 
         }
 
+        return xml;
+    }
+
+    public String getLeaveXml(String xml) {
+        if (!xml.equals("") && xml != null) {
+            xml = xml.replace("InputSerialId", getSerialId());
+            xml = xml.replace("InputLeaveTime", getCheckOutTime());
+
+        }
         return xml;
     }
 
@@ -188,11 +199,11 @@ public class CustomerModel implements Serializable {
         CheckInSign = checkInSign;
     }
 
-    public String getHeadphoto() {
+    public Bitmap getHeadphoto() {
         return Headphoto;
     }
 
-    public void setHeadphoto(String headphoto) {
+    public void setHeadphoto(Bitmap headphoto) {
         Headphoto = headphoto;
     }
 

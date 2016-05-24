@@ -944,9 +944,9 @@ public class globalfunc extends Application {
 
 	}
 
-//	/**
-//	 * 清空数据信息，并把流水号置为初始值
-//	 * */
+	/**
+	 * 清空数据信息，并把流水号置为初始值
+	 * */
 //	public boolean ClearAllData() {
 //		String sqlstr = "delete  from TravellerInfo";
 //		Object ob[] = new Object[] {};

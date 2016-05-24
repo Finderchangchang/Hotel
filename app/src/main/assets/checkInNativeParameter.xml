@@ -16,7 +16,6 @@
 			<Native>InputNative</Native>
 			<Address>InputAddress</Address>
 			<RoomId>InputRoomId</RoomId>
-			<Area>InputArea</Area>
 			<CheckInTime>InputCheckInTime</CheckInTime>
 			<CheckOutTime>InputCheckOutTime</CheckOutTime>
 			<ReceiveTime>InputReceiveTime</ReceiveTime>
