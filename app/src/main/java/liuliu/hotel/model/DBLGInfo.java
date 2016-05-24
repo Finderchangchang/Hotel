@@ -12,6 +12,7 @@ public class DBLGInfo implements Serializable {
     private String LGMC;//旅馆名称
     private String LGDZ;//旅馆地址
     private String QYSCM;//企业授权码、注册码
+    private String LoginPwd;
 
     public String getLGDM() {
         return LGDM;
@@ -51,5 +52,27 @@ public class DBLGInfo implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLoginPwd() {
+        return LoginPwd;
+    }
+
+    public void setLoginPwd(String loginPwd) {
+        LoginPwd = loginPwd;
+    }
+
+    /**
+     * 获得旅馆测试数据
+     *
+     * @return
+     */
+    public static DBLGInfo getTestHotel() {
+        DBLGInfo model = new DBLGInfo();
+        model.setLGDM("1306020001");
+        model.setLGMC("易佰快捷酒店");
+        model.setLGDZ("河北省保定市新市区东风中路12号");
+        model.setQYSCM("12342312");
+        return model;
     }
 }

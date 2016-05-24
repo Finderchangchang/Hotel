@@ -29,38 +29,40 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/hotel_name_et"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:background="@null"
             android:drawableBottom="@drawable/edittext_shape"
             android:drawableLeft="@mipmap/hotel_name"
             android:paddingLeft="5dp"
-            android:text="123"
             android:textSize="18sp" />
 
         <EditText
+            android:id="@+id/pwd_et"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
             android:background="@null"
             android:drawableBottom="@drawable/edittext_shape"
             android:drawableLeft="@mipmap/pwd"
+            android:inputType="textPassword"
             android:paddingLeft="5dp"
-            android:text="123"
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/btn_style"
-            android:text="登陆"
+            android:text="登  录"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>

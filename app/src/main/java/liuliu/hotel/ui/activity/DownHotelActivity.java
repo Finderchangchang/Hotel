@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 
+import java.util.List;
+
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
@@ -39,7 +41,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
 
     @Override
     public void initEvents() {
-        hotel_code = Utils.getRandomChar(6);
+        hotel_code = Utils.getRandomChar(6);//生成随机码
         code_tv.setText(hotel_code);
     }
 
@@ -53,16 +55,12 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     public void checkHotel(boolean result, final DBLGInfo model) {
         if (result) {//比对成功，登录页面.
             ToastShort("绑定成功，正在跳转。。。");
+            model.setLoginPwd("1");//登陆密码默认为1
+            finalDb.save(model);
             Utils.IntentPost(LoginActivity.class, new Utils.putListener() {
                 @Override
                 public void put(Intent intent) {
-                    String hotel = "";
-                    if (model == null) {
-                        hotel = "易佰连锁酒店";
-                    } else {
-                        hotel = model.getLGMC();
-                    }
-                    intent.putExtra(Key.LOGIN_HOTEL_NAME, hotel);
+                    intent.putExtra(Key.LOGIN_HOTEL_NAME, model.getLGMC());
                 }
             });
             this.finish();//关闭当前页面

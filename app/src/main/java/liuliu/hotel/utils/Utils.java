@@ -1,5 +1,6 @@
 package liuliu.hotel.utils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -7,10 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -33,6 +37,31 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    /**
+     * 获得屏幕高度宽度
+     *
+     * @return Point对象 point.x宽度。point.y高度
+     */
+    public static Point getScannerPoint() {
+        WindowManager windowManager = (WindowManager) BaseApplication.getContext().getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        windowManager.getDefaultDisplay().getSize(point);
+        return point;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static Point getViewPoint(View view) {
+        Point point = new Point();
+        view.getDisplay().getSize(point);
+        return point;
+    }
+
+    /**
+     * 对URL进行编码操作
+     *
+     * @param text
+     * @return
+     */
     public static String URLEncodeImage(String text) {
         if (Utils.isEmptyString(text))
             return "";
