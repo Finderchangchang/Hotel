@@ -12,19 +12,20 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/user_img_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/colorPrimaryDark" />
+            android:src="@mipmap/main_zhengjian" />
     </LinearLayout>
 
 
     <net.tsz.afinal.view.ImageEditText
         android:id="@+id/user_name_iet"
         style="@style/EditTextStyle"
-        app:ie_left_text="姓    名"
-        app:ie_text="123" />
+        app:ie_left_text="姓    名" />
 
     <LinearLayout
+        android:id="@+id/zhengjian_ll"
         style="@style/EditTextStyle"
         android:gravity="center_vertical">
 
@@ -38,28 +39,34 @@
             android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/spinner_val"
-            android:layout_width="wrap_content"
+            android:id="@+id/zhengjian_val_tv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:text="身份证"
             android:textColor="@color/total_shallow_lab"
             android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/select_sanjiao" />
     </LinearLayout>
 
     <net.tsz.afinal.view.ImageEditText
         android:id="@+id/idcard_iet"
         style="@style/EditTextStyle"
-        app:ie_left_text="证件号"
-        app:ie_text="123" />
+        app:ie_left_text="证件号" />
 
     <net.tsz.afinal.view.ImageEditText
         android:id="@+id/home_num_iet"
         style="@style/EditTextStyle"
-        app:ie_left_text="房间号"
-        app:ie_text="123" />
+        app:ie_left_text="房间号" />
 
     <LinearLayout
+        android:id="@+id/xingbie_ll"
         style="@style/EditTextStyle"
         android:gravity="center_vertical">
 
@@ -73,21 +80,23 @@
 
         <TextView
             android:id="@+id/xingbie_val_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:text="男"
             android:textColor="@color/total_shallow_lab"
             android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/select_sanjiao" />
     </LinearLayout>
 
-    <net.tsz.afinal.view.ImageEditText
-        android:id="@+id/jiguan_iet"
-        style="@style/EditTextStyle"
-        app:ie_left_text="籍    贯"
-        app:ie_text="123" />
-
     <LinearLayout
+        android:id="@+id/minzu_ll"
         style="@style/EditTextStyle"
         android:gravity="center_vertical">
 
@@ -101,19 +110,26 @@
 
         <TextView
             android:id="@+id/minzu_val_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_weight="1"
             android:text="汉族"
             android:textColor="@color/total_shallow_lab"
             android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/select_sanjiao" />
     </LinearLayout>
+
 
     <net.tsz.afinal.view.ImageEditText
         android:id="@+id/address_iet"
         style="@style/EditTextStyle"
-        app:ie_left_text="地    址"
-        app:ie_text="123" />
+        app:ie_left_text="地    址" />
 
     <Button
         android:id="@+id/login_btn"
@@ -125,5 +141,5 @@
         android:background="@drawable/btn_style"
         android:text="保存"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="19sp" />
 </LinearLayout>
