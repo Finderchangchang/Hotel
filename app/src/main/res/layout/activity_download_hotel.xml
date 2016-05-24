@@ -35,17 +35,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:inputType="number" />
-
-                <Button
-                    android:id="@+id/down_btn"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
                     android:layout_marginRight="20dp"
-                    android:background="@android:color/white"
-                    android:text="下载"
-                    android:textSize="14sp" />
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textColor="@android:color/white" />
+
+
             </LinearLayout>
 
         </LinearLayout>
@@ -53,18 +49,20 @@
 
 
     <LinearLayout
-        android:id="@+id/code_ll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请将本验证码在客户端→手机管理进行绑定"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:text="请在电脑端进行绑定操作，绑定完成以后点击下载按钮"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -75,5 +73,16 @@
             android:text="S1U2CK"
             android:textColor="#E56100"
             android:textSize="70sp" />
+
+        <Button
+            android:id="@+id/down_btn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="100dp"
+            android:background="@android:color/white"
+            android:text="下载"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </LinearLayout>

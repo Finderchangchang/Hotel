@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
 import java.util.Calendar;
@@ -38,6 +39,7 @@ public class Utils {
 
         return URLEncoder.encode(text);
     }
+
     /**
      * 判断字符串是否为空,为空返回空串
      * http://bbs.3gstdy.com
@@ -84,6 +86,7 @@ public class Utils {
         }
         return result;
     }
+
     /**
      * 判断字符串是否为空
      * http://bbs.3gstdy.com
@@ -112,6 +115,23 @@ public class Utils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static final String allChar = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    /**
+     * 返回一个定长的随机字符串(只包含大小写字母、数字)
+     *
+     * @param length 随机字符串长度
+     * @return 随机字符串
+     */
+    public static String getRandomChar(int length) {
+        StringBuffer sb = new StringBuffer();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(allChar.charAt(random.nextInt(allChar.length())));
+        }
+        return sb.toString();
     }
 
     /**
@@ -315,9 +335,23 @@ public class Utils {
     }
 
     //得到手机的imei
-    public static String getImei(Context context) {
-        return ((TelephonyManager) context
+    public static String getImei() {
+        return ((TelephonyManager) BaseApplication.getContext()
                 .getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+    }
+
+    /**
+     * 获得当前手机的手机号码
+     *
+     * @return
+     */
+    public static String getPhoneNum() {
+        TelephonyManager phoneMgr = (TelephonyManager) BaseApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        try {
+            return phoneMgr.getLine1Number();
+        } catch (Exception ex) {
+            return "";
+        }
     }
 
     /**

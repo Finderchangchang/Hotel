@@ -58,7 +58,7 @@ public class DownLoadActivity extends BaseActivity {
 
     @Override
     public void initViews() {
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_down_load);
         // CopyFile.CopyWltlib(this);
         dbHelper = new DBHelper(finalDb, this);
     }
