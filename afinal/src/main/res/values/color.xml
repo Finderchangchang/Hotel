@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="title_lab_color">#393F3F</color>
+    <color name="total_deep_lab">#333333</color>
+    <color name="total_shallow_lab">#4A576C</color>
+</resources>

@@ -2,14 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/setting_ip_bg"
     android:orientation="vertical">
-
-    <include layout="@layout/no_left_tool_bar"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网络设置"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,15 +38,17 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="IP地址"
-                    android:textColor="#393F3F"
-                    android:textSize="18sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
             <EditText
                 android:id="@+id/ip_et"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
+                android:background="@null"
+                android:drawableBottom="@drawable/edittext_shape"
                 android:gravity="center_vertical"
                 android:paddingLeft="63dp" />
         </RelativeLayout>
@@ -62,16 +72,17 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:text="端    口"
-                    android:textColor="#393F3F"
-                    android:textSize="18sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
             <EditText
                 android:id="@+id/duankou_et"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_height="38dp"
+                android:background="@null"
+                android:drawableBottom="@drawable/edittext_shape"
                 android:paddingLeft="63dp" />
         </RelativeLayout>
 
@@ -81,11 +92,15 @@
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/btn_style"
             android:text="保存"
             android:textColor="@android:color/white"
-            android:textSize="17sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></LinearLayout>
 </LinearLayout>

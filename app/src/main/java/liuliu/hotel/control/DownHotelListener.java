@@ -1,5 +1,7 @@
 package liuliu.hotel.control;
 
+import liuliu.hotel.model.DBLGInfo;
+
 /**
  * 下载
  * Created by Administrator on 2016/5/19.
@@ -21,6 +23,6 @@ public class DownHotelListener {
      * @param phoneType 手机品牌型号
      */
     public void pushCode(String hotelId, String code, String imei, String phoneNum, String phoneType) {
-        mView.checkHotel(true, null);
+        mView.checkHotel(true, DBLGInfo.getTestHotel());
     }
 }

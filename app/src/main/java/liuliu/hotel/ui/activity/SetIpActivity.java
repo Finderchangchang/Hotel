@@ -1,5 +1,6 @@
 package liuliu.hotel.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -8,8 +9,11 @@ import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 
+import java.util.List;
+
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
+import liuliu.hotel.config.Key;
 import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.utils.Utils;
@@ -19,10 +23,6 @@ import liuliu.hotel.utils.Utils;
  * Created by Administrator on 2016/5/19.
  */
 public class SetIpActivity extends BaseActivity {
-    @CodeNote(id = R.id.toolbar)
-    Toolbar toolbar;
-    @CodeNote(id = R.id.center_title_tv, text = "网络设置")
-    TextView center_title_tv;
     @CodeNote(id = R.id.ip_et, hint = "请输入IP地址")
     EditText ip_et;
     @CodeNote(id = R.id.duankou_et, hint = "请输入端口")
@@ -37,8 +37,6 @@ public class SetIpActivity extends BaseActivity {
 
     @Override
     public void initEvents() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         if (Utils.ReadString(SaveKey.KEY_IP) != "" && Utils.ReadString(SaveKey.KEY_PORT) != "") {
             checkPost();
         }
@@ -84,8 +82,14 @@ public class SetIpActivity extends BaseActivity {
      * 检测跳页
      */
     private void checkPost() {
-        if (finalDb.findAll(DBLGInfo.class).size() > 0) {//存在旅馆信息跳转到登陆页面
-            Utils.IntentPost(LoginActivity.class);
+        final List<DBLGInfo> list = finalDb.findAll(DBLGInfo.class);
+        if (list.size() > 0) {//存在旅馆信息跳转到登陆页面
+            Utils.IntentPost(LoginActivity.class, new Utils.putListener() {
+                @Override
+                public void put(Intent intent) {
+                    intent.putExtra(Key.LOGIN_HOTEL_NAME, list.get(0).getLGMC());
+                }
+            });
         } else {//不存在旅馆信息跳转到配置旅馆代码页面
             Utils.IntentPost(DownHotelActivity.class);
         }
