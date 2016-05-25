@@ -27,6 +27,7 @@
     <LinearLayout
         android:id="@+id/zhengjian_ll"
         style="@style/EditTextStyle"
+        android:clickable="true"
         android:gravity="center_vertical">
 
         <TextView

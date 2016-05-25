@@ -17,14 +17,14 @@
             android:layout_height="wrap_content"
             android:text="网络设置"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -35,22 +35,23 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center_vertical"
                     android:text="IP地址"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
             <EditText
                 android:id="@+id/ip_et"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="35dp"
                 android:background="@null"
                 android:drawableBottom="@drawable/edittext_shape"
                 android:gravity="center_vertical"
-                android:paddingLeft="63dp" />
+                android:paddingLeft="65dp"
+                android:text="" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -69,21 +70,22 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center_vertical"
                     android:text="端    口"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
             <EditText
                 android:id="@+id/duankou_et"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="35dp"
                 android:background="@null"
                 android:drawableBottom="@drawable/edittext_shape"
-                android:paddingLeft="63dp" />
+                android:paddingLeft="65dp"
+                android:text="123" />
         </RelativeLayout>
 
         <Button

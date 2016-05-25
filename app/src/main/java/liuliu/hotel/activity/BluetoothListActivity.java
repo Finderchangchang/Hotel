@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Set;
 
 import liuliu.hotel.base.BaseActivity;
-import liuliu.hotel.base.CommonAdapter;
-import liuliu.hotel.base.ViewHolder;
+import net.tsz.afinal.utils.CommonAdapter;
+import net.tsz.afinal.utils.ViewHolder;
 import liuliu.hotel.model.BlueToothModel;
 import liuliu.hotel.utils.Utils;
 import liuliu.hotel.R;

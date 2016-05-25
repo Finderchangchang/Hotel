@@ -1,4 +1,4 @@
-package liuliu.hotel.base;
+package net.tsz.afinal.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,6 +20,8 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         this.mDatas = datas;
         this.layoutId = layoutId;
     }
+
+
 
     @Override
     public int getCount() {

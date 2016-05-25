@@ -1,4 +1,4 @@
-package liuliu.hotel.base;
+package net.tsz.afinal.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
