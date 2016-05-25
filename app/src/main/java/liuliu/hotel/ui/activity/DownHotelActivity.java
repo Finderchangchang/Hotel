@@ -36,7 +36,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void initViews() {
         setContentView(R.layout.activity_download_hotel);
-        mListener = new DownHotelListener(this);
+        mListener = new DownHotelListener(this,finalDb);
     }
 
     @Override
@@ -49,18 +49,17 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
      * 获得比对结果
      *
      * @param result true，成功。
-     * @param model
+     * @param mes
      */
     @Override
-    public void checkHotel(boolean result, final DBLGInfo model) {
+    public void checkHotel(boolean result, String mes) {
         if (result) {//比对成功，登录页面.
             ToastShort("绑定成功，正在跳转。。。");
-            model.setLoginPwd("1");//登陆密码默认为1
-            finalDb.save(model);
+
             Utils.IntentPost(LoginActivity.class, new Utils.putListener() {
                 @Override
                 public void put(Intent intent) {
-                    intent.putExtra(Key.LOGIN_HOTEL_NAME, model.getLGMC());
+                    intent.putExtra(Key.LOGIN_HOTEL_NAME, daima_et.getText().toString().trim());
                 }
             });
             this.finish();//关闭当前页面

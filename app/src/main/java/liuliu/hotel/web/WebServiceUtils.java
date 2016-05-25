@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 import liuliu.hotel.base.DES;
 
 /**
- * 访问服务器 on 2015/7/8.
+ * 访问服务器 on 2016.5.24 胡海珍
  */
 public class WebServiceUtils {
     public static final String WEB_SERVER_URL = "http://hbdwkj.oicp.net:60007/Services/SignetService.asmx";
@@ -40,25 +40,17 @@ public class WebServiceUtils {
     // private static String SOAP_ACTION = NAMESPACE + METHOD_NAME;
 
     /**
-     * @param url                WebService服务器地址
+     * @param isHearder          WebService服务器地址
      * @param methodName         WebService的调用方法名
      * @param properties         WebService的参数
      * @param webServiceCallBack 回调接口
      */
-    public static void callWebService(String url, final String methodName,
+    public static void callWebService(boolean isHearder, final String methodName,
                                       HashMap<String, String> properties,
                                       final WebServiceCallBack webServiceCallBack) {
         // 创建HttpTransportSE对象，传递WebService服务器地址
         final HttpTransportSE httpTransportSE = new HttpTransportSE(MYURL, 30000);
-//        Element[] header = new Element[1];
-//        header[0] = new Element().createElement(NAMESPACE,"LGSoapHeader");
-//
-//        Element element = new Element().createElement(NAMESPACE,"LGDM");
-//        element.addChild(Node.TEXT, "1306010001");
-//        Element psw = new Element().createElement(NAMESPACE,"QQM");
-//        psw.addChild(Node.TEXT, "Kiwi:"+"130601000112588");
-//        header[0].addChild(Node.ELEMENT, element);
-//        header[0].addChild(Node.ELEMENT, psw);
+
         // / 创建SoapObject对象
         SoapObject soapObject = new SoapObject(NAMESPACE, methodName);
         // SoapObject添加参数
@@ -68,7 +60,7 @@ public class WebServiceUtils {
                     .iterator(); it.hasNext(); ) {
                 Map.Entry<String, String> entry = it.next();
                 soapObject.addProperty(entry.getKey(), entry.getValue());
-
+                //soapObject.addProperty("kd",entry);
             }
         }
         // 实例化SoapSerializationEnvelope，传入WebService的SOAP协议的版本号
@@ -77,10 +69,20 @@ public class WebServiceUtils {
         // 设置是否调用的是.Net开发的WebService
 
         soapEnvelope.setOutputSoapObject(soapObject);
-        //soapEnvelope.headerOut = header;
+
         soapEnvelope.dotNet = true;
         httpTransportSE.debug = true;
-
+        if (isHearder) {
+            Element[] header = new Element[1];
+            header[0] = new Element().createElement(NAMESPACE, "LGSoapHeader");
+            Element element = new Element().createElement(NAMESPACE, "LGDM");
+            element.addChild(Node.TEXT, "1306010001");
+            Element psw = new Element().createElement(NAMESPACE, "QQM");
+            psw.addChild(Node.TEXT, "Kiwi:" + "130601000112588");
+            header[0].addChild(Node.ELEMENT, element);
+            header[0].addChild(Node.ELEMENT, psw);
+            soapEnvelope.headerOut = header;
+        }
         // 用于子线程与主线程通信的Handler
         final Handler mHandler = new Handler() {
 

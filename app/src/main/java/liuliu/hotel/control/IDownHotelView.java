@@ -14,5 +14,5 @@ public interface IDownHotelView {
      * @param result true，成功。
      *               false，失败。
      */
-    void checkHotel(boolean result, DBLGInfo model);
+    void checkHotel(boolean result,String mes);
 }

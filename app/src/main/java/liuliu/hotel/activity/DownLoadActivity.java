@@ -53,9 +53,14 @@ public class DownLoadActivity extends BaseActivity {
     DBHelper dbHelper;
     @CodeNote(id = R.id.login_code, click = "onClick")
     Button code;
-    @CodeNote(id=R.id.login_add,click = "onClick")Button btnadd;
-    @CodeNote(id=R.id.login_leave,click = "onClick")Button btnleave;
-
+    @CodeNote(id = R.id.login_add, click = "onClick")
+    Button btnadd;
+    @CodeNote(id = R.id.login_leave, click = "onClick")
+    Button btnleave;
+    @CodeNote(id = R.id.login_search, click = "onClick")
+    Button btnSearch;
+@CodeNote(id=R.id.login_changeCodeTime,click = "onClick")Button codeTime;
+    @CodeNote(id=R.id.login_notice,click = "onClick")Button notice;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_down_load);
@@ -72,7 +77,7 @@ public class DownLoadActivity extends BaseActivity {
                 properties.put("SJM", "123456");
                 properties.put("SJH", "15911111111");
                 properties.put("SJPP", "三星");
-                WebServiceUtils.callWebService(WebServiceUtils.MYURL, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
+                WebServiceUtils.callWebService(false, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
 
                     @Override
                     public void callBack(SoapObject result) {
@@ -80,6 +85,7 @@ public class DownLoadActivity extends BaseActivity {
                             InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetLGInfoByLGDM");
                             if (invokeReturn.isSuccess()) {
                                 ToastShort("下载成功");
+                                finalDb.deleteAll(DBLGInfo.class);
                                 finalDb.save((DBLGInfo) invokeReturn.getData().get(0));
                             } else {
                                 ToastShort("下载失败");
@@ -93,6 +99,35 @@ public class DownLoadActivity extends BaseActivity {
 
 
                 break;
+            case R.id.login_search:
+                properties = new HashMap<String, String>();
+                properties.put("RZSJBEGIN", "2015-01-01");//入住起始时间
+                properties.put("RZSJEND", "2016-05-25");//入住截止时间
+                properties.put("FH", "");
+                properties.put("LKZT", "15911111111");
+                properties.put("LGDM", "1306010001");
+                 properties.put("YS", "1");
+                WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
+
+                    @Override
+                    public void callBack(SoapObject result) {
+                        if (null != result) {
+                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
+                            if (invokeReturn.isSuccess()) {
+                                ToastShort("下载成功");
+                               // finalDb.deleteAll(DBLGInfo.class);
+                               // finalDb.save((DBLGInfo) invokeReturn.getData().get(0));
+                            } else {
+                                ToastShort("下载失败");
+                            }
+                        } else {
+                            ToastShort("下载失败");
+                        }
+                        System.out.println("result==" + result);
+                    }
+                });
+
+                break;
             case R.id.login_add:
                 add();//入住
                 break;
@@ -102,6 +137,32 @@ public class DownLoadActivity extends BaseActivity {
             case R.id.login_bluth:
                 //跳转到选择蓝牙设备页面
                 Utils.IntentPost(BluetoothListActivity.class);
+                break;
+            case R.id.login_notice:
+
+                break;
+            case R.id.login_changeCodeTime:
+                properties = new HashMap<String, String>();
+                properties.put("LGDM", "1306010001");
+                WebServiceUtils.callWebService(true, "GetAllCodeLastChangeTime", properties, new WebServiceUtils.WebServiceCallBack() {
+
+                    @Override
+                    public void callBack(SoapObject result) {
+                        if (null != result) {
+                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "");
+                            if (invokeReturn.isSuccess()) {
+                                ToastShort("下载成功");
+
+                            } else {
+                                ToastShort("下载失败");
+                            }
+                        } else {
+                            ToastShort("下载失败");
+                        }
+                        System.out.println("result==" + result);
+                    }
+                });
+
                 break;
             case R.id.login_read:
                 //读取身份证
@@ -116,15 +177,13 @@ public class DownLoadActivity extends BaseActivity {
                 properties = new HashMap<String, String>();
                 properties.put("lgdm", "1306010001");
                 properties.put("codeName", "XZQH");//XZQH,行政区划，民族MZ,证件类型ZJLX,1男2女
-
-
-                WebServiceUtils.callWebService(WebServiceUtils.MYURL, "GetCodeInfoByCodeName", properties, new WebServiceUtils.WebServiceCallBack() {
-
+                WebServiceUtils.callWebService(true, "GetCodeInfoByCodeName", properties, new WebServiceUtils.WebServiceCallBack() {
                     @Override
                     public void callBack(SoapObject result) {
                         if (null != result) {
+                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
                             System.out.println(result);
-                           // JSONUtils.parse(result);
+                            // JSONUtils.parse(result);
 //                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "CodeModel");
 //                            if (invokeReturn.isSuccess()) {
 //                                ToastShort("下载成功");
@@ -139,13 +198,10 @@ public class DownLoadActivity extends BaseActivity {
                     }
                 });
                 break;
+
         }
     }
 
-    private void getCode() {
-
-
-    }
 
     //离店操作
     private void Leave() {
@@ -213,7 +269,7 @@ public class DownLoadActivity extends BaseActivity {
                         //添加成功
                         System.out.println("添加成功");
                         SerialNumModel model = finalDb.findAll(SerialNumModel.class).get(0);
-                        model.setSerialNum((Integer.parseInt(model.getSerialNum())+1)+"");
+                        model.setSerialNum((Integer.parseInt(model.getSerialNum()) + 1) + "");
                         finalDb.update(model);
                     } else {
                         System.out.println("添加失败");

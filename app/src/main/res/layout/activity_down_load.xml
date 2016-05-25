@@ -21,4 +21,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="读取" />
+    <Button
+        android:id="@+id/login_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加" />
+    <Button
+        android:id="@+id/login_leave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="离店" />
+    <Button
+        android:id="@+id/login_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下载字典" />
+    <Button
+        android:id="@+id/login_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查詢" />
+    <Button
+        android:id="@+id/login_changeCodeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="字典变更时间" />
+    <Button
+        android:id="@+id/login_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="通知通告" />
 </LinearLayout>
