@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@mipmap/setting_ip_bg"
     android:orientation="vertical">
 
     <!--<include layout="@layout/no_left_tool_bar"></include>-->
@@ -71,18 +71,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:text="S1U2CK"
-            android:textColor="#E56100"
+            android:textColor="@android:color/white"
             android:textSize="70sp" />
 
         <Button
             android:id="@+id/down_btn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="3dp"
             android:layout_marginTop="100dp"
             android:background="@android:color/white"
             android:text="下载"
-            android:textSize="14sp"
-            android:layout_gravity="center_horizontal" />
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>
