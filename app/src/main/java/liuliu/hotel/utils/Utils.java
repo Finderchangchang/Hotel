@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
@@ -37,6 +39,23 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    //base64 string转换为bitmap
+    public static Bitmap getBitmapByte(String str) {
+//        Bitmap bitmap;
+//        byte[] s = Base64.encode(str.getBytes(), Base64.DEFAULT);
+//        bitmap = BitmapFactory.decodeByteArray(s, 0, s.length);
+//        return bitmap;
+        try {
+            byte[] buffer = Base64.decode(str.getBytes(), Base64.DEFAULT);
+            if (buffer != null && buffer.length > 0) {
+                return BitmapFactory.decodeByteArray(buffer, 0, buffer.length);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 获得屏幕高度宽度
      *
@@ -54,6 +73,22 @@ public class Utils {
         Point point = new Point();
         view.getDisplay().getSize(point);
         return point;
+    }
+
+    public static String getAssetsFileData(Context context, String FileName) {
+        String str = "";
+        try {
+            InputStream is = context.getAssets().open(FileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            str = new String(buffer);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return str;
     }
 
     /**

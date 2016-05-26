@@ -27,7 +27,15 @@ public class CustomerModel implements Serializable {
     private String CheckInSign;//入住表示，当前程序版本号
     private Bitmap Headphoto;//头像
     private String Comment;//备注
+    private String url;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getXml(String xml, boolean isSave, DBLGInfo info) {
 

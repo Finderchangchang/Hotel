@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/login_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,36 +25,58 @@
         app:ie_left_text="姓    名" />
 
     <LinearLayout
-        android:id="@+id/zhengjian_ll"
-        style="@style/EditTextStyle"
-        android:clickable="true"
-        android:gravity="center_vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/spinner_key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="证    件"
-            android:textColor="@color/total_deep_lab"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/zhengjian_val_tv"
+        <LinearLayout
+            android:id="@+id/zhengjian_ll"
+            style="@style/EditTextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:text="身份证"
-            android:textColor="@color/total_shallow_lab"
-            android:textSize="16sp" />
+            android:layout_marginTop="0dp"
+            android:layout_weight="3"
+            android:clickable="true"
+            android:gravity="center_vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/select_sanjiao" />
+            <TextView
+                android:id="@+id/spinner_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="证    件"
+                android:textColor="@color/total_deep_lab"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/zhengjian_val_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="身份证"
+                android:textColor="@color/total_shallow_lab"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/select_sanjiao" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reg_person_read"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style"
+            android:text="读取"
+            android:textColor="@android:color/white" />
     </LinearLayout>
+
 
     <net.tsz.afinal.view.ImageEditText
         android:id="@+id/idcard_iet"

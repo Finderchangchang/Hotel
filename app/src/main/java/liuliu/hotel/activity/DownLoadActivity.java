@@ -139,11 +139,33 @@ public class DownLoadActivity extends BaseActivity {
                 Utils.IntentPost(BluetoothListActivity.class);
                 break;
             case R.id.login_notice:
+                properties = new HashMap<String, String>();
+                properties.put("lgdm", "1306010001");
+                properties.put("pcs", "130601400");
+                properties.put("lastGetTime", "2016-05-25");
+                WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
+
+                    @Override
+                    public void callBack(SoapObject result) {
+                        if (null != result) {
+                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
+                            if (invokeReturn.isSuccess()) {
+                                ToastShort("下载成功");
+
+                            } else {
+                                ToastShort("下载失败");
+                            }
+                        } else {
+                            ToastShort("下载失败");
+                        }
+                        System.out.println("result==" + result);
+                    }
+                });
 
                 break;
             case R.id.login_changeCodeTime:
                 properties = new HashMap<String, String>();
-                properties.put("LGDM", "1306010001");
+                properties.put("lgdm", "1306010001");
                 WebServiceUtils.callWebService(true, "GetAllCodeLastChangeTime", properties, new WebServiceUtils.WebServiceCallBack() {
 
                     @Override
@@ -300,7 +322,6 @@ public class DownLoadActivity extends BaseActivity {
             e.printStackTrace();
         }
         return str;
-
     }
 
     /**

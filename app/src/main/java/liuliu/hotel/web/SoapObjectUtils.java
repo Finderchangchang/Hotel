@@ -29,7 +29,6 @@ public class SoapObjectUtils {
                 lg.setLGMC(soaplist.getProperty("LGMC").toString());
                 lg.setQYSCM(soaplist.getProperty("QYSCM").toString());
                 list.add(lg);
-
             }else if (method.equals("GetAllCodeLastChangeTime")){
 
             }else if (method.equals("GetCodeInfoByCodeName")||method.equals("SearchNative")||method.equals("GetAllUndownloadTZTGInfo")) {
@@ -53,7 +52,7 @@ public class SoapObjectUtils {
                         model.setCardId(soapObject.getProperty("ZJHM").toString());
                         model.setAddress(soapObject.getProperty("XZ").toString());
                         model.setRoomId(soapObject.getProperty("FH").toString());
-                        model.setArea(soapObject.getProperty("SSXQ").toString());
+                    //    model.setArea(soapObject.getProperty("SSXQ").toString());
                         //model.setHeadphoto(soapObject.getProperty("NBZP").toString());
                         model.setCheckInSign(soapObject.getProperty("FSBZ").toString());
                         model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
