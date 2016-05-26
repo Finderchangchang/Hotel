@@ -6,6 +6,7 @@ import liuliu.hotel.utils.Utils;
 
 
 /**
+ * 旅客信息Model
  * Created by Administrator on 2015/11/11.
  */
 public class PersonModel implements Serializable {

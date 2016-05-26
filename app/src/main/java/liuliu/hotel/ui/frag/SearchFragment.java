@@ -1,5 +1,6 @@
 package liuliu.hotel.ui.frag;
 
+import liuliu.hotel.R;
 import liuliu.hotel.base.BaseFragment;
 
 /**
@@ -8,7 +9,7 @@ import liuliu.hotel.base.BaseFragment;
 public class SearchFragment extends BaseFragment {
     @Override
     public void initViews() {
-
+        setContentView(R.layout.frag_main);
     }
 
     @Override

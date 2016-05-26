@@ -90,7 +90,7 @@ public class ListViewMoreActivity extends BaseActivity {
             }
         };
         lmv.setAdapter(adapter);
-        AUtils.setListViewHeight(lmv);
+//        AUtils.setListViewHeight(lmv);
     }
 
 
