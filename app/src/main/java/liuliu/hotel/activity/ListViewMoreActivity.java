@@ -2,11 +2,13 @@ package liuliu.hotel.activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
-import net.tsz.afinal.view.ListViewMoreView;
+import net.tsz.afinal.utils.AUtils;
+import net.tsz.afinal.utils.CommonAdapter;
+import net.tsz.afinal.utils.ViewHolder;
+import net.tsz.afinal.view.LoadingMoreListView;
 import net.tsz.afinal.view.OnScrollListViewMore;
 
 import java.util.ArrayList;
@@ -14,15 +16,13 @@ import java.util.List;
 
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
-import liuliu.hotel.base.CommonAdapter;
-import liuliu.hotel.base.ViewHolder;
 
 /**
  * Created by Administrator on 2016/5/24.
  */
 public class ListViewMoreActivity extends BaseActivity {
     @CodeNote(id = R.id.list_more_lv)
-    ListViewMoreView lmv;
+    LoadingMoreListView lmv;
     CommonAdapter<String> adapter = null;
     TextView loadMore;
     View footer;
@@ -48,13 +48,11 @@ public class ListViewMoreActivity extends BaseActivity {
                 loadMore(index);
             }
         };
-        lmv = new ListViewMoreView(this, null, myMore);
+        lmv = new LoadingMoreListView(this, null, myMore);
         lmv.addFooterView(footer);
     }
 
     private void loadMore(int index) {
-
-
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -92,8 +90,7 @@ public class ListViewMoreActivity extends BaseActivity {
             }
         };
         lmv.setAdapter(adapter);
-
-
+        AUtils.setListViewHeight(lmv);
     }
 
 
