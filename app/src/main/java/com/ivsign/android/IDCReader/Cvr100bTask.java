@@ -297,7 +297,7 @@ public class Cvr100bTask extends Thread {
                     read_ok = true;
                     if (Readflage == 1) {
                         path = mContext.getFilesDir().getAbsolutePath() + "/wltlib/zp.bmp";
-                        FileInputStream fis = new FileInputStream(mContext.getFilesDir().getAbsolutePath() + "/wltlib/zp.bmp");
+                        FileInputStream fis = new FileInputStream(path);
                         mBitmap = BitmapFactory.decodeStream(fis);
                         fis.close();
                     } else {

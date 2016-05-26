@@ -72,8 +72,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     StringBuffer path = new StringBuffer();
     RegPersonListener listener;
     CustomerModel customerModel;
-List<CodeModel> MZcode=new ArrayList<>();
-    List<CodeModel>XBcode=new ArrayList<>();
+    List<CodeModel> MZcode = new ArrayList<>();
+    List<CodeModel> XBcode = new ArrayList<>();
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_reg_person);
@@ -92,7 +93,7 @@ List<CodeModel> MZcode=new ArrayList<>();
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
-                if(checkInfo()) {
+                if (checkInfo()) {
                     getCustomerInfo();
                     listener.addRZInfo(customerModel);
                 }
@@ -150,6 +151,7 @@ List<CodeModel> MZcode=new ArrayList<>();
         }
         return data;
     }
+
     //开启拍照
     public void startCamera(int type) {
         // 利用系统自带的相机应用:拍照
@@ -161,6 +163,7 @@ List<CodeModel> MZcode=new ArrayList<>();
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, type);
     }
+
     //cvr
     private void onReadCardCvr() {
         if (Utils.checkBluetooth(this, 2)) {
@@ -212,22 +215,24 @@ List<CodeModel> MZcode=new ArrayList<>();
             ToastShort("请检查蓝牙读卡设备设置！");
         }
     }
-private boolean checkInfo(){
-    if(user_name_iet.getText().trim().equals("")){
-        ToastShort("请填写姓名");
-        return false;
-    }else if(idcard_iet.getText().trim().equals("")){
-        ToastShort("请填写证件号");
-        return false;
-    }else if(home_num_iet.getText().trim().equals("")){
-        ToastShort("请填写房间号");
-        return false;
-    }else if(address_iet.getText().trim().equals("")){
-        ToastShort("请填写地址");
-        return false;
+
+    private boolean checkInfo() {
+        if (user_name_iet.getText().trim().equals("")) {
+            ToastShort("请填写姓名");
+            return false;
+        } else if (idcard_iet.getText().trim().equals("")) {
+            ToastShort("请填写证件号");
+            return false;
+        } else if (home_num_iet.getText().trim().equals("")) {
+            ToastShort("请填写房间号");
+            return false;
+        } else if (address_iet.getText().trim().equals("")) {
+            ToastShort("请填写地址");
+            return false;
+        }
+        return true;
     }
-    return true;
-}
+
     //从界面获取值
     private void getCustomerInfo() {
         customerModel.setName(user_name_iet.getText());
@@ -253,7 +258,7 @@ private boolean checkInfo(){
                 customerModel.setUrl(person.getPersonImgUrl());
             }
         } else {
-          ToastShort("照片解码失败！");
+            ToastShort("照片解码失败！");
         }
     }
 
