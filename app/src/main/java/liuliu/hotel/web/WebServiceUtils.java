@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import liuliu.hotel.base.DES;
+import liuliu.hotel.utils.Utils;
 
 /**
  * 访问服务器 on 2016.5.24 胡海珍
@@ -78,7 +79,7 @@ public class WebServiceUtils {
             Element element = new Element().createElement(NAMESPACE, "LGDM");
             element.addChild(Node.TEXT, "1306010001");
             Element psw = new Element().createElement(NAMESPACE, "QQM");
-            psw.addChild(Node.TEXT, "Kiwi:" + "130601000112588");
+            psw.addChild(Node.TEXT, "Kiwi:" + Utils.getQINGQIUMA());
             header[0].addChild(Node.ELEMENT, element);
             header[0].addChild(Node.ELEMENT, psw);
             soapEnvelope.headerOut = header;

@@ -27,4 +27,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':afinal')
     compile files('libs/ksoap2-android-assembly-2.5.pendencies.jar')
+    compile files('libs/mpandroidchartlibrary-2-1-6.jar')
 }

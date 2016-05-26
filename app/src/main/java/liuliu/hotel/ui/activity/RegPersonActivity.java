@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ivsign.android.IDCReader.CopyFile;
 import com.ivsign.android.IDCReader.Cvr100bMYTask;
 import com.ivsign.android.IDCReader.Cvr100bTask;
 
@@ -81,6 +82,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         mInstance = this;
         listener = new RegPersonListener(this, this, finalDb);
         customerModel = new CustomerModel();
+        CopyFile.CopyWltlib(this);
     }
 
     @Override

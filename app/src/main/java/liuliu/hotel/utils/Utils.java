@@ -26,6 +26,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
@@ -74,7 +77,13 @@ public class Utils {
         view.getDisplay().getSize(point);
         return point;
     }
+//获取当前时间的hhmmssfff
+    public  static String getQINGQIUMA(){
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        System.out.println(ts.toString());
 
+        return ts.toString().substring(2).replace(":","").replace(".","").replace("-","").replace(" ","");
+    }
     public static String getAssetsFileData(Context context, String FileName) {
         String str = "";
         try {

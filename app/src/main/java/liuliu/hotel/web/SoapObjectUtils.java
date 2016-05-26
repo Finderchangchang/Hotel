@@ -33,7 +33,6 @@ public class SoapObjectUtils {
 
             }else if (method.equals("GetCodeInfoByCodeName")||method.equals("SearchNative")||method.equals("GetAllUndownloadTZTGInfo")) {
                 for (int i = 0; i < soaplist.getPropertyCount(); i++) {
-
                     SoapObject soapObject = (SoapObject) soaplist.getProperty(i);
                     if (method.equals("GetCodeInfoByCodeName")) {
                         CodeModel codeModel = new CodeModel();
@@ -55,9 +54,9 @@ public class SoapObjectUtils {
                     //    model.setArea(soapObject.getProperty("SSXQ").toString());
                         //model.setHeadphoto(soapObject.getProperty("NBZP").toString());
                         model.setCheckInSign(soapObject.getProperty("FSBZ").toString());
-                        model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
-                        model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
-                        model.setComment(soapObject.getProperty("BZ").toString());
+                        //model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
+                      //  model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
+                       // model.setComment(soapObject.getProperty("BZ").toString());
 
 
                     }else if(method.equals("GetAllUndownloadTZTGInfo")){
