@@ -4,5 +4,8 @@
     <color name="colorPrimaryDark">#2193da</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bgcolor">#f6f6f6</color>
-    <color name="num_color">#2383B2</color>
+    <color name="normal_lab">#737373</color>
+    <color name="pressed_lab">#2383B2</color>
+    <color name="item_normal_btn_bg">#027ab9</color>
+    <color name="item_pressed_btn_bg">#026fa8</color>
 </resources>

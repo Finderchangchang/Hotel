@@ -3,5 +3,6 @@
     <color name="title_lab_color">#393F3F</color>
     <color name="total_deep_lab">#333333</color>
     <color name="total_shallow_lab">#4A576C</color>
-    <color name="item_line">#D0D2D1</color>
+    <color name="item_line">#d5d5d5</color>
+    <color name="main_item_bottom_bg">#f0f0f0</color>
 </resources>
