@@ -7,15 +7,17 @@ import net.tsz.afinal.annotation.view.CodeNote;
 
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
+import liuliu.hotel.config.Key;
 
 /**
  * 人员详细信息
  * Created by Administrator on 2016/5/26.
  */
-public class PersonDetailsActivity extends BaseActivity {
-    public static PersonDetailsActivity mInstance;
+public class PersonDetailActivity extends BaseActivity {
+    public static PersonDetailActivity mInstance;
     @CodeNote(id = R.id.toolbar)
     Toolbar toolbar;
+    String serialId;
 
     @Override
     public void initViews() {
@@ -25,12 +27,13 @@ public class PersonDetailsActivity extends BaseActivity {
     @Override
     public void initEvents() {
         mInstance = this;
+        serialId = getIntent().getStringExtra(Key.Person_Detail_SerialId);//获得流水号
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mInstance.finish();
             }
         });
     }

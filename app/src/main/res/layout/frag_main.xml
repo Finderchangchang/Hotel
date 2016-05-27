@@ -6,6 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -73,9 +75,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/item_btn_style"
                     android:text="添加旅客"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/item_btn_style"/>
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -84,7 +86,7 @@
             android:layout_height="1dp"
             android:background="@color/item_line"></LinearLayout>
 
-        <net.tsz.afinal.view.LoadingMoreListView
+        <net.tsz.afinal.view.TotalListView
             android:id="@+id/live_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
