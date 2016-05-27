@@ -77,13 +77,20 @@ public class Utils {
         view.getDisplay().getSize(point);
         return point;
     }
-//获取当前时间的hhmmssfff
-    public  static String getQINGQIUMA(){
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        System.out.println(ts.toString());
 
-        return ts.toString().substring(2).replace(":","").replace(".","").replace("-","").replace(" ","");
+    //获取当前时间的hhmmssfff
+    public static String getQINGQIUMA() {
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        System.out.println(ts.toString());//yyyymmddhhmmssfff
+        String str = ts.toString().replace(":", "").replace(".", "").replace("-", "").replace(" ", "");
+        if (str.length() < 17) {
+            str=str.substring(1);
+        } else {
+            str=str.substring(2);
+        }
+        return str;
     }
+
     public static String getAssetsFileData(Context context, String FileName) {
         String str = "";
         try {
@@ -223,9 +230,10 @@ public class Utils {
         }
 
     }
+
     /**
      * 获取系统的当前日期，格式为YYYYMMDD
-     * */
+     */
     public static String getSystemNowDate() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -241,6 +249,7 @@ public class Utils {
         }
         return String.valueOf(year) + monthStr + dayStr;
     }
+
     /**
      * 带参数的跳页
      *
