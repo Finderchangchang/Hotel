@@ -9,7 +9,7 @@ import liuliu.hotel.base.BaseFragment;
 public class SettingFragment extends BaseFragment {
     @Override
     public void initViews() {
-        setContentView(R.layout.frag_main);
+        setContentView(R.layout.frag_setting);
     }
 
     @Override

@@ -28,6 +28,16 @@ public class CustomerModel implements Serializable {
     private Bitmap Headphoto;//头像
     private String Comment;//备注
     private String url;
+    public CustomerModel(){
+
+    }
+    public CustomerModel(String name, String sex, String nation, String address, String roomId) {
+        Name = name;
+        Sex = sex;
+        Nation = nation;
+        Address = address;
+        RoomId = roomId;
+    }
 
     public String getUrl() {
         return url;
