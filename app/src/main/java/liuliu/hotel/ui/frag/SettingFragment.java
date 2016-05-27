@@ -39,6 +39,7 @@ public class SettingFragment extends BaseFragment {
     @CodeNote(id = R.id.lanya_setting_wode_ll, click = "onClick")
     LinearLayout blooth;
     List<String> listblue;
+    List<String> listAddress;
     @CodeNote(id = R.id.wode_blueth_name)
     TextView myBlooth;
 
@@ -51,6 +52,7 @@ public class SettingFragment extends BaseFragment {
     public void initEvents() {
         dialog = new SpinnerDialog(MainActivity.mInstance);
         dialog.setCanceledOnTouchOutside(true);
+        myBlooth.setText(Utils.ReadString("BlueToothName"));
     }
 
     public void onClick(View v) {
@@ -73,6 +75,8 @@ public class SettingFragment extends BaseFragment {
                     @Override
                     public void onClick(int position, String val) {
                         myBlooth.setText(val);
+                        Utils.WriteString("BlueToothName", listblue.get(position));
+                        Utils.WriteString("BlueToothAddress", listAddress.get(position));
                     }
                 });
                 break;
@@ -95,11 +99,13 @@ public class SettingFragment extends BaseFragment {
             // blue_device_scale = new String[pairedDevices.size()];
             int count = 0;
             listblue = new ArrayList<String>();
+            listAddress = new ArrayList<String>();
             for (BluetoothDevice device : pairedDevices) {
 //                BlueToothModel blue = new BlueToothModel();
 //                blue.setDeviceName(device.getName());
 //                blue.setDeviceAddress(device.getAddress());
                 listblue.add(device.getName());
+                listAddress.add(device.getAddress());
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }
         }
