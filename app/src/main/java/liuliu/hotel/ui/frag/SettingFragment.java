@@ -102,7 +102,6 @@ public class SettingFragment extends BaseFragment {
                 listblue.add(device.getName());
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }
-
         }
     }
 }
