@@ -8,6 +8,15 @@ public class CodeModel {
     private int id;
     private String Key;
     private String Val;
+    private String CodeName;
+
+    public String getCodeName() {
+        return CodeName;
+    }
+
+    public void setCodeName(String codeName) {
+        CodeName = codeName;
+    }
 
     public int getId() {
         return id;

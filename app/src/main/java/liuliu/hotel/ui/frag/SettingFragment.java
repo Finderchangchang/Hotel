@@ -43,6 +43,7 @@ public class SettingFragment extends BaseFragment {
     LinearLayout setting;
     @CodeNote(id = R.id.lanya_setting_wode_ll, click = "onClick")
     LinearLayout blooth;
+    @CodeNote(id=R.id.update_zidian_wode_ll,click = "onClick")LinearLayout llCodel;
     List<String> listblue;
     List<String> listAddress;
     @CodeNote(id = R.id.wode_blueth_name)
@@ -64,6 +65,9 @@ public class SettingFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.update_mima_wode_ll:
                 Utils.IntentPost(RevisePwdActivity.class);
+                break;
+            case R.id.update_zidian_wode_ll:
+
                 break;
             case R.id.tongzhi_wode_ll:
                 Utils.IntentPost(NoticeActivity.class);

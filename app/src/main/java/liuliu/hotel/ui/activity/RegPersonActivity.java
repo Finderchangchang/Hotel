@@ -74,8 +74,11 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     StringBuffer path = new StringBuffer();
     RegPersonListener listener;
     CustomerModel customerModel;
-    List<CodeModel> MZcode = new ArrayList<>();
-    List<CodeModel> XBcode = new ArrayList<>();
+    List<CodeModel> MZcode = new ArrayList<CodeModel>();
+    List<String> xbCode = new ArrayList<String>();
+    List<String> mzList = new ArrayList<>();
+    List<CodeModel> ZJLXCode = new ArrayList<CodeModel>();
+    List<String> zjlxList = new ArrayList<>();
 
     @Override
     public void initViews() {
@@ -91,6 +94,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     public void initEvents() {
         dialog = new SpinnerDialog(this);
         dialog.setCanceledOnTouchOutside(true);
+
     }
 
     public void onClick(View view) {
@@ -102,7 +106,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 }
                 break;
             case R.id.zhengjian_ll://证件照
-                dialog.setListView(getData(1));
+                dialog.setListView(zjlxList);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
@@ -112,7 +116,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 });
                 break;
             case R.id.xingbie_ll://性别
-                dialog.setListView(getData(1));
+                dialog.setListView(xbCode);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
@@ -136,7 +140,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 //读取身份证
                 if (Utils.ReadString("BlueToothAddress").equals("")) {
                     ToastShort("请检查蓝牙读卡设备设置！");
-                    Utils.IntentPost(BluetoothListActivity.class);//跳转登录
+                    //Utils.IntentPost(BluetoothListActivity.class);//跳转登录
                 } else {
                     onReadCardCvr();
                 }
@@ -144,16 +148,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         }
     }
 
-    private List<String> getData(int num) {
-        List<String> data = new ArrayList<String>();
-        for (int i = 0; i < num; i++) {
-            data.add("测试数据1");
-            data.add("测试数据2");
-            data.add("测试数据3");
-            data.add("测试数据4");
-        }
-        return data;
-    }
 
     //开启拍照
     public void startCamera(int type) {

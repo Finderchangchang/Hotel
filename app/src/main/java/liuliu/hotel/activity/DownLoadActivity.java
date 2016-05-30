@@ -193,7 +193,7 @@ public class DownLoadActivity extends BaseActivity {
                 HashMap<String, String> p = new HashMap<String, String>();
                 p.put("hotelId", "1306040191");
                 p.put("dateBegin", "2016-05-23");
-                p.put("dateEnd", "2016-05-23");
+                p.put("dateEnd", "2016-05-24");
                 WebServiceUtils.callWebService(true, "GetRoomRate", p, new WebServiceUtils.WebServiceCallBack() {
 
                     @Override
