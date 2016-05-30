@@ -126,7 +126,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 });
                 break;
             case R.id.minzu_ll://民族
-                dialog.setListView(getData(4));
+                dialog.setListView(mzList);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override

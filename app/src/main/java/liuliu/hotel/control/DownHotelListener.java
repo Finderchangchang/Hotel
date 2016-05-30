@@ -73,7 +73,7 @@ public class DownHotelListener {
         });
 
     }
-    private void getCodeServer(String name){
+    private void getCodeServer(final String name){
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");
         properties.put("codeName", name);//XZQH,行政区划，民族MZ,证件类型ZJLX,1男2女
