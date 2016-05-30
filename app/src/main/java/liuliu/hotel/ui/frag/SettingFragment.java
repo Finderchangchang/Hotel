@@ -19,6 +19,8 @@ import java.util.Set;
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseFragment;
 import liuliu.hotel.config.Key;
+import liuliu.hotel.control.IDownHotelView;
+import liuliu.hotel.control.SettingSysListener;
 import liuliu.hotel.ui.activity.NoticeActivity;
 import liuliu.hotel.ui.activity.RevisePwdActivity;
 import liuliu.hotel.ui.activity.MainActivity;
@@ -29,7 +31,7 @@ import liuliu.hotel.utils.Utils;
  * 设置
  * Created by Administrator on 2016/5/24.
  */
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment implements IDownHotelView{
     @CodeNote(id = R.id.title_name_tv, text = "设置")
     TextView center_title_tv;
     SpinnerDialog dialog;//选择
@@ -43,15 +45,17 @@ public class SettingFragment extends BaseFragment {
     LinearLayout setting;
     @CodeNote(id = R.id.lanya_setting_wode_ll, click = "onClick")
     LinearLayout blooth;
-    @CodeNote(id=R.id.update_zidian_wode_ll,click = "onClick")LinearLayout llCodel;
+    @CodeNote(id = R.id.update_zidian_wode_ll, click = "onClick")
+    LinearLayout llCodel;
     List<String> listblue;
     List<String> listAddress;
     @CodeNote(id = R.id.wode_blueth_name)
     TextView myBlooth;
-
+    SettingSysListener listener;
     @Override
     public void initViews() {
         setContentView(R.layout.frag_setting);
+        listener=new SettingSysListener(MainActivity.mInstance,this,MainActivity.mInstance.finalDb);
     }
 
     @Override
@@ -67,7 +71,8 @@ public class SettingFragment extends BaseFragment {
                 Utils.IntentPost(RevisePwdActivity.class);
                 break;
             case R.id.update_zidian_wode_ll:
-
+                //更新字典
+                listener.refushCode();
                 break;
             case R.id.tongzhi_wode_ll:
                 Utils.IntentPost(NoticeActivity.class);
@@ -124,5 +129,10 @@ public class SettingFragment extends BaseFragment {
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }
         }
+    }
+
+    @Override
+    public void checkHotel(boolean result, String mes) {
+
     }
 }

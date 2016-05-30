@@ -18,6 +18,9 @@ import liuliu.hotel.R;
 import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.base.BaseFragment;
 import liuliu.hotel.config.Key;
+import liuliu.hotel.control.IDownHotelView;
+import liuliu.hotel.control.MainListener;
+import liuliu.hotel.control.ReturnListView;
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.PersonModel;
 import liuliu.hotel.ui.activity.MainActivity;
@@ -29,7 +32,7 @@ import liuliu.hotel.utils.Utils;
  * 首页详细内容
  * Created by Administrator on 2016/5/24.
  */
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements ReturnListView{
     @CodeNote(id = R.id.add_person_btn, click = "onClick")
     Button add_person_btn;
     @CodeNote(id = R.id.live_lv)
@@ -37,28 +40,31 @@ public class MainFragment extends BaseFragment {
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
-
+MainListener listener;
     @Override
     public void initViews() {
         setContentView(R.layout.frag_main);
         mList = new ArrayList<>();
+        listener=new MainListener(MainActivity.mInstance,this,MainActivity.mInstance.finalDb);
+        listener.SearchList();
         dialog = new NormalDialog(MainActivity.mInstance);
     }
 
     /**
      *
      */
-    private void initPerson() {
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-    }
+//    private void initPerson() {
+//
+//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
+//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
+//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
+//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
+//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
+//    }
 
     @Override
     public void initEvents() {
-        initPerson();
+       // initPerson();
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, final int position) {
@@ -110,6 +116,14 @@ public class MainFragment extends BaseFragment {
             case R.id.add_person_btn://点击添加按钮触发事件
                 Utils.IntentPost(RegPersonActivity.class);
                 break;
+        }
+    }
+
+    @Override
+    public void SearchCustomer(boolean isTrue, List<CustomerModel> list) {
+        if(isTrue) {
+            mList = list;
+            initEvents();
         }
     }
 }

@@ -29,9 +29,9 @@ public class SoapObjectUtils {
                 lg.setLGMC(soaplist.getProperty("LGMC").toString());
                 lg.setQYSCM(soaplist.getProperty("QYSCM").toString());
                 list.add(lg);
-            }else if (method.equals("GetAllCodeLastChangeTime")){
+            } else if (method.equals("GetAllCodeLastChangeTime")) {
 
-            }else if (method.equals("GetCodeInfoByCodeName")||method.equals("SearchNative")||method.equals("GetAllUndownloadTZTGInfo")) {
+            } else if (method.equals("GetCodeInfoByCodeName") || method.equals("SearchNative") || method.equals("GetAllUndownloadTZTGInfo")) {
                 for (int i = 0; i < soaplist.getPropertyCount(); i++) {
                     SoapObject soapObject = (SoapObject) soaplist.getProperty(i);
                     if (method.equals("GetCodeInfoByCodeName")) {
@@ -39,7 +39,7 @@ public class SoapObjectUtils {
                         codeModel.setKey(soapObject.getProperty("Key").toString());
                         codeModel.setVal(soapObject.getProperty("Value").toString());
                         list.add(codeModel);
-                    }else if (method.equals("SearchNative")) {
+                    } else if (method.equals("SearchNative")) {
                         CustomerModel model = new CustomerModel();
                         model.setSerialId(soapObject.getProperty("ZKLSH").toString());
                         model.setName(soapObject.getProperty("XM").toString());
@@ -51,16 +51,14 @@ public class SoapObjectUtils {
                         model.setCardId(soapObject.getProperty("ZJHM").toString());
                         model.setAddress(soapObject.getProperty("XZ").toString());
                         model.setRoomId(soapObject.getProperty("FH").toString());
-                    //    model.setArea(soapObject.getProperty("SSXQ").toString());
+                        //model.setArea(soapObject.getProperty("SSXQ").toString());
                         //model.setHeadphoto(soapObject.getProperty("NBZP").toString());
                         model.setCheckInSign(soapObject.getProperty("FSBZ").toString());
                         //model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
-                      //  model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
-                       // model.setComment(soapObject.getProperty("BZ").toString());
-
-
-                    }else if(method.equals("GetAllUndownloadTZTGInfo")){
-                        DBTZTGInfo info=new DBTZTGInfo();
+                        //model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
+                        // model.setComment(soapObject.getProperty("BZ").toString());
+                    } else if (method.equals("GetAllUndownloadTZTGInfo")) {
+                        DBTZTGInfo info = new DBTZTGInfo();
                         info.setTGID(soapObject.getProperty("TGID").toString());
                         info.setTZFW(soapObject.getProperty("TZFW").toString());
                         info.setTGBT(soapObject.getProperty("TGBT").toString());
@@ -70,11 +68,11 @@ public class SoapObjectUtils {
                         info.setFBSJ(soapObject.getProperty("FBSJ").toString());
                         list.add(info);
                     }
-
                 }
             }
         } else {
             invokeReturn.setSuccess(false);
+            invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
         }
         invokeReturn.setData(list);
         return invokeReturn;
