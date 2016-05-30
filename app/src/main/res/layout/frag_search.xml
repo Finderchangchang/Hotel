@@ -30,6 +30,7 @@
                     android:textSize="18sp" />
 
                 <LinearLayout
+                    android:id="@+id/rili_left_ll"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="5dp"
@@ -43,7 +44,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:paddingLeft="3dp" />
+                        android:enabled="false"
+                        android:paddingLeft="3dp"
+                        android:textSize="12sp" />
 
                     <LinearLayout
                         android:layout_width="1dp"
@@ -73,6 +76,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:id="@+id/rili_right_ll"
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_marginRight="15dp"
@@ -86,7 +90,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:paddingLeft="3dp" />
+                        android:enabled="false"
+                        android:paddingLeft="3dp"
+                        android:textSize="12sp" />
 
                     <LinearLayout
                         android:layout_width="1dp"
@@ -94,6 +100,7 @@
                         android:background="@android:color/darker_gray"></LinearLayout>
 
                     <LinearLayout
+
                         android:layout_width="34dp"
                         android:layout_height="33dp"
                         android:layout_marginRight="1dp"

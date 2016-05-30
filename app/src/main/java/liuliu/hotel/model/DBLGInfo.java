@@ -73,6 +73,7 @@ public class DBLGInfo implements Serializable {
         model.setLGMC("易佰快捷酒店");
         model.setLGDZ("河北省保定市新市区东风中路12号");
         model.setQYSCM("12342312");
+        model.setLoginPwd("1");
         return model;
     }
 }

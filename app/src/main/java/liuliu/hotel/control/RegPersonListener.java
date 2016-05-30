@@ -36,13 +36,10 @@ public class RegPersonListener {
         dblgInfo.setLGDM("1306010001");
         dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
         String xml = model.getXml(Utils.getAssetsFileData(myContext,"checkInNativeParameter.xml"), true, dblgInfo);
-
-
         WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
             @Override
             public void callBack(String result) {
                 if (!result.equals("")) {
-                    System.out.println(result);
                     InvokeReturn invokeReturn = XmlUtils.parseXml(result, "");
                     if (invokeReturn.isSuccess()) {
                         //添加成功

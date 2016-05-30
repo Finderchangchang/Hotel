@@ -10,6 +10,7 @@ import liuliu.hotel.utils.Utils;
 import liuliu.hotel.web.globalfunc;
 
 public class CustomerModel implements Serializable {
+    private int id;
     //旅客信息
     private String SerialId;//流水号
     private String Name;//姓名
@@ -28,15 +29,25 @@ public class CustomerModel implements Serializable {
     private Bitmap Headphoto;//头像
     private String Comment;//备注
     private String url;
-    public CustomerModel(){
+
+    public CustomerModel() {
 
     }
+
     public CustomerModel(String name, String sex, String nation, String address, String roomId) {
         Name = name;
         Sex = sex;
         Nation = nation;
         Address = address;
         RoomId = roomId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUrl() {

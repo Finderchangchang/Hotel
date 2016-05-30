@@ -1,12 +1,13 @@
 package liuliu.hotel.ui.frag;
 
+import android.widget.TextView;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.view.SpinnerDialog;
@@ -17,16 +18,20 @@ import java.util.Set;
 
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseFragment;
-import liuliu.hotel.model.BlueToothModel;
-import liuliu.hotel.ui.activity.ChangePasswordActivity;
+import liuliu.hotel.config.Key;
+import liuliu.hotel.ui.activity.NoticeActivity;
+import liuliu.hotel.ui.activity.RevisePwdActivity;
 import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.SetIpActivity;
 import liuliu.hotel.utils.Utils;
 
 /**
+ * 设置
  * Created by Administrator on 2016/5/24.
  */
 public class SettingFragment extends BaseFragment {
+    @CodeNote(id = R.id.title_name_tv, text = "设置")
+    TextView center_title_tv;
     SpinnerDialog dialog;//选择
     @CodeNote(id = R.id.tongzhi_wode_ll, click = "onClick")
     LinearLayout tongzhi;
@@ -58,14 +63,20 @@ public class SettingFragment extends BaseFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.update_mima_wode_ll:
-                Utils.IntentPost(ChangePasswordActivity.class);
+                Utils.IntentPost(RevisePwdActivity.class);
                 break;
             case R.id.tongzhi_wode_ll:
+                Utils.IntentPost(NoticeActivity.class);
                 break;
             case R.id.update_sys_wode_ll:
                 break;
             case R.id.sys_setting_wode_ll:
-                Utils.IntentPost(SetIpActivity.class);
+                Utils.IntentPost(SetIpActivity.class, new Utils.putListener() {
+                    @Override
+                    public void put(Intent intent) {
+                        intent.putExtra(Key.Reg_IP_Port, "setting");//跳转到设置ip端口页面
+                    }
+                });
                 break;
             case R.id.lanya_setting_wode_ll:
                 //蓝牙设置选择

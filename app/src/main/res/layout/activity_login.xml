@@ -5,21 +5,34 @@
     android:background="@mipmap/login_bg"
     android:orientation="vertical">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/app_long_name"
-            android:textColor="@android:color/white"
-            android:textSize="27sp" />
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/back_setting_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="40dp"
+            android:src="@android:color/holo_red_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/app_long_name"
+                android:textColor="@android:color/white"
+                android:textSize="27sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +50,9 @@
             android:background="@null"
             android:drawableBottom="@drawable/edittext_shape"
             android:drawableLeft="@mipmap/hotel_name"
+            android:focusable="false"
             android:paddingLeft="5dp"
+            android:text="易佰快捷酒店"
             android:textSize="18sp" />
 
         <EditText
@@ -50,6 +65,7 @@
             android:background="@null"
             android:drawableBottom="@drawable/edittext_shape"
             android:drawableLeft="@mipmap/pwd"
+
             android:inputType="textPassword"
             android:paddingLeft="5dp"
             android:textSize="18sp" />

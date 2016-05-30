@@ -29,6 +29,7 @@ public class SetIpActivity extends BaseActivity {
     EditText duankou_et;
     @CodeNote(id = R.id.save_btn, click = "onClick")
     Button save_btn;
+    String result;
 
     @Override
     public void initViews() {
@@ -37,8 +38,18 @@ public class SetIpActivity extends BaseActivity {
 
     @Override
     public void initEvents() {
-        if (Utils.ReadString(SaveKey.KEY_IP) != "" && Utils.ReadString(SaveKey.KEY_PORT) != "") {
-            checkPost();
+        String ip = Utils.ReadString(SaveKey.KEY_IP);
+        String port = Utils.ReadString(SaveKey.KEY_PORT);
+        result = getIntent().getStringExtra(Key.Reg_IP_Port);
+        if (result != null) {
+            ip_et.setText(ip);
+            ip_et.setSelection(ip.length());
+            duankou_et.setText(port);
+            duankou_et.setSelection(port.length());
+        } else {
+            if (ip != "" && port != "") {
+                checkPost();
+            }
         }
     }
 
@@ -46,6 +57,16 @@ public class SetIpActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.save_btn:
                 if (checkVal()) {
+                    if (result != null) {
+                        switch (result) {
+                            case "login":
+                                LoginActivity.mInstance.finish();
+                                break;
+                            case "setting":
+                                MainActivity.mInstance.finish();
+                                break;
+                        }
+                    }
                     Utils.WriteString(SaveKey.KEY_IP, ip_et.getText().toString());
                     Utils.WriteString(SaveKey.KEY_PORT, duankou_et.getText().toString());
                     checkPost();

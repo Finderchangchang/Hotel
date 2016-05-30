@@ -2,21 +2,24 @@ package liuliu.hotel.base;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import net.tsz.afinal.FinalActivity;
+import net.tsz.afinal.BActiviy;
 
 /**
  * Fragment的基类
- * <p>
+ * <p/>
  * Created by LiuWeiJie on 2015/7/29 0029.
  * Email:1031066280@qq.com
  */
 public abstract class BaseFragment extends Fragment {
     int mLayId;
     private View viewRoot = null;
+    TextView title_name_tv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public abstract class BaseFragment extends Fragment {
         if (parent != null) {
             parent.removeView(viewRoot);
         }
-        FinalActivity.initInjectedView(this, viewRoot);
+        BActiviy.initInjectedView(this, viewRoot);
         initEvents();
         return viewRoot;
     }

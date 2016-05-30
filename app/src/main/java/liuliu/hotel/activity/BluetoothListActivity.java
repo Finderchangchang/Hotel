@@ -40,8 +40,6 @@ public class BluetoothListActivity extends BaseActivity {
     @Override
     public void initViews() {
         setContentView(R.layout.activity_blueth_list);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getBluetooth();
     }
 

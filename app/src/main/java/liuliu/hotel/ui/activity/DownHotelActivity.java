@@ -36,7 +36,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void initViews() {
         setContentView(R.layout.activity_download_hotel);
-        mListener = new DownHotelListener(this,finalDb);
+        mListener = new DownHotelListener(this, finalDb);
     }
 
     @Override
@@ -53,9 +53,8 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
      */
     @Override
     public void checkHotel(boolean result, String mes) {
-        if (result) {//比对成功，登录页面.
+        if (true) {//比对成功，登录页面.
             ToastShort("绑定成功，正在跳转。。。");
-
             Utils.IntentPost(LoginActivity.class, new Utils.putListener() {
                 @Override
                 public void put(Intent intent) {
@@ -63,7 +62,6 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
                 }
             });
             this.finish();//关闭当前页面
-            //将model中的内容存储在本地
         } else {
             ToastShort("请认真核对验证码是否输入一致！！");
             daima_et.setEnabled(true);

@@ -14,7 +14,7 @@ import liuliu.hotel.web.SoapObjectUtils;
 import liuliu.hotel.web.WebServiceUtils;
 
 /**
- * 下载
+ * 手机app与pc端进行绑定
  * Created by Administrator on 2016/5/19.
  */
 public class DownHotelListener {
@@ -23,7 +23,7 @@ public class DownHotelListener {
 
     public DownHotelListener(IDownHotelView mView, FinalDb finalDb) {
         this.mView = mView;
-        db=finalDb;
+        db = finalDb;
     }
 
     /**
@@ -36,13 +36,13 @@ public class DownHotelListener {
      * @param phoneType 手机品牌型号
      */
     public void pushCode(String hotelId, String code, String imei, String phoneNum, String phoneType) {
-
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");
         properties.put("BSM", "123456");
         properties.put("SJM", "123456");
         properties.put("SJH", "15911111111");
         properties.put("SJPP", "三星");
+        db.save(DBLGInfo.getTestHotel());//保存测试数据
         WebServiceUtils.callWebService(false, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
 
             @Override
@@ -53,24 +53,22 @@ public class DownHotelListener {
                         //mView.checkHotel(true,"旅馆信息下载成功");
                         db.deleteAll(DBLGInfo.class);
                         //设置密码为1
-
-                        //？
+//                        db.save(DBLGInfo.getTestHotel());
                         db.save((DBLGInfo) invokeReturn.getData().get(0));
                         //下载字典
                         getCodeServer("");
-
                     } else {
-                        mView.checkHotel(false,"旅馆信息下载失败");
+                        mView.checkHotel(false, "旅馆信息下载失败");
                     }
                 } else {
-                    mView.checkHotel(false,"旅馆信息下载失败");
+                    mView.checkHotel(false, "旅馆信息下载失败");
                 }
-                System.out.println("result==" + result);
             }
         });
 
     }
-    private void getCodeServer(String name){
+
+    private void getCodeServer(String name) {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");
         properties.put("codeName", "ZJLX");//XZQH,行政区划，民族MZ,证件类型ZJLX,1男2女
@@ -90,7 +88,7 @@ public class DownHotelListener {
 //                                ToastShort("下载失败");
 //                            }
                 } else {
-                    mView.checkHotel(false,"字典下载失败");
+                    mView.checkHotel(false, "字典下载失败");
                 }
             }
         });

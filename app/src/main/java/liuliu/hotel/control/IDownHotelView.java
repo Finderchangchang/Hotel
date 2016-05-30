@@ -1,7 +1,5 @@
 package liuliu.hotel.control;
 
-import liuliu.hotel.model.DBLGInfo;
-
 /**
  * 设备绑定旅馆
  * Created by Administrator on 2016/5/19.

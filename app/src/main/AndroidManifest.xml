@@ -31,14 +31,23 @@
 
         </activity>
         <activity android:name=".activity.DownLoadActivity">
+
+        </activity>
+        <activity android:name=".activity.ListViewMoreActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.SetIpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ListViewMoreActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.SetIpActivity"></activity>
         <activity android:name=".activity.BluetoothListActivity" />
+        <activity android:name=".ui.activity.DownHotelActivity" />
+        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.PersonDetailActivity" />
+        <activity android:name=".ui.activity.RevisePwdActivity" />
+        <activity android:name=".ui.activity.NoticeActivity" />
+        <activity android:name=".ui.activity.Notice1Activity" />
+        <activity android:name=".ui.activity.Notice2Activity" />
     </application>
 </manifest>

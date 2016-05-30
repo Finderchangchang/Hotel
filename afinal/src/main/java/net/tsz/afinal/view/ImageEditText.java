@@ -100,7 +100,6 @@ public class ImageEditText extends LinearLayout {
     public void setText(String val) {
         mEditText.setText(val);
         mEditText.setSelection(val.length());
-
     }
 
     public String getmLeftLab() {

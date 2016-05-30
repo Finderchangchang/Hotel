@@ -8,12 +8,14 @@ import android.widget.Button;
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.utils.CommonAdapter;
 import net.tsz.afinal.utils.ViewHolder;
+import net.tsz.afinal.view.NormalDialog;
 import net.tsz.afinal.view.TotalListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import liuliu.hotel.R;
+import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.base.BaseFragment;
 import liuliu.hotel.config.Key;
 import liuliu.hotel.model.CustomerModel;
@@ -34,11 +36,13 @@ public class MainFragment extends BaseFragment {
     TotalListView live_lv;
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
+    NormalDialog dialog;
 
     @Override
     public void initViews() {
         setContentView(R.layout.frag_main);
         mList = new ArrayList<>();
+        dialog = new NormalDialog(MainActivity.mInstance);
     }
 
     /**
@@ -53,12 +57,11 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
-
     public void initEvents() {
         initPerson();
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
             @Override
-            public void convert(ViewHolder holder, CustomerModel model, int position) {
+            public void convert(ViewHolder holder, final CustomerModel model, final int position) {
                 holder.setText(R.id.num_btn, (position + 1) + "");
                 //图片
                 holder.setText(R.id.person_name_tv, model.getName());
@@ -70,23 +73,36 @@ public class MainFragment extends BaseFragment {
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        dialog.setMiddleMessage("确定要离店？");
+                        dialog.setOnPositiveListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {//确定
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.setOnNegativeListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {//取消
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+                holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
+                            @Override
+                            public void put(Intent intent) {
+                                intent.putExtra(Key.Person_Detail_SerialId, model.getSerialId());
+                            }
+                        });
                     }
                 });
             }
         };
         live_lv.setAdapter(mAdapter);
-        live_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
-                    @Override
-                    public void put(Intent intent) {
-                        intent.putExtra(Key.Person_Detail_SerialId, mList.get(position).getSerialId());
-                    }
-                });
-            }
-        });
     }
 
     public void onClick(View view) {

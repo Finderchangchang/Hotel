@@ -1,8 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgcolor"
     android:orientation="vertical">
 
     <include layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@android:color/white"
+                android:gravity="center">
+
+                <in.srain.cube.image.CubeImageView
+                    android:id="@+id/user_img_iv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/default_img_iv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/main_zhengjian" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="柳伟杰"
+                    android:textColor="@color/total_deep_lab"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/person_sex_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="男"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/card_type_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:text="身  份  证"
+                        android:textColor="@color/total_deep_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/person_idcard_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="131182199302281014"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:text="房  间  号"
+                        android:textColor="@color/total_deep_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/person_nation_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="205"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:text="出生日期"
+                        android:textColor="@color/total_deep_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/person_birthday_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1995年02月27日"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:text="民        族"
+                        android:textColor="@color/total_deep_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/person_native_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="汉族"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:text="籍        贯"
+                        android:textColor="@color/total_deep_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/persn_native_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="河北省保定市"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:text="证件地址"
+                        android:textColor="@color/total_deep_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_address_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="河北省保定市新市区茂业中心1205室河北省保定市新市区茂业中心1205室"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

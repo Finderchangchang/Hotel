@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -79,6 +80,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void initViews() {
         setContentView(R.layout.activity_reg_person);
+        setTitleBar("旅客登记");
         mInstance = this;
         listener = new RegPersonListener(this, this, finalDb);
         customerModel = new CustomerModel();
@@ -89,7 +91,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     public void initEvents() {
         dialog = new SpinnerDialog(this);
         dialog.setCanceledOnTouchOutside(true);
-
     }
 
     public void onClick(View view) {
