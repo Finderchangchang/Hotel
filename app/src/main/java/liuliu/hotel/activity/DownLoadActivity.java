@@ -71,9 +71,15 @@ public class DownLoadActivity extends BaseActivity {
     Button codeTime;
     @CodeNote(id = R.id.login_notice, click = "onClick")
     Button notice;
+    @CodeNote(id = R.id.login_request, click = "onClick")
+    Button request;
+    @CodeNote(id = R.id.login_dispose, click = "onClick")
+    Button dispose;
     @CodeNote(id = R.id.spread_pie_chart)
     PieChart pieChart;
-@CodeNote(id=R.id.login_rznum,click = "onClick")Button rznum;
+    @CodeNote(id = R.id.login_rznum, click = "onClick")
+    Button rznum;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_down_load);
@@ -189,6 +195,13 @@ public class DownLoadActivity extends BaseActivity {
 
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.login_request:
+                request();
+                break;
+            case R.id.login_dispose:
+
+
+                break;
             case R.id.login_rznum:
                 HashMap<String, String> p = new HashMap<String, String>();
                 p.put("hotelId", "1306040191");
@@ -275,10 +288,11 @@ public class DownLoadActivity extends BaseActivity {
 
                 break;
             case R.id.login_add:
-                add();//入住
+
+                //add();//入住
                 break;
             case R.id.login_leave:
-                Leave();//离店
+                //Leave();//离店
                 break;
             case R.id.login_bluth:
                 //跳转到选择蓝牙设备页面
@@ -396,6 +410,30 @@ public class DownLoadActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void request() {
+
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put("lgdm","1306010001" );
+        properties.put("qsscm","A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
+        WebServiceUtils.callWebService(true, "RequestServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
+
+            @Override
+            public void callBack(SoapObject result) {
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
+                    if (invokeReturn.isSuccess()) {
+                        ToastShort("下载成功");
+
+                    } else {
+                        ToastShort("下载失败");
+                    }
+                } else {
+                    ToastShort("下载失败");
+                }
+            }
+        });
     }
 
     //添加入住人员

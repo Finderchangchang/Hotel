@@ -29,11 +29,11 @@ import liuliu.hotel.utils.Utils;
  */
 public class WebServiceUtils {
     public static final String WEB_SERVER_URL = "http://hbdwkj.oicp.net:60007/Services/SignetService.asmx";
-    public static final String MYURL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
+    public static  String MYURL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
     // 命名空间
-    private static final String NAMESPACE = "http://tempuri.org/";
-    public static String URL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
-    // 含有3个线程的线程池
+    private static  String NAMESPACE = "http://tempuri.org/";
+    public static String URL = "http://10.0.3.2:8000/WebServices/LGXX/LGInfo.asmx";
+    // 含有3个线程的线程池http://localhost:8000/WebServices/LGXX/LGInfo.asmx
     private static final ExecutorService executorService = Executors
             .newFixedThreadPool(3);
     boolean isTrue = true;
@@ -50,20 +50,26 @@ public class WebServiceUtils {
                                       HashMap<String, String> properties,
                                       final WebServiceCallBack webServiceCallBack) {
         // 创建HttpTransportSE对象，传递WebService服务器地址
-        final HttpTransportSE httpTransportSE = new HttpTransportSE(MYURL, 30000);
+        final HttpTransportSE httpTransportSE;
+        SoapObject  soapObject;
+            httpTransportSE = new HttpTransportSE(MYURL, 30000);
+            soapObject= new SoapObject(NAMESPACE, methodName);
+      //  if (properties != null) {
 
-        // / 创建SoapObject对象
-        SoapObject soapObject = new SoapObject(NAMESPACE, methodName);
-        // SoapObject添加参数
-
-        if (properties != null) {
             for (Iterator<Map.Entry<String, String>> it = properties.entrySet()
                     .iterator(); it.hasNext(); ) {
                 Map.Entry<String, String> entry = it.next();
                 soapObject.addProperty(entry.getKey(), entry.getValue());
                 //soapObject.addProperty("kd",entry);
             }
-        }
+//        } else {
+//            soapObject = new SoapObject(NAMESPACE, methodName);
+//            SoapObject request = new SoapObject("Logic.Model", "DBLGInfo");
+//            request.addProperty("LGDM", "1306010001");
+//            request.addProperty("LGXM", "");
+//            soapObject.addProperty("lgdm", request);
+//        }
+
         // 实例化SoapSerializationEnvelope，传入WebService的SOAP协议的版本号
         final SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
@@ -92,7 +98,6 @@ public class WebServiceUtils {
                 super.handleMessage(msg);
                 // 将返回值回调到callBack的参数中
                 webServiceCallBack.callBack((SoapObject) msg.obj);
-
             }
 
         };
@@ -105,7 +110,6 @@ public class WebServiceUtils {
                 SoapObject resultSoapObject = null;
                 try {
                     httpTransportSE.call(NAMESPACE + methodName, soapEnvelope);
-
                     if (soapEnvelope.getResponse() != null) {
                         // 获取服务器响应返回的SoapObject
                         resultSoapObject = (SoapObject) soapEnvelope.bodyIn;
@@ -118,7 +122,6 @@ public class WebServiceUtils {
                     e.printStackTrace();
                 } catch (XmlPullParserException e) {
                     e.printStackTrace();
-
                 } finally {
                     try {
                         httpTransportSE.getConnection().disconnect();
@@ -162,30 +165,19 @@ public class WebServiceUtils {
 
         };
         try {
-
             String DESStr = DES.encryptDES(data, "K I W I ", "K I W I ");
-
             final SoapObject request = new SoapObject(NAMESPACE, methodName);
-
             request.addProperty("parameter", DESStr);// 添加参数和数据
-
             final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                     SoapEnvelope.VER11);// 设置SOAP的版本号
-
             envelope.dotNet = true;
-
             envelope.bodyOut = request;
-
             envelope.setOutputSoapObject(request);
-
             int timeout = 20000;
-
-            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(URL,
+            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(MYURL,
                     timeout);
-
             transport.debug = true;
             // 用于子线程与主线程通信的Handler
-
             executorService.submit(new Runnable() {
                 String returnstr = "";
 
@@ -219,13 +211,10 @@ public class WebServiceUtils {
                     }
                 }
             });
-
-
         } catch (IOException e) {// 超时异常
             // TODO Auto-generated catch block
             //return "timeout";
         } catch (XmlPullParserException e) {// 发送请求异常
-
             // TODO Auto-generated catch block
             //return "callerror";
         } catch (Exception e) {// 加密解密异常触发

@@ -51,7 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="查詢" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:id="@+id/login_changeCodeTime"
         android:layout_width="wrap_content"
@@ -68,10 +71,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="通知通告" />
-
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button
+        android:id="@+id/login_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请求资源" />
+    <Button
+        android:id="@+id/login_dispose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="释放资源" />
+        </LinearLayout>
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/spread_pie_chart"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

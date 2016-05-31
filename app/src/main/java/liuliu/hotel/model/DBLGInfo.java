@@ -14,6 +14,7 @@ public class DBLGInfo implements Serializable {
     private String QYSCM;//企业授权码、注册码
     private String LoginPwd;
 
+
     public String getLGDM() {
         return LGDM;
     }
