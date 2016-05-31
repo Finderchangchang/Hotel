@@ -54,29 +54,18 @@ public class WebServiceUtils {
         SoapObject  soapObject;
             httpTransportSE = new HttpTransportSE(MYURL, 30000);
             soapObject= new SoapObject(NAMESPACE, methodName);
-      //  if (properties != null) {
+         //if (properties != null) {
 
             for (Iterator<Map.Entry<String, String>> it = properties.entrySet()
                     .iterator(); it.hasNext(); ) {
                 Map.Entry<String, String> entry = it.next();
                 soapObject.addProperty(entry.getKey(), entry.getValue());
-                //soapObject.addProperty("kd",entry);
             }
-//        } else {
-//            soapObject = new SoapObject(NAMESPACE, methodName);
-//            SoapObject request = new SoapObject("Logic.Model", "DBLGInfo");
-//            request.addProperty("LGDM", "1306010001");
-//            request.addProperty("LGXM", "");
-//            soapObject.addProperty("lgdm", request);
-//        }
-
         // 实例化SoapSerializationEnvelope，传入WebService的SOAP协议的版本号
         final SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         // 设置是否调用的是.Net开发的WebService
-
         soapEnvelope.setOutputSoapObject(soapObject);
-
         soapEnvelope.dotNet = true;
         httpTransportSE.debug = true;
         if (isHearder) {
