@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -115,6 +116,34 @@ public class Utils {
         }
         return str;
     }
+    //比较时间的大小str1小返回true
+    public static boolean DateCompare(String str1,String str2){
+        java.text.DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Calendar c1=java.util.Calendar.getInstance();
+        java.util.Calendar c2=java.util.Calendar.getInstance();
+        try
+        {
+            c1.setTime(df.parse(str1));
+            c2.setTime(df.parse(str2));
+        }catch(java.text.ParseException e){
+            System.err.println("格式不正确");
+            return false;
+        }
+        int result=c1.compareTo(c2);
+        if(result==0){
+            //System.out.println("c1相等c2");
+            return true;
+        }
+        else if(result<0){
+            return false;
+            //System.out.println("c1小于c2");
+            }
+        else{
+           // System.out.println("c1大于c2");
+            return true;
+        }
+    }
+
 
     public static String getAssetsFileData(Context context, String FileName) {
         String str = "";

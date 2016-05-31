@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.model.CodeModel;
@@ -135,6 +136,6 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
 
     @Override
     public void checkHotel(boolean result, String mes) {
-
+        MainActivity.mInstance.ToastShort(mes);
     }
 }

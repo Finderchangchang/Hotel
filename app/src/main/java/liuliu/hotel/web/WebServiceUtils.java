@@ -181,7 +181,7 @@ public class WebServiceUtils {
 
             int timeout = 20000;
 
-            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(MYURL,
+            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(URL,
                     timeout);
 
             transport.debug = true;
@@ -220,6 +220,8 @@ public class WebServiceUtils {
                     }
                 }
             });
+
+
         } catch (IOException e) {// 超时异常
             // TODO Auto-generated catch block
             //return "timeout";
