@@ -3,6 +3,7 @@ package liuliu.hotel.ui.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import liuliu.hotel.model.BlueToothModel;
 import net.tsz.afinal.model.CodeModel;
 
 import liuliu.hotel.model.CustomerModel;
+import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.PersonModel;
 import liuliu.hotel.utils.Utils;
 
@@ -238,6 +240,23 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         customerModel.setAddress(address_iet.getText());
         customerModel.setNation(minzu_val_tv.getText().toString());
         customerModel.setCheckInTime("" );
+        customerModel.setCheckOutTime("2016-05-20 00:00:00");
+        customerModel.setArea("");
+        customerModel.setBirthday("1992-06-03");
+        customerModel.setCardType("11");
+//        customerModel.setCheckInSign(getVersionName());
+        customerModel.setCheckInTime("2016-05-20 00:00:00");
+        customerModel.setName("1");
+        customerModel.setHeadphoto(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+//        final String num = dbHelper.getSeralNum();
+//        customerModel.setSerialId(num);
+        customerModel.setRoomId("23");
+        customerModel.setSex("1");
+        customerModel.setNative("142429");
+        customerModel.setNation("01");
+        DBLGInfo dblgInfo = new DBLGInfo();
+        dblgInfo.setLGDM("1306010001");
+        dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
     }
 
     //读卡以后界面赋值

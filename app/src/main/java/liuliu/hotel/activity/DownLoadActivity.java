@@ -415,8 +415,8 @@ public class DownLoadActivity extends BaseActivity {
     private void request() {
 
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("lgdm","1306010001" );//如果建立资源，就返回true
-        properties.put("qyscm","A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
+        properties.put("lgdm", "1306010001");//如果建立资源，就返回true
+        properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
         WebServiceUtils.callWebService(true, "RequestServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
 
             @Override
@@ -509,7 +509,6 @@ public class DownLoadActivity extends BaseActivity {
     /**
      * 获取当前应用的版本号：
      */
-
     public String getVersionName() {
         // 获取packagemanager的实例
         String Version = "[Version:num]-[Registe:Mobile]";
@@ -521,10 +520,8 @@ public class DownLoadActivity extends BaseActivity {
             String version = packInfo.versionName;
             return Version.replace("num", version);
         } catch (PackageManager.NameNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return Version.replace("num", "1.0");
     }
 
