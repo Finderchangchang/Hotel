@@ -5,7 +5,7 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import liuliu.hotel.model.CodeModel;
+import net.tsz.afinal.model.CodeModel;
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.DBTZTGInfo;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import net.tsz.afinal.R;
+import net.tsz.afinal.model.CodeModel;
 import net.tsz.afinal.utils.AUtils;
 import net.tsz.afinal.utils.CommonAdapter;
 import net.tsz.afinal.utils.ViewHolder;
@@ -32,18 +33,18 @@ public class SpinnerDialog extends Dialog {
         super.setContentView(mView);
     }
 
-    public void setListView(final List<String> list) {
-        CommonAdapter<String> mAdapter = new CommonAdapter<String>(mContext, list, R.layout.spinner_dialog_item) {
+    public void setListView(final List<CodeModel> list) {
+        CommonAdapter<CodeModel> mAdapter = new CommonAdapter<CodeModel>(mContext, list, R.layout.spinner_dialog_item) {
             @Override
-            public void convert(ViewHolder holder, String s, int position) {
-                holder.setText(R.id.dialog_val_tv, s);
+            public void convert(ViewHolder holder, CodeModel model, int position) {
+                holder.setText(R.id.dialog_val_tv, model.getVal());
             }
         };
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mClick.onClick(position, list.get(position));
+                mClick.onClick(position, list.get(position).getVal());
                 dialog.dismiss();
             }
         });

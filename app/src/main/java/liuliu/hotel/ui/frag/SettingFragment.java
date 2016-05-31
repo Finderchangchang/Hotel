@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import net.tsz.afinal.annotation.view.CodeNote;
+import net.tsz.afinal.model.CodeModel;
 import net.tsz.afinal.view.SpinnerDialog;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import liuliu.hotel.utils.Utils;
  * 设置
  * Created by Administrator on 2016/5/24.
  */
-public class SettingFragment extends BaseFragment implements IDownHotelView{
+public class SettingFragment extends BaseFragment implements IDownHotelView {
     @CodeNote(id = R.id.title_name_tv, text = "设置")
     TextView center_title_tv;
     SpinnerDialog dialog;//选择
@@ -47,15 +48,16 @@ public class SettingFragment extends BaseFragment implements IDownHotelView{
     LinearLayout blooth;
     @CodeNote(id = R.id.update_zidian_wode_ll, click = "onClick")
     LinearLayout llCodel;
-    List<String> listblue;
+    List<CodeModel> listblue;
     List<String> listAddress;
     @CodeNote(id = R.id.wode_blueth_name)
     TextView myBlooth;
     SettingSysListener listener;
+
     @Override
     public void initViews() {
         setContentView(R.layout.frag_setting);
-        listener=new SettingSysListener(MainActivity.mInstance,this,MainActivity.mInstance.finalDb);
+        listener = new SettingSysListener(MainActivity.mInstance, this, MainActivity.mInstance.finalDb);
     }
 
     @Override
@@ -95,7 +97,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView{
                     @Override
                     public void onClick(int position, String val) {
                         myBlooth.setText(val);
-                        Utils.WriteString("BlueToothName", listblue.get(position));
+                        Utils.WriteString("BlueToothName", listblue.get(position).getVal());
                         Utils.WriteString("BlueToothAddress", listAddress.get(position));
                     }
                 });
@@ -118,13 +120,13 @@ public class SettingFragment extends BaseFragment implements IDownHotelView{
             }
             // blue_device_scale = new String[pairedDevices.size()];
             int count = 0;
-            listblue = new ArrayList<String>();
+            listblue = new ArrayList<CodeModel>();
             listAddress = new ArrayList<String>();
             for (BluetoothDevice device : pairedDevices) {
 //                BlueToothModel blue = new BlueToothModel();
 //                blue.setDeviceName(device.getName());
 //                blue.setDeviceAddress(device.getAddress());
-                listblue.add(device.getName());
+                listblue.add(new CodeModel(device.getName()));
                 listAddress.add(device.getAddress());
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }

@@ -84,8 +84,7 @@
                 android:layout_height="35dp"
                 android:background="@null"
                 android:drawableBottom="@drawable/edittext_shape"
-                android:paddingLeft="65dp"
-                android:text="123" />
+                android:paddingLeft="65dp" />
         </RelativeLayout>
 
         <Button

@@ -13,6 +13,7 @@ import java.util.List;
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
+import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.utils.Utils;
 
@@ -39,11 +40,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initEvents() {
-//        String hotel_name = getIntent().getStringExtra(Key.LOGIN_HOTEL_NAME);//旅馆名称
-//        if (hotel_name != null) {
-//            hotel_name_et.setText(hotel_name);
+        hotel_name_et.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         hotel_name_et.setEnabled(false);
-//        }
     }
 
     public void onClick(View view) {

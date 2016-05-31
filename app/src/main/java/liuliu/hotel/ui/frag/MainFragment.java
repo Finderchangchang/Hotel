@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
 
 import net.tsz.afinal.annotation.view.CodeNote;
+import net.tsz.afinal.utils.AUtils;
 import net.tsz.afinal.utils.CommonAdapter;
 import net.tsz.afinal.utils.ViewHolder;
 import net.tsz.afinal.view.NormalDialog;
@@ -18,10 +23,13 @@ import liuliu.hotel.R;
 import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.base.BaseFragment;
 import liuliu.hotel.config.Key;
+import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.control.IDownHotelView;
+import liuliu.hotel.control.IFMainView;
 import liuliu.hotel.control.MainListener;
 import liuliu.hotel.control.ReturnListView;
 import liuliu.hotel.model.CustomerModel;
+import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.PersonModel;
 import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.PersonDetailActivity;
@@ -32,44 +40,46 @@ import liuliu.hotel.utils.Utils;
  * 首页详细内容
  * Created by Administrator on 2016/5/24.
  */
-public class MainFragment extends BaseFragment implements ReturnListView{
+public class MainFragment extends BaseFragment implements IFMainView {
     @CodeNote(id = R.id.add_person_btn, click = "onClick")
     Button add_person_btn;
     @CodeNote(id = R.id.live_lv)
     TotalListView live_lv;
+    @CodeNote(id = R.id.hotel_name_tv)
+    TextView hotel_name_tv;
+    @CodeNote(id = R.id.live_num_tv)
+    TextView live_num_tv;
+    @CodeNote(id = R.id.liveing_chart)
+    PieChart liveing_chart;
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
-MainListener listener;
+    MainListener listener;
+
     @Override
     public void initViews() {
         setContentView(R.layout.frag_main);
         mList = new ArrayList<>();
-        listener=new MainListener(MainActivity.mInstance,this,MainActivity.mInstance.finalDb);
+        listener = new MainListener(MainActivity.mInstance, this);
         listener.SearchList();
         dialog = new NormalDialog(MainActivity.mInstance);
     }
 
-    /**
-     *
-     */
-//    private void initPerson() {
-//
-//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-//        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-//    }
-
     @Override
     public void initEvents() {
-       // initPerson();
+        hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
+        initPersons();
+    }
+
+    /**
+     * 加载人员信息
+     */
+    private void initPersons() {
+        listener.LoadMain();
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, final int position) {
                 holder.setText(R.id.num_btn, (position + 1) + "");
-                //图片
                 holder.setText(R.id.person_name_tv, model.getName());
                 if (model.getSex().equals("2")) {
                     holder.setText(R.id.sex_tv, "女");
@@ -83,6 +93,7 @@ MainListener listener;
                         dialog.setOnPositiveListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {//确定
+                                listener.MakeLeaveHotel(model.getSerialId());//执行离店操作
                                 dialog.cancel();
                             }
                         });
@@ -119,11 +130,37 @@ MainListener listener;
         }
     }
 
+    /**
+     * @param total 在住率
+     * @param stay  在住人数
+     */
     @Override
-    public void SearchCustomer(boolean isTrue, List<CustomerModel> list) {
-        if(isTrue) {
-            mList = list;
-            initEvents();
+    public void GetPersonNum(String total, int stay) {
+        live_num_tv.setText(stay + "");
+        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, total);//显示百分比盘
+    }
+
+    /**
+     * @param list 在住人员
+     */
+    @Override
+    public void LoadStayPerson(List<CustomerModel> list) {
+        mList = list;
+        initEvents();
+    }
+
+    /**
+     * 离店处理结果
+     *
+     * @param result true,离店成功。false,离店失败
+     */
+    @Override
+    public void LeaveHotel(boolean result) {
+        if (result) {
+            MainActivity.mInstance.ToastShort("离店成功");
+            //刷新在住人
+        } else {
+            MainActivity.mInstance.ToastShort("离店失败，请重新操作！");
         }
     }
 }

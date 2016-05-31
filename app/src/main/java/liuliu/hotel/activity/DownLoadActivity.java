@@ -73,7 +73,9 @@ public class DownLoadActivity extends BaseActivity {
     Button notice;
     @CodeNote(id = R.id.spread_pie_chart)
     PieChart pieChart;
-@CodeNote(id=R.id.login_rznum,click = "onClick")Button rznum;
+    @CodeNote(id = R.id.login_rznum, click = "onClick")
+    Button rznum;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_down_load);
@@ -218,11 +220,11 @@ public class DownLoadActivity extends BaseActivity {
                 break;
             case R.id.login_down:
                 HashMap<String, String> properties = new HashMap<String, String>();
-                properties.put("lgdm", "1306010001");
-                properties.put("BSM", "123456");
-                properties.put("SJM", "123456");
-                properties.put("SJH", "15911111111");
-                properties.put("SJPP", "三星");
+                properties.put("lgdm", "1306010001");//旅馆代码
+                properties.put("BSM", "123456");//手机识别码
+                properties.put("SJM", "123456");//随机码
+                properties.put("SJH", "15911111111");//手机号码
+                properties.put("SJPP", "三星");//手机品牌
                 WebServiceUtils.callWebService(true, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
 
                     @Override
@@ -425,8 +427,6 @@ public class DownLoadActivity extends BaseActivity {
         dblgInfo.setLGDM("1306010001");
         dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
         String xml = customerModel.getXml(getAssetsFileData("checkInNativeParameter.xml"), true, dblgInfo);
-
-
         WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
             @Override
             public void callBack(String result) {

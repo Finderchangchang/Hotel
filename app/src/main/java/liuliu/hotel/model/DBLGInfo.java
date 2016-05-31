@@ -1,10 +1,13 @@
 package liuliu.hotel.model;
 
+import net.tsz.afinal.annotation.sqlite.Table;
+
 import java.io.Serializable;
 
 /**
  * Created by Administrator on 2016/5/20.
  */
+@Table(name = "db_DBLGInfo")
 public class DBLGInfo implements Serializable {
     private int id;
     //旅馆信息

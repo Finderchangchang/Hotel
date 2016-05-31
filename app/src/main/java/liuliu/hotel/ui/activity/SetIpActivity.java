@@ -105,12 +105,7 @@ public class SetIpActivity extends BaseActivity {
     private void checkPost() {
         final List<DBLGInfo> list = finalDb.findAll(DBLGInfo.class);
         if (list.size() > 0) {//存在旅馆信息跳转到登陆页面
-            Utils.IntentPost(LoginActivity.class, new Utils.putListener() {
-                @Override
-                public void put(Intent intent) {
-                    intent.putExtra(Key.LOGIN_HOTEL_NAME, list.get(0).getLGMC());
-                }
-            });
+            Utils.IntentPost(LoginActivity.class);
         } else {//不存在旅馆信息跳转到配置旅馆代码页面
             Utils.IntentPost(DownHotelActivity.class);
         }

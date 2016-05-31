@@ -31,7 +31,6 @@ public class RegPersonListener {
     public void addRZInfo(CustomerModel model){
         final String num = dbHelper.getSeralNum();
         model.setSerialId(num);
-
         DBLGInfo dblgInfo = new DBLGInfo();
         dblgInfo.setLGDM("1306010001");
         dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
@@ -57,8 +56,5 @@ public class RegPersonListener {
                 }
             }
         });
-
-
-
     }
 }

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,12 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import liuliu.hotel.R;
-import liuliu.hotel.activity.BluetoothListActivity;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.control.IDownHotelView;
 import liuliu.hotel.control.RegPersonListener;
 import liuliu.hotel.model.BlueToothModel;
-import liuliu.hotel.model.CodeModel;
+
+import net.tsz.afinal.model.CodeModel;
+
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.PersonModel;
 import liuliu.hotel.utils.Utils;
@@ -44,8 +44,8 @@ import liuliu.hotel.utils.Utils;
  */
 public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     public static RegPersonActivity mInstance;
-    @CodeNote(id = R.id.login_btn, click = "onClick")
-    Button login_btn;
+    @CodeNote(id = R.id.save_btn, click = "onClick")
+    Button save_btn;
     @CodeNote(id = R.id.user_img_iv, click = "onClick")
     ImageView user_img_iv;
     @CodeNote(id = R.id.user_name_iet)
@@ -74,11 +74,8 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     StringBuffer path = new StringBuffer();
     RegPersonListener listener;
     CustomerModel customerModel;
-    List<CodeModel> MZcode = new ArrayList<CodeModel>();
-    List<String> xbCode = new ArrayList<String>();
-    List<String> mzList = new ArrayList<>();
-    List<CodeModel> ZJLXCode = new ArrayList<CodeModel>();
-    List<String> zjlxList = new ArrayList<>();
+    List<CodeModel> xbCode;
+    List<String> zjlxList;
 
     @Override
     public void initViews() {
@@ -94,19 +91,19 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     public void initEvents() {
         dialog = new SpinnerDialog(this);
         dialog.setCanceledOnTouchOutside(true);
-
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.login_btn:
+            case R.id.save_btn:
                 if (checkInfo()) {
                     getCustomerInfo();
                     listener.addRZInfo(customerModel);
                 }
                 break;
             case R.id.zhengjian_ll://证件照
-                dialog.setListView(zjlxList);
+                zjlxList = new ArrayList<>();
+                dialog.setListView(finalDb.findAllByWhere(CodeModel.class, "CodeName='ZJLX'"));
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
@@ -116,6 +113,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 });
                 break;
             case R.id.xingbie_ll://性别
+                xbCode = new ArrayList<CodeModel>();
+                xbCode.add(new CodeModel("男"));
+                xbCode.add(new CodeModel("女"));
                 dialog.setListView(xbCode);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
@@ -126,7 +126,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 });
                 break;
             case R.id.minzu_ll://民族
-                dialog.setListView(mzList);
+                dialog.setListView(finalDb.findAllByWhere(CodeModel.class, "CodeName='MZ'"));
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
@@ -140,7 +140,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 //读取身份证
                 if (Utils.ReadString("BlueToothAddress").equals("")) {
                     ToastShort("请检查蓝牙读卡设备设置！");
-                    //Utils.IntentPost(BluetoothListActivity.class);//跳转登录
                 } else {
                     onReadCardCvr();
                 }
@@ -234,10 +233,11 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     private void getCustomerInfo() {
         customerModel.setName(user_name_iet.getText());
         customerModel.setCardId(idcard_iet.getText());
-        customerModel.setSex("");
+        customerModel.setSex(xingbie_val_tv.getText().toString());
+        customerModel.setCardType(zhengjian_val_tv.getText().toString());
         customerModel.setAddress(address_iet.getText());
-        customerModel.setNation("");
-        customerModel.setNative("");
+        customerModel.setNation(minzu_val_tv.getText().toString());
+        customerModel.setCheckInTime("" );
     }
 
     //读卡以后界面赋值

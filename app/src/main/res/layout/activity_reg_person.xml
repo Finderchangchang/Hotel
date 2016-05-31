@@ -84,7 +84,7 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_style"
+                    android:background="@drawable/item_btn_style"
                     android:text="读取"
                     android:textColor="@android:color/white" />
             </LinearLayout>
@@ -167,11 +167,11 @@
                 app:ie_left_text="地    址" />
 
             <Button
-                android:id="@+id/login_btn"
+                android:id="@+id/save_btn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/btn_style"
+                android:background="@drawable/item_btn_style"
                 android:text="保存"
                 android:textColor="@android:color/white"
                 android:textSize="19sp" />

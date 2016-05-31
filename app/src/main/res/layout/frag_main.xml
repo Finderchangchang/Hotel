@@ -12,8 +12,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="245dp"
-            android:paddingBottom="15dp">
+            android:layout_height="240dp"
+            android:paddingBottom="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -21,30 +21,30 @@
                 android:background="@mipmap/main_top_bg">
 
                 <TextView
-                    android:id="@+id/hotel_name_et"
+                    android:id="@+id/hotel_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="30dp"
-                    android:text="卓正酒店"
+                    android:text="燕赵大酒店一区彦霖连锁店"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp" />
+                    android:textSize="26sp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/liveing_iv"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/liveing_chart"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:src="@color/colorPrimaryDark" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="130dp"
+                android:layout_marginLeft="145dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 

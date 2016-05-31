@@ -42,12 +42,37 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    /**
+     * 获得当前系统时间
+     * @return
+     */
+    public static String getNormalTime(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        return df.format(new Date());
+    }
+    /**
+     * 读取xml文件
+     *
+     * @param FileName 文件名
+     * @return 文件内容
+     */
+    public static String getAssetsFileData(String FileName) {
+        String str = "";
+        try {
+            InputStream is = BaseApplication.getContext().getAssets().open(FileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            str = new String(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
     //base64 string转换为bitmap
     public static Bitmap getBitmapByte(String str) {
-//        Bitmap bitmap;
-//        byte[] s = Base64.encode(str.getBytes(), Base64.DEFAULT);
-//        bitmap = BitmapFactory.decodeByteArray(s, 0, s.length);
-//        return bitmap;
         try {
             byte[] buffer = Base64.decode(str.getBytes(), Base64.DEFAULT);
             if (buffer != null && buffer.length > 0) {
@@ -84,9 +109,9 @@ public class Utils {
         System.out.println(ts.toString());//yyyymmddhhmmssfff
         String str = ts.toString().replace(":", "").replace(".", "").replace("-", "").replace(" ", "");
         if (str.length() < 17) {
-            str=str.substring(1);
+            str = str.substring(1);
         } else {
-            str=str.substring(2);
+            str = str.substring(2);
         }
         return str;
     }
@@ -133,11 +158,6 @@ public class Utils {
         if (text.equals("null"))
             return "";
         return text;
-        /*
-         * if(Utils.isEmptyString(text)) return "";
-		 *
-		 * return URLEncoder.encode(text);
-		 */
     }
 
     /**
@@ -338,31 +358,6 @@ public class Utils {
         } else {
             return null;
         }
-    }
-
-    /**
-     * 设置TotalListView(自定义)的高度
-     *
-     * @param listView
-     */
-    public static void setListViewHeight(ListView listView) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) { // listAdapter.getCount()返回数据项的数目
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0); // 计算子项View 的宽高
-            totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight
-                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
     }
 
     /**

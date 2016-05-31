@@ -2,6 +2,7 @@ package liuliu.hotel.ui.activity;
 
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,14 +10,11 @@ import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 
-import java.util.List;
-
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
 import liuliu.hotel.control.DownHotelListener;
 import liuliu.hotel.control.IDownHotelView;
-import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.utils.Utils;
 
 /**
@@ -52,18 +50,13 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
      * @param mes
      */
     @Override
-    public void checkHotel(boolean result, String mes) {
-        if (true) {//比对成功，登录页面.
+    public void checkHotel(boolean result, final String mes) {
+        if (result) {//比对成功，登录页面.
             ToastShort("绑定成功，正在跳转。。。");
-            Utils.IntentPost(LoginActivity.class, new Utils.putListener() {
-                @Override
-                public void put(Intent intent) {
-                    intent.putExtra(Key.LOGIN_HOTEL_NAME, daima_et.getText().toString().trim());
-                }
-            });
+            Utils.IntentPost(LoginActivity.class);
             this.finish();//关闭当前页面
         } else {
-            ToastShort("请认真核对验证码是否输入一致！！");
+            ToastShort(mes);
             daima_et.setEnabled(true);
             down_btn.setText("下载");
             down_btn.setEnabled(true);

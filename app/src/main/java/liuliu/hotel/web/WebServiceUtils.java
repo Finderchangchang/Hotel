@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import liuliu.hotel.base.DES;
+import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.utils.Utils;
 
 /**
@@ -29,10 +30,10 @@ import liuliu.hotel.utils.Utils;
  */
 public class WebServiceUtils {
     public static final String WEB_SERVER_URL = "http://hbdwkj.oicp.net:60007/Services/SignetService.asmx";
-    public static final String MYURL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
+    public static final String MYURL = "http://" + Utils.ReadString(SaveKey.KEY_IP) + ":" + Utils.ReadString(SaveKey.KEY_PORT) + "/WebServices/LGXX/Mobile.asmx";
     // 命名空间
     private static final String NAMESPACE = "http://tempuri.org/";
-    public static String URL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
+    //    public static String URL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
     // 含有3个线程的线程池
     private static final ExecutorService executorService = Executors
             .newFixedThreadPool(3);
@@ -180,7 +181,7 @@ public class WebServiceUtils {
 
             int timeout = 20000;
 
-            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(URL,
+            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(MYURL,
                     timeout);
 
             transport.debug = true;
@@ -219,8 +220,6 @@ public class WebServiceUtils {
                     }
                 }
             });
-
-
         } catch (IOException e) {// 超时异常
             // TODO Auto-generated catch block
             //return "timeout";
