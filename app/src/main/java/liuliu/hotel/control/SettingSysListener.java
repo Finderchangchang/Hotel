@@ -3,12 +3,11 @@ package liuliu.hotel.control;
 import android.content.Context;
 
 import net.tsz.afinal.FinalDb;
+import net.tsz.afinal.model.CodeModel;
 
 import org.ksoap2.serialization.SoapObject;
 
 import java.util.HashMap;
-
-import liuliu.hotel.model.CodeModel;
 import liuliu.hotel.model.InvokeReturn;
 import liuliu.hotel.utils.Utils;
 import liuliu.hotel.web.DBHelper;

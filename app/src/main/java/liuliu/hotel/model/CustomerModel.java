@@ -88,7 +88,6 @@ public class CustomerModel implements Serializable {
             xml = xml.replace("InputCheckOutTime", Utils.URLEncode(getCheckOutTime()));
             xml = xml.replace("InputReceiveTime", "");
             xml = xml.replace("InputCheckInSigen", Utils.URLEncode(getCheckInSign()));
-
             if (Headphoto != null) {
                 ByteArrayOutputStream photo = new ByteArrayOutputStream();
                 Headphoto.compress(Bitmap.CompressFormat.JPEG, 95, photo);
@@ -98,10 +97,7 @@ public class CustomerModel implements Serializable {
             } else {
                 xml = xml.replace("InputHeadPhoto", "");
             }
-
             xml = xml.replace("InputComment", "");
-
-
         }
 
         return xml;
@@ -111,7 +107,6 @@ public class CustomerModel implements Serializable {
         if (!xml.equals("") && xml != null) {
             xml = xml.replace("InputSerialId", getSerialId());
             xml = xml.replace("InputLeaveTime", getCheckOutTime());
-
         }
         return xml;
     }

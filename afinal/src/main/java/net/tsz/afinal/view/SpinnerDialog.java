@@ -44,7 +44,7 @@ public class SpinnerDialog extends Dialog {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mClick.onClick(position, list.get(position).getVal());
+                mClick.onClick(position, list.get(position));
                 dialog.dismiss();
             }
         });
@@ -56,6 +56,6 @@ public class SpinnerDialog extends Dialog {
     }
 
     public interface OnItemClick {
-        void onClick(int position, String val);
+        void onClick(int position, CodeModel model);
     }
 }

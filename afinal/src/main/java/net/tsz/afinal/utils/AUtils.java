@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/5/24.
  */
 public class AUtils {
+
     /**
      * 设置TotalListView(自定义)的高度
      *

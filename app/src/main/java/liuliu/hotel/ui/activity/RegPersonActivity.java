@@ -37,8 +37,13 @@ import net.tsz.afinal.model.CodeModel;
 
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.DBLGInfo;
+import liuliu.hotel.model.InvokeReturn;
 import liuliu.hotel.model.PersonModel;
+import liuliu.hotel.model.SerialNumModel;
 import liuliu.hotel.utils.Utils;
+import liuliu.hotel.web.DBHelper;
+import liuliu.hotel.web.WebServiceUtils;
+import liuliu.hotel.web.XmlUtils;
 
 /**
  * 旅客入住
@@ -109,21 +114,23 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
-                    public void onClick(int position, String val) {
-                        zhengjian_val_tv.setText(val);
+                    public void onClick(int position, CodeModel model) {
+                        zhengjian_val_tv.setText(model.getVal());
+                        customerModel.setCardType(model.getKey());
                     }
                 });
                 break;
             case R.id.xingbie_ll://性别
                 xbCode = new ArrayList<CodeModel>();
-                xbCode.add(new CodeModel("男"));
-                xbCode.add(new CodeModel("女"));
+                xbCode.add(new CodeModel("1", "男"));
+                xbCode.add(new CodeModel("2", "女"));
                 dialog.setListView(xbCode);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
-                    public void onClick(int position, String val) {
-                        xingbie_val_tv.setText(val);
+                    public void onClick(int position, CodeModel model) {
+                        xingbie_val_tv.setText(model.getVal());
+                        customerModel.setSex(model.getKey());//性别
                     }
                 });
                 break;
@@ -132,8 +139,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
-                    public void onClick(int position, String val) {
-                        minzu_val_tv.setText(val);
+                    public void onClick(int position, CodeModel model) {
+                        minzu_val_tv.setText(model.getVal());
+                        customerModel.setNation(model.getKey());
                     }
                 });
                 break;
@@ -231,32 +239,50 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         return true;
     }
 
-    //从界面获取值
+    /**
+     * 从界面获取值
+     */
     private void getCustomerInfo() {
+        String card_num = idcard_iet.getText();
         customerModel.setName(user_name_iet.getText());
         customerModel.setCardId(idcard_iet.getText());
         customerModel.setSex(xingbie_val_tv.getText().toString());
-        customerModel.setCardType(zhengjian_val_tv.getText().toString());
         customerModel.setAddress(address_iet.getText());
         customerModel.setNation(minzu_val_tv.getText().toString());
-        customerModel.setCheckInTime("" );
-        customerModel.setCheckOutTime("2016-05-20 00:00:00");
-        customerModel.setArea("");
-        customerModel.setBirthday("1992-06-03");
-        customerModel.setCardType("11");
-//        customerModel.setCheckInSign(getVersionName());
-        customerModel.setCheckInTime("2016-05-20 00:00:00");
-        customerModel.setName("1");
+        customerModel.setCheckInTime(Utils.getNormalTime());
+        customerModel.setCheckOutTime(Utils.getNormalTime());
+        customerModel.setArea("");//所属辖区
+        if (card_num.length() == 15 || card_num.length() == 18) {
+            customerModel.setBirthday(new StringBuffer(card_num.substring(6, 14)).insert(4, "-").insert(7, "-").toString());
+            customerModel.setNative(card_num.substring(0, 6));
+        }
+        customerModel.setCheckInSign(Utils.getVersionName());//当前系统版本
         customerModel.setHeadphoto(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-//        final String num = dbHelper.getSeralNum();
-//        customerModel.setSerialId(num);
-        customerModel.setRoomId("23");
-        customerModel.setSex("1");
-        customerModel.setNative("142429");
-        customerModel.setNation("01");
+        String num = new DBHelper(finalDb, this).getSeralNum();
+        customerModel.setSerialId(num);
+        customerModel.setRoomId(home_num_iet.getText());
         DBLGInfo dblgInfo = new DBLGInfo();
         dblgInfo.setLGDM("1306010001");
         dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
+        String xml = customerModel.getXml(Utils.getAssetsFileData("checkInNativeParameter.xml"), true, dblgInfo);
+        WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
+            @Override
+            public void callBack(String result) {
+                if (!result.equals("")) {
+                    System.out.println(result);
+                    InvokeReturn invokeReturn = XmlUtils.parseXml(result, "");
+                    if (invokeReturn.isSuccess()) {
+                        System.out.println("添加成功");
+                        SerialNumModel model = finalDb.findAll(SerialNumModel.class).get(0);
+                        model.setSerialNum((Integer.parseInt(model.getSerialNum()) + 1) + "");
+                        finalDb.update(model);
+                        mInstance.finish();
+                    } else {
+                        System.out.println("添加失败");
+                    }
+                }
+            }
+        });
     }
 
     //读卡以后界面赋值

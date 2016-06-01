@@ -96,8 +96,8 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
-                    public void onClick(int position, String val) {
-                        myBlooth.setText(val);
+                    public void onClick(int position, CodeModel val) {
+                        myBlooth.setText(val.getVal());
                         Utils.WriteString("BlueToothName", listblue.get(position).getVal());
                         Utils.WriteString("BlueToothAddress", listAddress.get(position));
                     }
@@ -127,7 +127,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
 //                BlueToothModel blue = new BlueToothModel();
 //                blue.setDeviceName(device.getName());
 //                blue.setDeviceAddress(device.getAddress());
-                listblue.add(new CodeModel(device.getName()));
+                listblue.add(new CodeModel("", device.getName()));
                 listAddress.add(device.getAddress());
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }

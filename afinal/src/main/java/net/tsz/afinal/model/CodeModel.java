@@ -16,7 +16,8 @@ public class CodeModel {
     public CodeModel() {
     }
 
-    public CodeModel(String val) {
+    public CodeModel(String key, String val) {
+        Key = key;
         Val = val;
     }
 

@@ -181,7 +181,7 @@ public class WebServiceUtils {
 
             int timeout = 20000;
 
-            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(URL,
+            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(MYURL,
                     timeout);
 
             transport.debug = true;

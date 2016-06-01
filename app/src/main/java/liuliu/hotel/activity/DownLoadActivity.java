@@ -299,19 +299,22 @@ public class DownLoadActivity extends BaseActivity {
                 Utils.IntentPost(BluetoothListActivity.class);
                 break;
             case R.id.login_notice:
+                request();
                 properties = new HashMap<String, String>();
                 properties.put("lgdm", "1306010001");
                 properties.put("pcs", "130601400");
                 properties.put("lastGetTime", "2016-05-25");
+
                 WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
 
                     @Override
                     public void callBack(SoapObject result) {
                         if (null != result) {
                             InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
+
+                            System.out.println("GetAllUndownloadTZTGInfo---"+result);
                             if (invokeReturn.isSuccess()) {
                                 ToastShort("下载成功");
-
                             } else {
                                 ToastShort("下载失败");
                             }
@@ -321,7 +324,7 @@ public class DownLoadActivity extends BaseActivity {
                         System.out.println("result==" + result);
                     }
                 });
-
+                cancelRequest();
                 break;
             case R.id.login_changeCodeTime:
                 properties = new HashMap<String, String>();
@@ -413,17 +416,39 @@ public class DownLoadActivity extends BaseActivity {
     }
 
     private void request() {
-
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");//如果建立资源，就返回true
-        properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
+        properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//
+        // DisposeServerSource(string lgdm)释放资源
         WebServiceUtils.callWebService(true, "RequestServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
 
             @Override
             public void callBack(SoapObject result) {
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
-                    System.out.println(result);
+                    System.out.println("-----"+result);
+                    if (invokeReturn.isSuccess()) {
+                        ToastShort("下载成功");
+                    } else {
+                        ToastShort("下载失败");
+                    }
+                } else {
+                    ToastShort("下载失败");
+                }
+            }
+        });
+    }
+
+    private void cancelRequest() {
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put("lgdm", "1306010001");//如果建立资源，就返回true
+        WebServiceUtils.callWebService(true, "DisposeServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
+
+            @Override
+            public void callBack(SoapObject result) {
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "DisposeServerSource");
+                    System.out.println("DisposeServerSource"+result);
                     if (invokeReturn.isSuccess()) {
                         ToastShort("下载成功");
                     } else {

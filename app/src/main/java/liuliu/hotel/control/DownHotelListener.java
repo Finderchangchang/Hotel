@@ -44,7 +44,7 @@ public class DownHotelListener {
         properties.put("SJM", "123456");
         properties.put("SJH", phoneNum);
         properties.put("SJPP", phoneType);
-        WebServiceUtils.callWebService(false, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
+        WebServiceUtils.callWebService(true, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
             @Override
             public void callBack(SoapObject result) {
                 if (null != result) {

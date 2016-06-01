@@ -47,7 +47,5 @@
         <activity android:name=".ui.activity.PersonDetailActivity" />
         <activity android:name=".ui.activity.RevisePwdActivity" />
         <activity android:name=".ui.activity.NoticeActivity" />
-        <activity android:name=".ui.activity.Notice1Activity" />
-        <activity android:name=".ui.activity.Notice2Activity" />
     </application>
 </manifest>
