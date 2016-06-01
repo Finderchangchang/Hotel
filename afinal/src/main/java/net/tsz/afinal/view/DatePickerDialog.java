@@ -56,9 +56,9 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
         if (!(null == datePicker || "".equals(initData))) {
             calendar = this.getCalendarByInitData(initData);
         } else {
-            initData = calendar.get(calendar.YEAR) + "年" +
-                    calendar.get(calendar.MONTH) + "月" +
-                    calendar.get(calendar.DAY_OF_MONTH) + "日";
+            initData = calendar.get(calendar.YEAR) + "-" +
+                    calendar.get(calendar.MONTH) + "-" +
+                    calendar.get(calendar.DAY_OF_MONTH);
         }
         datePicker.init(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DAY_OF_MONTH), this);
     }

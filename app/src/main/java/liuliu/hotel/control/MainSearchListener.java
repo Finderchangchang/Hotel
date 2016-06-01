@@ -22,20 +22,33 @@ import liuliu.hotel.web.XmlUtils;
 /**
  * Created by Administrator on 2016/5/30.
  */
-public class MainListener {
-    IFMainView mView;
+public class MainSearchListener {
+    IFMainView mMain;
+    IFSearchView mSearch;
     Context myContext;
 
-    public MainListener(Context context, IFMainView view) {
-        mView = view;
+    public MainSearchListener(Context context, IFMainView view) {
+        mMain = view;
         myContext = context;
     }
 
+    public MainSearchListener(Context myContext, IFSearchView mSearch) {
+        this.mSearch = mSearch;
+        this.myContext = myContext;
+    }
+
+    /**
+     * 查询操作
+     */
     public void SearchList() {
+
+    }
+
+    private void SearchByWord(String startTime, String end, String homeId) {
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("RZSJBEGIN", "2015-01-01");//入住起始时间
-        properties.put("RZSJEND", "2016-05-25");//入住截止时间
-        properties.put("FH", "");
+        properties.put("RZSJBEGIN", startTime);//入住起始时间
+        properties.put("RZSJEND", end);//入住截止时间
+        properties.put("FH", homeId);
         properties.put("LKZT", "0");//0在住，1离店
         properties.put("LGDM", "1306010001");
         properties.put("YS", "1");
@@ -51,14 +64,13 @@ public class MainListener {
                         for (int i = 0; i < invokeReturn.getData().size(); i++) {
                             list.add((CustomerModel) invokeReturn.getData().get(i));
                         }
-                        mView.LoadStayPerson(list);
+                        mMain.LoadStayPerson(list);
                     } else {
-                        mView.LoadStayPerson(null);
+                        mMain.LoadStayPerson(null);
                     }
                 } else {
-                    mView.LoadStayPerson(null);
+                    mMain.LoadStayPerson(null);
                 }
-                System.out.println("result==" + result);
             }
         });
     }
@@ -80,12 +92,12 @@ public class MainListener {
                 if (!result.equals("")) {
                     InvokeReturn invokeReturn = XmlUtils.parseXml(result, "");
                     if (invokeReturn.isSuccess()) {
-                        mView.LeaveHotel(true);
+                        mMain.LeaveHotel(true);
                     } else {
-                        mView.LeaveHotel(false);
+                        mMain.LeaveHotel(false);
                     }
                 } else {
-                    mView.LeaveHotel(false);
+                    mMain.LeaveHotel(false);
                 }
             }
         });
@@ -95,7 +107,7 @@ public class MainListener {
      * 加载主Fragment获得百分比以及全部在住人数
      */
     public void LoadMain() {
-
+        mMain.GetPersonNum(20, 100, 37);
         HashMap<String, String> p = new HashMap<String, String>();
         p.put("hotelId", "1306040191");
         p.put("dateBegin", "2016-05-23");
@@ -111,22 +123,21 @@ public class MainListener {
                         //ToastShort("下载成功");
                         //finalDb.deleteAll(DBLGInfo.class);
                         //finalDb.save((DBLGInfo) invokeReturn.getData().get(0));
-                        String[] threeNum=invokeReturn.getMessage().split(":");
-                        int[]nums=new int[3];
-                        for(int i=0;i<3;i++){
-                            nums[i]=Integer.parseInt(threeNum[i]);
+                        String[] threeNum = invokeReturn.getMessage().split(":");
+                        int[] nums = new int[3];
+                        for (int i = 0; i < 3; i++) {
+                            nums[i] = Integer.parseInt(threeNum[i]);
                         }
-                        mView.GetPersonNum(nums[0],nums[1],nums[2]);
+                        mMain.GetPersonNum(nums[0], nums[1], nums[2]);
                     } else {
-                       // ToastShort("下载失败");
+                        // ToastShort("下载失败");
                     }
                 } else {
-                   // ToastShort("下载失败");
+                    // ToastShort("下载失败");
                 }
                 System.out.println("result==" + result);
             }
         });
-
 
 
     }

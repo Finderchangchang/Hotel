@@ -2,12 +2,10 @@ package liuliu.hotel.ui.frag;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.utils.AUtils;
@@ -20,17 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import liuliu.hotel.R;
-import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.base.BaseFragment;
 import liuliu.hotel.config.Key;
 import liuliu.hotel.config.SaveKey;
-import liuliu.hotel.control.IDownHotelView;
 import liuliu.hotel.control.IFMainView;
-import liuliu.hotel.control.MainListener;
-import liuliu.hotel.control.ReturnListView;
+import liuliu.hotel.control.MainSearchListener;
 import liuliu.hotel.model.CustomerModel;
-import liuliu.hotel.model.DBLGInfo;
-import liuliu.hotel.model.PersonModel;
 import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.PersonDetailActivity;
 import liuliu.hotel.ui.activity.RegPersonActivity;
@@ -54,13 +47,13 @@ public class MainFragment extends BaseFragment implements IFMainView {
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
-    MainListener listener;
+    MainSearchListener listener;
 
     @Override
     public void initViews() {
         setContentView(R.layout.frag_main);
         mList = new ArrayList<>();
-        listener = new MainListener(MainActivity.mInstance, this);
+        listener = new MainSearchListener(MainActivity.mInstance, this);
         listener.SearchList();
         dialog = new NormalDialog(MainActivity.mInstance);
     }

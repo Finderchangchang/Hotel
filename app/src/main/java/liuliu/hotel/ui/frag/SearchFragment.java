@@ -23,6 +23,8 @@ import liuliu.hotel.R;
 import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.base.BaseFragment;
 import liuliu.hotel.config.Key;
+import liuliu.hotel.control.IFSearchView;
+import liuliu.hotel.control.MainSearchListener;
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.PersonDetailActivity;
@@ -31,8 +33,8 @@ import liuliu.hotel.utils.Utils;
 /**
  * Created by Administrator on 2016/5/24.
  */
-public class SearchFragment extends BaseFragment {
-    @CodeNote(id = R.id.title_name_tv, text = "人员查询")
+public class SearchFragment extends BaseFragment implements IFSearchView {
+    @CodeNote(id = R.id.title_name_tv)
     TextView center_title_tv;
     @CodeNote(id = R.id.start_time_et)
     EditText start_time_et;
@@ -52,6 +54,7 @@ public class SearchFragment extends BaseFragment {
     List<CustomerModel> mList;
     DatePickerDialog datePickerDialog;
     NormalDialog dialog;
+    MainSearchListener mListener;
 
     @Override
     public void initViews() {
@@ -62,14 +65,15 @@ public class SearchFragment extends BaseFragment {
 
     @Override
     public void initEvents() {
-        initVal();
-        initPerson();
+        center_title_tv.setText("人员查询");
+        mListener = new MainSearchListener(MainActivity.mInstance, this);
+
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_btn://查询按钮
-                initPerson();
+
                 break;
             case R.id.rili_left_ll:
                 datePickerDialog = new DatePickerDialog(MainActivity.mInstance, "");
@@ -82,10 +86,8 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
-    /**
-     * 加载查询出的人员信息
-     */
-    private void initPerson() {
+    @Override
+    public void loadPerson(List<CustomerModel> mList) {
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, final int position) {
@@ -131,13 +133,5 @@ public class SearchFragment extends BaseFragment {
         };
         live_lv.setAdapter(mAdapter);
         AUtils.setListViewHeight(live_lv);
-    }
-
-    private void initVal() {
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
-        mList.add(new CustomerModel("柳伟杰", "1", "汉族", "河北省保定市新市区茂业中心1205室", "105"));
     }
 }

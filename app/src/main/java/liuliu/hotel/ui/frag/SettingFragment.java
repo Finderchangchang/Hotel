@@ -34,7 +34,7 @@ import liuliu.hotel.utils.Utils;
  * Created by Administrator on 2016/5/24.
  */
 public class SettingFragment extends BaseFragment implements IDownHotelView {
-    @CodeNote(id = R.id.title_name_tv, text = "设置")
+    @CodeNote(id = R.id.title_name_tv)
     TextView center_title_tv;
     SpinnerDialog dialog;//选择
     @CodeNote(id = R.id.tongzhi_wode_ll, click = "onClick")
@@ -63,6 +63,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
 
     @Override
     public void initEvents() {
+        center_title_tv.setText("设置");
         dialog = new SpinnerDialog(MainActivity.mInstance);
         dialog.setCanceledOnTouchOutside(true);
         myBlooth.setText(Utils.ReadString("BlueToothName"));

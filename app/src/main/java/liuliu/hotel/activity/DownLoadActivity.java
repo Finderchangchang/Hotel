@@ -312,7 +312,7 @@ public class DownLoadActivity extends BaseActivity {
                         if (null != result) {
                             InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
 
-                            System.out.println("GetAllUndownloadTZTGInfo---"+result);
+                            System.out.println("GetAllUndownloadTZTGInfo---" + result);
                             if (invokeReturn.isSuccess()) {
                                 ToastShort("下载成功");
                             } else {
@@ -426,7 +426,7 @@ public class DownLoadActivity extends BaseActivity {
             public void callBack(SoapObject result) {
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
-                    System.out.println("-----"+result);
+                    System.out.println("-----" + result);
                     if (invokeReturn.isSuccess()) {
                         ToastShort("下载成功");
                     } else {
@@ -448,7 +448,7 @@ public class DownLoadActivity extends BaseActivity {
             public void callBack(SoapObject result) {
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "DisposeServerSource");
-                    System.out.println("DisposeServerSource"+result);
+                    System.out.println("DisposeServerSource" + result);
                     if (invokeReturn.isSuccess()) {
                         ToastShort("下载成功");
                     } else {
