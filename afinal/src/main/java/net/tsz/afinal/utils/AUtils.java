@@ -51,11 +51,10 @@ public class AUtils {
      *
      * @param context 系统变量
      * @param count   分成几部分
-     * @param range
-     * @param stayNum 在住人数
+     * @param allcount 总人数
      * @return
      */
-    private static PieData getPieData(Context context, int count, float range, float stayNum) {
+    private static PieData getPieData(Context context, int count, int allcount) {
         ArrayList<String> xValues = new ArrayList<String>();  //xVals用来表示每个饼块上的内容
         xValues.add(0, "");
         xValues.add(1, "");
@@ -70,8 +69,8 @@ public class AUtils {
          * 将一个饼形图分成四部分， 四部分的数值比例为14:14:34:38
          * 所以 14代表的百分比就是14%
          */
-        float quarterly1 = stayNum;
-        float quarterly2 = 100 - stayNum;
+        float quarterly1 = count;
+        float quarterly2 = allcount - count;
         //float quarterly3 = 34;
         // float quarterly4 = 38;
 
@@ -88,8 +87,8 @@ public class AUtils {
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
         // 饼图颜色
-        colors.add(Color.rgb(179, 179, 179));
         colors.add(Color.rgb(32, 128, 213));
+        colors.add(Color.rgb(179, 179, 179));
         //colors.add(Color.rgb(255, 123, 124));
         // colors.add(Color.rgb(57, 135, 200));
 
@@ -110,11 +109,13 @@ public class AUtils {
      * @param count    分成的份数
      * @param range    组件大小
      * @param pieChart 页面上显示的组件
-     * @param total    在住百分比
+     * @param allcount    全部房间数
+     * @param hcount    在住房间数
      */
-    public static void showChart(Context context, int count, float range, PieChart pieChart, String total) {
-        float num = Float.parseFloat(total.split("%")[0]);
-        PieData pieData = getPieData(context, count, range, num);
+    public static void showChart(Context context, int count, float range, PieChart pieChart, int allcount,int hcount) {
+        float num =hcount/allcount;
+        int baifenbi=Integer.parseInt(new java.text.DecimalFormat("0").format(num));
+        PieData pieData = getPieData(context, hcount, allcount);
         pieChart.setHoleColorTransparent(true);
         pieChart.setHoleColor(Color.rgb(205, 205, 205));
         pieChart.setLogEnabled(false);
@@ -143,7 +144,7 @@ public class AUtils {
         // mChart.setTouchEnabled(false);
 //      mChart.setOnAnimationListener(this);
 
-        pieChart.setCenterText("在住率" + total);  //饼状图中间的文字
+        pieChart.setCenterText("在住率" + baifenbi*100+"%");  //饼状图中间的文字
         pieChart.setCenterTextSize(12);
 
         //设置数据
