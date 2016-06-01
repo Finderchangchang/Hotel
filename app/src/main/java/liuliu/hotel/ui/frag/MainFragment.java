@@ -54,7 +54,6 @@ public class MainFragment extends BaseFragment implements IFMainView {
         setContentView(R.layout.frag_main);
         mList = new ArrayList<>();
         listener = new MainSearchListener(MainActivity.mInstance, this);
-        listener.SearchList();
         dialog = new NormalDialog(MainActivity.mInstance);
     }
 
@@ -62,7 +61,8 @@ public class MainFragment extends BaseFragment implements IFMainView {
     public void initEvents() {
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         listener.LoadMain();
-        listener.SearchList();
+        String start=Utils.getNormalTime().substring(0,10);
+        listener.SearchByWord(start,start,Utils.ReadString(SaveKey.KEY_Hotel_Id));
     }
 
     /**
@@ -154,6 +154,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
         if (result) {
             MainActivity.mInstance.ToastShort("离店成功");
             //刷新在住人
+            initPersons();
         } else {
             MainActivity.mInstance.ToastShort("离店失败，请重新操作！");
         }

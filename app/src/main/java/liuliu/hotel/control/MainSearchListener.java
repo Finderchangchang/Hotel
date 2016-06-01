@@ -37,14 +37,8 @@ public class MainSearchListener {
         this.myContext = myContext;
     }
 
-    /**
-     * 查询操作
-     */
-    public void SearchList() {
 
-    }
-
-    private void SearchByWord(String startTime, String end, String homeId) {
+    public void SearchByWord(String startTime, String end, String homeId) {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("RZSJBEGIN", startTime);//入住起始时间
         properties.put("RZSJEND", end);//入住截止时间
@@ -57,6 +51,7 @@ public class MainSearchListener {
             @Override
             public void callBack(SoapObject result) {
                 List<CustomerModel> list = null;
+                System.out.println("--"+result);
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
                     if (invokeReturn.isSuccess()) {
