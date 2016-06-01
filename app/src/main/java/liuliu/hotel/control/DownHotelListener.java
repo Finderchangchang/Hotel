@@ -54,6 +54,9 @@ public class DownHotelListener {
                         model = (DBLGInfo) invokeReturn.getData().get(0);
                         model.setLoginPwd("1");
                         db.save(model);
+                        Utils.WriteString(SaveKey.KEY_Hotel_Name,model.getLGMC());
+                        Utils.WriteString(SaveKey.KEY_Hotel_Id,model.getLGDM());
+
                         request();
                     } else {
                         mView.checkHotel(false, "旅馆信息下载失败");

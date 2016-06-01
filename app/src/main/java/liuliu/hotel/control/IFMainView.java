@@ -12,10 +12,11 @@ public interface IFMainView {
     /**
      * 获得旅馆所有人员数量，以及在住人数
      *
-     * @param total 人员总数
-     * @param stay  在住人数
+     * @param hcount 在住房间数
+     * @param allhcount  全部房间数
+     * @param personcount  在住总人数
      */
-    void GetPersonNum(String total, int stay);
+    void GetPersonNum(int hcount, int allhcount,int personcount);
 
     /**
      * 加载在住人员列表

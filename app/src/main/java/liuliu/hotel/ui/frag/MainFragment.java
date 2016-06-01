@@ -68,14 +68,15 @@ public class MainFragment extends BaseFragment implements IFMainView {
     @Override
     public void initEvents() {
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
-        initPersons();
+        listener.LoadMain();
+        listener.SearchList();
     }
 
     /**
      * 加载人员信息
      */
     private void initPersons() {
-        listener.LoadMain();
+
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, final int position) {
@@ -86,6 +87,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
                 }
                 holder.setText(R.id.nation_tv, model.getNation());
                 holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                holder.setText(R.id.address_tv,model.getAddress());
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -119,6 +121,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
                 });
             }
         };
+        mAdapter.notifyDataSetChanged();
         live_lv.setAdapter(mAdapter);
     }
 
@@ -130,14 +133,11 @@ public class MainFragment extends BaseFragment implements IFMainView {
         }
     }
 
-    /**
-     * @param total 在住率
-     * @param stay  在住人数
-     */
+
     @Override
-    public void GetPersonNum(String total, int stay) {
-        live_num_tv.setText(stay + "");
-        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, total);//显示百分比盘
+    public void GetPersonNum(int hcount, int allhcount, int personcount) {
+        live_num_tv.setText(personcount+"");
+        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
     }
 
     /**
@@ -145,8 +145,10 @@ public class MainFragment extends BaseFragment implements IFMainView {
      */
     @Override
     public void LoadStayPerson(List<CustomerModel> list) {
-        mList = list;
-        initEvents();
+        if (null != list) {
+            mList = list;
+            initPersons();
+        }
     }
 
     /**

@@ -26,7 +26,12 @@ public class SoapObjectUtils {
                 invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
             } else {
                 SoapObject soaplist = (SoapObject) provinceSoapObject.getProperty("Obj");
-                if (method.equals("GetLGInfoByLGDM")) {
+                //GetRoomRateResult=anyType{Sucess=true; Message=已成功统计旅馆入住信息。;
+                // Code=anyType{}; Time=2016-06-01T15:21:04.2501707+08:00; Obj=RoomRateInfo{RoomCheckCount=5; RoomCount=5; CountNB=7; }; }; }
+                // //1.在住的房间数，2.全部房间数。3，在住总人数
+                if(method.equals("GetRoomRate")){
+                    invokeReturn.setMessage(soaplist.getProperty("RoomCheckCount").toString()+":"+soaplist.getProperty("RoomCount")+":"+soaplist.getProperty("CountNB"));
+                }else if (method.equals("GetLGInfoByLGDM")) {
                     DBLGInfo lg = new DBLGInfo();
                     lg.setLGDM(soaplist.getProperty("LGDM").toString());
                     lg.setLGDZ(soaplist.getProperty("LGDZ").toString());
@@ -61,6 +66,7 @@ public class SoapObjectUtils {
                             //model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
                             //model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
                             // model.setComment(soapObject.getProperty("BZ").toString());
+                            list.add(model);
                         } else if (method.equals("GetAllUndownloadTZTGInfo")) {
                             DBTZTGInfo info = new DBTZTGInfo();
                             info.setTGID(soapObject.getProperty("TGID").toString());

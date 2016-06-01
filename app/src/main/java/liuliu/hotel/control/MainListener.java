@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import liuliu.hotel.model.CustomerModel;
+import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.InvokeReturn;
 import liuliu.hotel.utils.Utils;
 import liuliu.hotel.web.DBHelper;
@@ -94,6 +95,39 @@ public class MainListener {
      * 加载主Fragment获得百分比以及全部在住人数
      */
     public void LoadMain() {
-        mView.GetPersonNum("75%", 37);
+
+        HashMap<String, String> p = new HashMap<String, String>();
+        p.put("hotelId", "1306040191");
+        p.put("dateBegin", "2016-05-23");
+        p.put("dateEnd", "2016-05-24");
+        WebServiceUtils.callWebService(true, "GetRoomRate", p, new WebServiceUtils.WebServiceCallBack() {
+
+            @Override
+            public void callBack(SoapObject result) {
+
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetRoomRate");
+                    if (invokeReturn.isSuccess()) {
+                        //ToastShort("下载成功");
+                        //finalDb.deleteAll(DBLGInfo.class);
+                        //finalDb.save((DBLGInfo) invokeReturn.getData().get(0));
+                        String[] threeNum=invokeReturn.getMessage().split(":");
+                        int[]nums=new int[3];
+                        for(int i=0;i<3;i++){
+                            nums[i]=Integer.parseInt(threeNum[i]);
+                        }
+                        mView.GetPersonNum(nums[0],nums[1],nums[2]);
+                    } else {
+                       // ToastShort("下载失败");
+                    }
+                } else {
+                   // ToastShort("下载失败");
+                }
+                System.out.println("result==" + result);
+            }
+        });
+
+
+
     }
 }
