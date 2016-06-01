@@ -40,13 +40,20 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initEvents() {
-        hotel_name_et.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
+        List<DBLGInfo>list=finalDb.findAll(DBLGInfo.class);
+        DBLGInfo dblgInfo = null;
+        if(list.size()>0){
+            dblgInfo=list.get(0);
+            hotel_name_et.setText(dblgInfo.getLGMC());
+        }
+
         hotel_name_et.setEnabled(false);
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
+                List<DBLGInfo>li=finalDb.findAll(DBLGInfo.class);
                 List<DBLGInfo> list = finalDb.findAllByWhere(DBLGInfo.class, "LGMC='" + hotel_name_et.getText() + "' and LoginPwd='" + pwd_et.getText().toString().trim() + "'");
                 if (list.size() > 0) {
                     ToastShort("登录成功！");

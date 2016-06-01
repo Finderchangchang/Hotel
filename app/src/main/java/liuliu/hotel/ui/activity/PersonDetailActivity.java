@@ -85,6 +85,5 @@ public class PersonDetailActivity extends BaseActivity {
             persn_native_tv.setText(model.getNative());
             detail_address_tv.setText(model.getAddress());
         }
-
     }
 }

@@ -180,7 +180,6 @@ public class WebServiceUtils {
             envelope.setOutputSoapObject(request);
 
             int timeout = 20000;
-
             final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(MYURL,
                     timeout);
 

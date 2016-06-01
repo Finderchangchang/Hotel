@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.model.CodeModel;
+
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.DBTZTGInfo;
@@ -21,9 +22,9 @@ public class SoapObjectUtils {
         List<Object> list = new ArrayList<>();
         if (provinceSoapObject.getProperty("Sucess").toString().equals("true")) {
             invokeReturn.setSuccess(true);
-            if(method.equals("RequestServerSource")||method.equals("DisposeServerSource")){
-
-            }else {
+            if (method.equals("RequestServerSource") || method.equals("DisposeServerSource")) {
+                invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
+            } else {
                 SoapObject soaplist = (SoapObject) provinceSoapObject.getProperty("Obj");
                 if (method.equals("GetLGInfoByLGDM")) {
                     DBLGInfo lg = new DBLGInfo();

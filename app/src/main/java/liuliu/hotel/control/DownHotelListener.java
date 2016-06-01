@@ -53,8 +53,8 @@ public class DownHotelListener {
                         //设置密码为1
                         model = (DBLGInfo) invokeReturn.getData().get(0);
                         model.setLoginPwd("1");
-                        //下载字典
-                        getCodeServer("ZJLX");
+                        db.save(model);
+                        request();
                     } else {
                         mView.checkHotel(false, "旅馆信息下载失败");
                     }
@@ -63,7 +63,35 @@ public class DownHotelListener {
                 }
             }
         });
+    }
 
+    private void request() {
+
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put("lgdm", "1306010001");//如果建立资源，就返回true
+        properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
+        WebServiceUtils.callWebService(true, "RequestServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
+
+            @Override
+            public void callBack(SoapObject result) {
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
+                    System.out.println(result);
+                    if (invokeReturn.isSuccess()) {
+                        //下载字典
+                        getCodeServer("ZJLX");
+                        //ToastShort("下载成功");
+
+                    } else {
+                        //ToastShort("下载失败");
+                        mView.checkHotel(false, invokeReturn.getMessage());
+                    }
+                } else {
+                    //ToastShort("下载失败");
+                    mView.checkHotel(false, "网络错误！");
+                }
+            }
+        });
     }
 
     /**
@@ -79,6 +107,7 @@ public class DownHotelListener {
             @Override
             public void callBack(SoapObject result) {
                 if (null != result) {
+                    System.out.println(result);
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
                     if (invokeReturn.isSuccess()) {
                         for (int i = 0; i < invokeReturn.getData().size(); i++) {
@@ -93,11 +122,11 @@ public class DownHotelListener {
                         mView.checkHotel(false, "字典下载失败，请重新下载！");
                     }
                     if (name.equals("MZ")) {
-                        db.deleteAll(DBLGInfo.class);
-                        db.save(model);
-                        mView.checkHotel(true, "添加成功！");
-                        Utils.WriteString(SaveKey.KEY_Hotel_Name, model.getLGMC());//旅馆名称
-                        Utils.WriteString(SaveKey.KEY_Hotel_Id, model.getLGDM());//旅馆代码
+//                        db.save(model);
+//                        mView.checkHotel(true, "添加成功！");
+//                        Utils.WriteString(SaveKey.KEY_Hotel_Name, model.getLGMC());//旅馆名称
+//                        Utils.WriteString(SaveKey.KEY_Hotel_Id, model.getLGDM());//旅馆代码
+                        mView.checkHotel(true, "字典下载失败，请重新下载！");
                     }
                 } else {
                     mView.checkHotel(false, "字典下载失败，请重新下载！");

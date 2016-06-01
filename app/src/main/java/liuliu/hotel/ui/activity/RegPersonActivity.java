@@ -186,7 +186,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                         if (result) {
                             find = true;
                             setPerson(person);
-                        } else {
+                        }   else {
                             if (null != person) {
                                 find = true;
                                 ToastShort(person.getPersonName());
