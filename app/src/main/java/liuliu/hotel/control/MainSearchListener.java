@@ -42,7 +42,7 @@ public class MainSearchListener {
      * 在住人员列表
      */
     public void LeavePerson() {
-        SearchByWord("2015-01-01", Utils.getNormalTime(), "");
+        SearchByWord("2015-01-01", Utils.getNormalTime().substring(0,10), "");
     }
 
     /**

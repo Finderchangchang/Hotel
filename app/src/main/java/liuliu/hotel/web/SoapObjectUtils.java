@@ -4,6 +4,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.tsz.afinal.model.CodeModel;
 
@@ -25,13 +26,15 @@ public class SoapObjectUtils {
             if (method.equals("RequestServerSource") || method.equals("DisposeServerSource")) {
                 invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
             } else {
-                SoapObject soaplist = (SoapObject) provinceSoapObject.getProperty("Obj");
+                Object obj = provinceSoapObject.getProperty("Obj");
+                if (null != obj) {
+                    SoapObject soaplist = (SoapObject) obj;
                 //GetRoomRateResult=anyType{Sucess=true; Message=已成功统计旅馆入住信息。;
                 // Code=anyType{}; Time=2016-06-01T15:21:04.2501707+08:00; Obj=RoomRateInfo{RoomCheckCount=5; RoomCount=5; CountNB=7; }; }; }
                 // //1.在住的房间数，2.全部房间数。3，在住总人数
-                if(method.equals("GetRoomRate")){
-                    invokeReturn.setMessage(soaplist.getProperty("RoomCheckCount").toString()+":"+soaplist.getProperty("RoomCount")+":"+soaplist.getProperty("CountNB"));
-                }else if (method.equals("GetLGInfoByLGDM")) {
+                if (method.equals("GetRoomRate")) {
+                    invokeReturn.setMessage(soaplist.getProperty("RoomCheckCount").toString() + ":" + soaplist.getProperty("RoomCount") + ":" + soaplist.getProperty("CountNB"));
+                } else if (method.equals("GetLGInfoByLGDM")) {
                     DBLGInfo lg = new DBLGInfo();
                     lg.setLGDM(soaplist.getProperty("LGDM").toString());
                     lg.setLGDZ(soaplist.getProperty("LGDZ").toString());
@@ -80,7 +83,11 @@ public class SoapObjectUtils {
                         }
                     }
                 }
+            }else{
+                    return invokeReturn;
+                }
             }
+
         } else {
             invokeReturn.setSuccess(false);
             invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
