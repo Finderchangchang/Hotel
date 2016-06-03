@@ -124,7 +124,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                         Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
                             @Override
                             public void put(Intent intent) {
-                                intent.putExtra(Key.Person_Detail_SerialId, model.getSerialId());
+                                intent.putExtra(Key.Person_Detail_Model, model);
                             }
                         });
                     }

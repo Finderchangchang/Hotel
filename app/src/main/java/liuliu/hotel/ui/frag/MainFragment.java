@@ -94,6 +94,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
                 public void convert(ViewHolder holder, final CustomerModel model, final int position) {
                     holder.setText(R.id.num_btn, (position + 1) + "");
                     holder.setText(R.id.person_name_tv, model.getName());
+                    holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);
                     if (model.getSex().equals("2")) {
                         holder.setText(R.id.sex_tv, "女");
                     }
@@ -126,7 +127,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
                             Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
                                 @Override
                                 public void put(Intent intent) {
-                                    intent.putExtra(Key.Person_Detail_SerialId, model.getSerialId());
+                                    intent.putExtra(Key.Person_Detail_Model, model);
                                 }
                             });
                         }

@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
 
+import in.srain.cube.Cube;
+
 
 /**
  * 作者:柳伟杰 邮件:1031066280@qq.com
@@ -21,6 +23,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        Cube.onCreate(this);
         context = getApplicationContext();
         /***
          * 初始化定位sdk，建议在Application中创建

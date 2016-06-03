@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0">
+    android:background="#F0F0F0"
+    android:orientation="vertical">
 
     <include layout="@layout/no_left_tool_bar"></include>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +63,6 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:id="@+id/update_zidian_wode_ll"
             android:layout_width="match_parent"
@@ -72,8 +73,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_marginLeft="14dp"
                 android:src="@mipmap/center_ku" />
 
@@ -209,9 +210,9 @@
         android:id="@+id/sys_setting_wode_ll"
         android:layout_width="match_parent"
         android:layout_height="43dp"
+        android:layout_marginTop="1dp"
         android:background="#fff"
         android:gravity="center_vertical"
-        android:layout_marginTop="1dp"
         android:orientation="horizontal">
 
         <ImageView

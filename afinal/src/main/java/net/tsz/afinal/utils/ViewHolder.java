@@ -20,6 +20,11 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import net.tsz.afinal.R;
+
+import in.srain.cube.image.CubeImageView;
+import in.srain.cube.image.ImageLoader;
+
 /**
  * Created by liuliu on 2015/11/16   16:29
  *
@@ -86,6 +91,24 @@ public class ViewHolder {
     public ViewHolder setText(int viewId, String text) {
         TextView tv = getView(viewId);
         tv.setText(text);
+        return this;
+    }
+
+    /**
+     * 设置带缓存的ImageView
+     *
+     * @param viewId 组件id
+     * @param url    图片的地址
+     * @param loader 加载图片的变量
+     * @return 当前viewholder
+     */
+    public ViewHolder setCubeImage(int viewId, String url, ImageLoader loader) {
+        CubeImageView iv = getView(viewId);
+        if (url == null) {
+            iv.setImageResource(R.mipmap.main_zhengjian);
+        } else {
+            iv.loadImage(loader, url);
+        }
         return this;
     }
 

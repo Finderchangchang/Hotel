@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
+import net.tsz.afinal.model.CodeModel;
 
 import java.util.List;
 
@@ -49,8 +50,8 @@ public class PersonDetailActivity extends BaseActivity {
     TextView card_type_tv;//证件类型
     @CodeNote(id = R.id.default_img_iv)
     ImageView default_img_iv;//默认图片效果
-    String serialId;//流水号
     CustomerModel model;//入住旅客信息
+    List<CodeModel> list;
 
     @Override
     public void initViews() {
@@ -61,29 +62,48 @@ public class PersonDetailActivity extends BaseActivity {
     public void initEvents() {
         model = new CustomerModel();
         mInstance = this;
-        serialId = getIntent().getStringExtra(Key.Person_Detail_SerialId);//获得流水号
+        model = (CustomerModel) getIntent().getSerializableExtra(Key.Person_Detail_Model);//获得流水号
         setTitleBar("旅客详情");
-        List<CustomerModel> list = finalDb.findAllByWhere(CustomerModel.class, "SerialId='" + serialId + "'");
-        if (list.size() > 0) {
-            model = list.get(0);
-            if (model.getUrl() != null) {
-                user_img_iv.loadImage(mLoader, model.getUrl());
-                default_img_iv.setVisibility(View.GONE);
-                user_img_iv.setVisibility(View.VISIBLE);
-            } else {
-                default_img_iv.setVisibility(View.VISIBLE);
-                user_img_iv.setVisibility(View.GONE);
-            }
-            user_name_tv.setText(model.getName());
-            if (("2").equals(model.getSex())) {
-                person_sex_tv.setText("女");
-            }
-            person_birthday_tv.setText(model.getBirthday());
-            card_type_tv.setText(model.getCardType());//证件类型
-            person_idcard_tv.setText(model.getCardId());//证件号码
-            person_nation_tv.setText(model.getNation());
-            persn_native_tv.setText(model.getNative());
-            detail_address_tv.setText(model.getAddress());
+        if (model.getUrl() != null) {
+            user_img_iv.loadImage(mLoader, model.getUrl());
+            default_img_iv.setVisibility(View.GONE);
+            user_img_iv.setVisibility(View.VISIBLE);
+        } else {
+            default_img_iv.setVisibility(View.VISIBLE);
+            user_img_iv.setVisibility(View.GONE);
         }
+        user_name_tv.setText(model.getName());
+        if (("2").equals(model.getSex())) {
+            person_sex_tv.setText("女");
+        }
+        if (model.getBirthday().length() == 8) {
+            StringBuffer buffer = new StringBuffer(model.getBirthday());
+            buffer.insert(4, "年").insert(7, "月").insert(10, "日");
+            person_birthday_tv.setText(buffer);
+        }
+        list = finalDb.findAllByWhere(CodeModel.class, "CodeName='ZJLX' AND KEY='" + model.getCardType() + "'");
+        if (list != null) {
+            if (list.size() > 0) {
+                StringBuffer cardtype = new StringBuffer(list.get(0).getVal());
+                switch (cardtype.length()) {
+                    case 3:
+                        cardtype.insert(1, "  ").insert(4, "  ");
+                        break;
+                    case 2:
+                        cardtype.insert(1, "      ");
+                        break;
+                }
+                card_type_tv.setText(cardtype.toString());
+            }
+        }
+        list = finalDb.findAllByWhere(CodeModel.class, "CodeName='QFJG' AND KEY='" + model.getNative().substring(0, 4) + "'");
+        if (list != null) {
+            if (list.size() > 0) {
+                persn_native_tv.setText(list.get(0).getVal());
+            }
+        }
+        person_idcard_tv.setText(model.getCardId());//证件号码
+        person_nation_tv.setText(model.getNation());
+        detail_address_tv.setText(model.getAddress());
     }
 }

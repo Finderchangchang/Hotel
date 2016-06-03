@@ -7,7 +7,9 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.HashMap;
 
 import liuliu.hotel.config.SaveKey;
+
 import net.tsz.afinal.model.CodeModel;
+
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.InvokeReturn;
 import liuliu.hotel.utils.Utils;
@@ -54,9 +56,8 @@ public class DownHotelListener {
                         model = (DBLGInfo) invokeReturn.getData().get(0);
                         model.setLoginPwd("1");
                         db.save(model);
-                        Utils.WriteString(SaveKey.KEY_Hotel_Name,model.getLGMC());
-                        Utils.WriteString(SaveKey.KEY_Hotel_Id,model.getLGDM());
-
+                        Utils.WriteString(SaveKey.KEY_Hotel_Name, model.getLGMC());
+                        Utils.WriteString(SaveKey.KEY_Hotel_Id, model.getLGDM());
                         request();
                     } else {
                         mView.checkHotel(false, "旅馆信息下载失败");
@@ -68,8 +69,10 @@ public class DownHotelListener {
         });
     }
 
+    /**
+     * 请求下载字典信息
+     */
     private void request() {
-
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");//如果建立资源，就返回true
         properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
@@ -81,16 +84,11 @@ public class DownHotelListener {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
                     System.out.println(result);
                     if (invokeReturn.isSuccess()) {
-                        //下载字典
                         getCodeServer("ZJLX");
-                        //ToastShort("下载成功");
-
                     } else {
-                        //ToastShort("下载失败");
                         mView.checkHotel(false, invokeReturn.getMessage());
                     }
                 } else {
-                    //ToastShort("下载失败");
                     mView.checkHotel(false, "网络错误！");
                 }
             }
@@ -107,34 +105,37 @@ public class DownHotelListener {
         properties.put("lgdm", "1306010001");
         properties.put("codeName", name);//民族MZ,证件类型ZJLX
         WebServiceUtils.callWebService(true, "GetCodeInfoByCodeName", properties, new WebServiceUtils.WebServiceCallBack() {
-            @Override
-            public void callBack(SoapObject result) {
-                if (null != result) {
-                    System.out.println(result);
-                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
-                    if (invokeReturn.isSuccess()) {
-                        for (int i = 0; i < invokeReturn.getData().size(); i++) {
-                            CodeModel model = (CodeModel) invokeReturn.getData().get(i);
-                            model.setCodeName(name);
-                            db.save(model);
-                            if (name.equals("ZJLX") && i == invokeReturn.getData().size() - 1) {
-                                getCodeServer("MZ");
+                    @Override
+                    public void callBack(SoapObject result) {
+                        if (null != result) {
+                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
+                            if (invokeReturn.isSuccess()) {
+                                for (int i = 0; i < invokeReturn.getData().size(); i++) {
+                                    CodeModel code = (CodeModel) invokeReturn.getData().get(i);
+                                    code.setCodeName(name);
+                                    db.save(code);
+                                    if (i == invokeReturn.getData().size() - 1) {
+                                        if (name.equals("ZJLX")) {
+                                            getCodeServer("MZ");
+                                        }
+                                        if (name.equals("MZ")) {
+                                            getCodeServer("QFJG");
+                                        }
+                                    }
+                                }
                             }
+                            if (name.equals("QFJG")) {
+                                db.save(model);
+                                mView.checkHotel(true, "");
+                                Utils.WriteString(SaveKey.KEY_Hotel_Name, model.getLGMC());//旅馆名称
+                                Utils.WriteString(SaveKey.KEY_Hotel_Id, model.getLGDM());//旅馆代码
+                            }
+                        } else {
+                            mView.checkHotel(false, "字典下载失败，请重新下载！");
                         }
-                    } else {
-                        mView.checkHotel(false, "字典下载失败，请重新下载！");
                     }
-                    if (name.equals("MZ")) {
-//                        db.save(model);
-//                        mView.checkHotel(true, "添加成功！");
-//                        Utils.WriteString(SaveKey.KEY_Hotel_Name, model.getLGMC());//旅馆名称
-//                        Utils.WriteString(SaveKey.KEY_Hotel_Id, model.getLGDM());//旅馆代码
-                        mView.checkHotel(true, "字典下载失败，请重新下载！");
-                    }
-                } else {
-                    mView.checkHotel(false, "字典下载失败，请重新下载！");
                 }
-            }
-        });
+
+        );
     }
 }
