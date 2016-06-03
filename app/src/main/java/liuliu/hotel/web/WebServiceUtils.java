@@ -31,6 +31,7 @@ import liuliu.hotel.utils.Utils;
 public class WebServiceUtils {
     public static final String WEB_SERVER_URL = "http://hbdwkj.oicp.net:60007/Services/SignetService.asmx";
     public static final String MYURL = "http://" + Utils.ReadString(SaveKey.KEY_IP) + ":" + Utils.ReadString(SaveKey.KEY_PORT) + "/WebServices/LGXX/Mobile.asmx";
+    //    public static final String MYURL = "http://192.168.1.113:5005/WebServices/LGXX/Mobile.asmx";
     // 命名空间
     private static final String NAMESPACE = "http://tempuri.org/";
     //    public static String URL = "http://10.0.3.2:8000/WebServices/LGXX/Mobile.asmx";
@@ -106,7 +107,6 @@ public class WebServiceUtils {
                 SoapObject resultSoapObject = null;
                 try {
                     httpTransportSE.call(NAMESPACE + methodName, soapEnvelope);
-
                     if (soapEnvelope.getResponse() != null) {
                         // 获取服务器响应返回的SoapObject
                         resultSoapObject = (SoapObject) soapEnvelope.bodyIn;

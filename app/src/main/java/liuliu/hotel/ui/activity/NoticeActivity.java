@@ -55,7 +55,7 @@ public class NoticeActivity extends BaseActivity implements INoticeView {
         mAdapter = new CommonAdapter<DBTZTGInfo>(mInstance, mList, 0) {
             @Override
             public void convert(ViewHolder holder, DBTZTGInfo dbtztgInfo, int position) {
-
+                
             }
         };
     }

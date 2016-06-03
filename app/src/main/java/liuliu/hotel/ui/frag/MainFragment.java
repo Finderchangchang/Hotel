@@ -44,6 +44,8 @@ public class MainFragment extends BaseFragment implements IFMainView {
     TextView live_num_tv;
     @CodeNote(id = R.id.liveing_chart)
     PieChart liveing_chart;
+    @CodeNote(id = R.id.no_connect_tv)
+    TextView no_connect_tv;
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
@@ -60,62 +62,8 @@ public class MainFragment extends BaseFragment implements IFMainView {
     @Override
     public void initEvents() {
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
-        listener.LoadMain();
-        String start=Utils.getNormalTime().substring(0,10);
-        listener.SearchByWord(start,start,Utils.ReadString(SaveKey.KEY_Hotel_Id));
-    }
-
-    /**
-     * 加载人员信息
-     */
-    private void initPersons() {
-
-        mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
-            @Override
-            public void convert(ViewHolder holder, final CustomerModel model, final int position) {
-                holder.setText(R.id.num_btn, (position + 1) + "");
-                holder.setText(R.id.person_name_tv, model.getName());
-                if (model.getSex().equals("2")) {
-                    holder.setText(R.id.sex_tv, "女");
-                }
-                holder.setText(R.id.nation_tv, model.getNation());
-                holder.setText(R.id.hotel_num_tv, model.getRoomId());
-                holder.setText(R.id.address_tv,model.getAddress());
-                holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.setMiddleMessage("确定要离店？");
-                        dialog.setOnPositiveListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {//确定
-                                listener.MakeLeaveHotel(model.getSerialId());//执行离店操作
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.setOnNegativeListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {//取消
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.show();
-                    }
-                });
-                holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
-                            @Override
-                            public void put(Intent intent) {
-                                intent.putExtra(Key.Person_Detail_SerialId, model.getSerialId());
-                            }
-                        });
-                    }
-                });
-            }
-        };
-        mAdapter.notifyDataSetChanged();
-        live_lv.setAdapter(mAdapter);
+        listener.LoadMain();//加载百分比数据，以及在住人员数量
+        listener.LeavePerson();
     }
 
     public void onClick(View view) {
@@ -129,7 +77,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
 
     @Override
     public void GetPersonNum(int hcount, int allhcount, int personcount) {
-        live_num_tv.setText(personcount+"");
+        live_num_tv.setText(personcount + "");
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
     }
 
@@ -139,8 +87,56 @@ public class MainFragment extends BaseFragment implements IFMainView {
     @Override
     public void LoadStayPerson(List<CustomerModel> list) {
         if (null != list) {
+            no_connect_tv.setVisibility(View.GONE);
             mList = list;
-            initPersons();
+            mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
+                @Override
+                public void convert(ViewHolder holder, final CustomerModel model, final int position) {
+                    holder.setText(R.id.num_btn, (position + 1) + "");
+                    holder.setText(R.id.person_name_tv, model.getName());
+                    if (model.getSex().equals("2")) {
+                        holder.setText(R.id.sex_tv, "女");
+                    }
+                    holder.setText(R.id.nation_tv, model.getNation());
+                    holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                    holder.setText(R.id.address_tv, model.getAddress());
+                    holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.setMiddleMessage("确定要离店？");
+                            dialog.setOnPositiveListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {//确定
+                                    listener.MakeLeaveHotel(model.getSerialId());//执行离店操作
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog.setOnNegativeListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {//取消
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog.show();
+                        }
+                    });
+                    holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
+                                @Override
+                                public void put(Intent intent) {
+                                    intent.putExtra(Key.Person_Detail_SerialId, model.getSerialId());
+                                }
+                            });
+                        }
+                    });
+                }
+            };
+            mAdapter.notifyDataSetChanged();
+            live_lv.setAdapter(mAdapter);
+        } else {
+            no_connect_tv.setVisibility(View.VISIBLE);
         }
     }
 
@@ -153,8 +149,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
     public void LeaveHotel(boolean result) {
         if (result) {
             MainActivity.mInstance.ToastShort("离店成功");
-            //刷新在住人
-            initPersons();
+            listener.LeavePerson();
         } else {
             MainActivity.mInstance.ToastShort("离店失败，请重新操作！");
         }

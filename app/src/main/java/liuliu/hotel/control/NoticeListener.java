@@ -2,6 +2,7 @@ package liuliu.hotel.control;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import liuliu.hotel.model.DBTZTGInfo;
@@ -15,7 +16,7 @@ import liuliu.hotel.web.WebServiceUtils;
 public class NoticeListener {
     INoticeView mView;
     List<DBTZTGInfo> mList;
-
+    HashMap<String, String> properties;
     public NoticeListener(INoticeView mView) {
         this.mView = mView;
     }
@@ -26,27 +27,30 @@ public class NoticeListener {
      * @param word
      */
     public void searchWord(String word) {
-//        properties.put("lgdm", "1306010001");
-//        properties.put("pcs", "130601400");
-//        properties.put("lastGetTime", "2016-05-25");
-//        WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
-//
-//            @Override
-//            public void callBack(SoapObject result) {
-//                if (null != result) {
-//                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
-//                    if (invokeReturn.isSuccess()) {
-//                        ToastShort("下载成功");
-//
-//                    } else {
+        properties = new HashMap<String, String>();
+        properties.put("lgdm", "1306010001");
+        properties.put("pcs", "130601400");
+        properties.put("lastGetTime", "2016-05-25");
+
+        WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
+
+            @Override
+            public void callBack(SoapObject result) {
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
+
+                    System.out.println("GetAllUndownloadTZTGInfo---" + result);
+                    if (invokeReturn.isSuccess()) {
+//                        mView.loadView();
+                    } else {
 //                        ToastShort("下载失败");
-//                    }
-//                } else {
+                    }
+                } else {
 //                    ToastShort("下载失败");
-//                }
-//                System.out.println("result==" + result);
-//            }
-//        });
+                }
+                System.out.println("result==" + result);
+            }
+        });
         mView.loadView(mList);
     }
 }

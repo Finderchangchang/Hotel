@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.InvokeReturn;
@@ -37,21 +38,33 @@ public class MainSearchListener {
         this.myContext = myContext;
     }
 
+    /**
+     * 在住人员列表
+     */
+    public void LeavePerson() {
+        SearchByWord("2015-01-01", Utils.getNormalTime(), "");
+    }
 
+    /**
+     * 根据指定条件进行查询
+     *
+     * @param startTime 开始入住时间
+     * @param end       结束入住时间
+     * @param homeId    房间号
+     */
     public void SearchByWord(String startTime, String end, String homeId) {
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("RZSJBEGIN", startTime);//入住起始时间
+        properties.put("RZSJBEGIN", "2015-01-01");//入住起始时间
         properties.put("RZSJEND", end);//入住截止时间
         properties.put("FH", homeId);
         properties.put("LKZT", "0");//0在住，1离店
-        properties.put("LGDM", "1306010001");
+        properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         properties.put("YS", "1");
         WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
-
             @Override
             public void callBack(SoapObject result) {
                 List<CustomerModel> list = null;
-                System.out.println("--"+result);
+                System.out.println("--" + result);
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
                     if (invokeReturn.isSuccess()) {
@@ -111,7 +124,6 @@ public class MainSearchListener {
 
             @Override
             public void callBack(SoapObject result) {
-
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetRoomRate");
                     if (invokeReturn.isSuccess()) {

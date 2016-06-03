@@ -86,9 +86,24 @@
             android:layout_height="1dp"
             android:background="@color/item_line"></LinearLayout>
 
-        <net.tsz.afinal.view.TotalListView
-            android:id="@+id/live_lv"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <net.tsz.afinal.view.TotalListView
+                android:id="@+id/live_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/no_connect_tv"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="网络连接超时"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 </ScrollView>

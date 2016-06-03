@@ -14,7 +14,7 @@
         android:id="@+id/person_iv"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
         android:src="@mipmap/no_open_xf" />
 
@@ -30,7 +30,8 @@
         <TextView
             android:id="@+id/person_name_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:text="李婷婷"
             android:textColor="@color/deep_lab"
@@ -40,10 +41,11 @@
         <TextView
             android:id="@+id/address_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:text="河北省保定市新市区先锋街道22"
+            android:text="河北省保定市新市区先锋街道22河北省保定市新市区先锋街道22"
             android:textColor="@color/item_lab"
             android:textSize="14sp" />
     </LinearLayout>

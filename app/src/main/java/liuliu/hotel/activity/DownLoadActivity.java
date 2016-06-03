@@ -28,6 +28,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -196,7 +197,28 @@ public class DownLoadActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_request:
-                request();
+//                request();
+                HashMap<String, String> properties = new HashMap<String, String>();
+                properties.put("lgdm", "1306010001");
+                properties.put("pcs", "130601400");
+                properties.put("lastGetTime", "2016-06-02");
+                WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
+                    @Override
+                    public void callBack(SoapObject result) {
+                        if (null != result) {
+                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
+                            System.out.println("GetAllUndownloadTZTGInfo---" + result);
+                            if (invokeReturn.isSuccess()) {
+                                ToastShort("下载成功");
+//                                cancelRequest();
+                            } else {
+                                ToastShort("下载失败");
+                            }
+                        } else {
+                            ToastShort("下载失败");
+                        }
+                    }
+                });
                 break;
             case R.id.login_dispose:
 
@@ -230,7 +252,7 @@ public class DownLoadActivity extends BaseActivity {
 
                 break;
             case R.id.login_down:
-                HashMap<String, String> properties = new HashMap<String, String>();
+                properties = new HashMap<String, String>();
                 properties.put("lgdm", "1306010001");//旅馆代码
                 properties.put("BSM", "123456");//手机识别码
                 properties.put("SJM", "123456");//随机码
@@ -300,31 +322,6 @@ public class DownLoadActivity extends BaseActivity {
                 break;
             case R.id.login_notice:
                 request();
-                properties = new HashMap<String, String>();
-                properties.put("lgdm", "1306010001");
-                properties.put("pcs", "130601400");
-                properties.put("lastGetTime", "2016-05-25");
-
-                WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
-
-                    @Override
-                    public void callBack(SoapObject result) {
-                        if (null != result) {
-                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
-
-                            System.out.println("GetAllUndownloadTZTGInfo---" + result);
-                            if (invokeReturn.isSuccess()) {
-                                ToastShort("下载成功");
-                            } else {
-                                ToastShort("下载失败");
-                            }
-                        } else {
-                            ToastShort("下载失败");
-                        }
-                        System.out.println("result==" + result);
-                    }
-                });
-                cancelRequest();
                 break;
             case R.id.login_changeCodeTime:
                 properties = new HashMap<String, String>();
@@ -403,6 +400,7 @@ public class DownLoadActivity extends BaseActivity {
                     if (invokeReturn.isSuccess()) {
                         //添加成功
                         System.out.println("离店成功");
+                        cancelRequest();
                     } else {
                         //添加失败
                         System.out.println("离店失败");
@@ -415,25 +413,38 @@ public class DownLoadActivity extends BaseActivity {
 
     }
 
+    HashMap<String, String> properties;
+
     private void request() {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");//如果建立资源，就返回true
         properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//
-        // DisposeServerSource(string lgdm)释放资源
         WebServiceUtils.callWebService(true, "RequestServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
 
             @Override
             public void callBack(SoapObject result) {
                 if (null != result) {
-                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
-                    System.out.println("-----" + result);
-                    if (invokeReturn.isSuccess()) {
-                        ToastShort("下载成功");
-                    } else {
-                        ToastShort("下载失败");
-                    }
-                } else {
-                    ToastShort("下载失败");
+                    HashMap<String, String> properties = new HashMap<String, String>();
+                    properties.put("lgdm", "1306010001");
+                    properties.put("pcs", "130601400");
+                    properties.put("lastGetTime", "2016-06-02");
+                    WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {
+                        @Override
+                        public void callBack(SoapObject result) {
+                            if (null != result) {
+                                InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllUndownloadTZTGInfo");
+                                System.out.println("GetAllUndownloadTZTGInfo---" + result);
+                                if (invokeReturn.isSuccess()) {
+                                    ToastShort("下载成功");
+//                                cancelRequest();
+                                } else {
+                                    ToastShort("下载失败");
+                                }
+                            } else {
+                                ToastShort("下载失败");
+                            }
+                        }
+                    });
                 }
             }
         });
