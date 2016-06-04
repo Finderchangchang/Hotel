@@ -34,7 +34,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/main_zhengjian" />
+            android:src="@mipmap/item_default" />
     </LinearLayout>
 
 

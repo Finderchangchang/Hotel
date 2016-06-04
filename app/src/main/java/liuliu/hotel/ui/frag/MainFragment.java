@@ -63,7 +63,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
     public void initEvents() {
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         listener.LoadMain();//加载百分比数据，以及在住人员数量
-        listener.LeavePerson();
+        listener.LeavePerson("1");
     }
 
     public void onClick(View view) {
@@ -78,7 +78,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
     @Override
     public void GetPersonNum(int hcount, int allhcount, int personcount) {
         live_num_tv.setText(personcount + "");
-        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
+//        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
     }
 
     /**
@@ -150,7 +150,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
     public void LeaveHotel(boolean result) {
         if (result) {
             MainActivity.mInstance.ToastShort("离店成功");
-            listener.LeavePerson();
+            listener.LeavePerson("1");
         } else {
             MainActivity.mInstance.ToastShort("离店失败，请重新操作！");
         }

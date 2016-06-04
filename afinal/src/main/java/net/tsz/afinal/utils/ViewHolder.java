@@ -104,10 +104,9 @@ public class ViewHolder {
      */
     public ViewHolder setCubeImage(int viewId, String url, ImageLoader loader) {
         CubeImageView iv = getView(viewId);
-        if (url == null) {
-            iv.setImageResource(R.mipmap.main_zhengjian);
-        } else {
+        if (url != null) {
             iv.loadImage(loader, url);
+            iv.setVisibility(View.VISIBLE);
         }
         return this;
     }
