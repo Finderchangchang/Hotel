@@ -51,7 +51,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/leave_hotel_btn"
+        android:id="@+id/notice_time"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginBottom="5dp"

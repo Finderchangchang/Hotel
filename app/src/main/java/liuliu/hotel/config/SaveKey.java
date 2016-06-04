@@ -10,4 +10,5 @@ public class SaveKey {
     public static final String KEY_PORT = "PORT";
     public static final String KEY_Hotel_Name = "Hotel_Name";//旅馆名称
     public static final String KEY_Hotel_Id = "Hotel_Id";//旅馆代码
+    public static final String KEY_NOTICE_LASTTIME="notice_time";//通知通告最后更新时间
 }

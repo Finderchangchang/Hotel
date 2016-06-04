@@ -63,14 +63,17 @@ public class Utils {
         }
         return Version.replace("num", "1.0");
     }
+
     /**
      * 获得当前系统时间
+     *
      * @return
      */
-    public static String getNormalTime(){
+    public static String getNormalTime() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         return df.format(new Date());
     }
+
     /**
      * 读取xml文件
      *
@@ -129,37 +132,37 @@ public class Utils {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         System.out.println(ts.toString());//yyyymmddhhmmssfff
         String str = ts.toString().replace(":", "").replace(".", "").replace("-", "").replace(" ", "");
-        if (str.length() < 17) {
+        if (str.length() < 16) {
+            str = str.substring(0);
+        } else if (str.length() < 17) {
             str = str.substring(1);
         } else {
             str = str.substring(2);
         }
         return str;
     }
+
     //比较时间的大小str1小返回true
-    public static boolean DateCompare(String str1,String str2){
-        java.text.DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        java.util.Calendar c1=java.util.Calendar.getInstance();
-        java.util.Calendar c2=java.util.Calendar.getInstance();
-        try
-        {
+    public static boolean DateCompare(String str1, String str2) {
+        java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Calendar c1 = java.util.Calendar.getInstance();
+        java.util.Calendar c2 = java.util.Calendar.getInstance();
+        try {
             c1.setTime(df.parse(str1));
             c2.setTime(df.parse(str2));
-        }catch(java.text.ParseException e){
+        } catch (java.text.ParseException e) {
             System.err.println("格式不正确");
             return false;
         }
-        int result=c1.compareTo(c2);
-        if(result==0){
+        int result = c1.compareTo(c2);
+        if (result == 0) {
             //System.out.println("c1相等c2");
             return true;
-        }
-        else if(result<0){
+        } else if (result < 0) {
             return false;
             //System.out.println("c1小于c2");
-            }
-        else{
-           // System.out.println("c1大于c2");
+        } else {
+            // System.out.println("c1大于c2");
             return true;
         }
     }

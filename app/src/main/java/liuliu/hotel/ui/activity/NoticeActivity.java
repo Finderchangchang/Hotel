@@ -2,6 +2,7 @@ package liuliu.hotel.ui.activity;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
@@ -28,34 +29,46 @@ public class NoticeActivity extends BaseActivity implements INoticeView {
     TextView cha_cancel_tv;
     CommonAdapter<DBTZTGInfo> mAdapter;
     NoticeListener mListener;
-
+@CodeNote(id=R.id.notice_lv)
+    ListView lv;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_notice);
         mInstance = this;
-        mListener = new NoticeListener(this);
+        mListener = new NoticeListener(this,finalDb);
     }
 
     @Override
     public void initEvents() {
         setTitleBar("通知通告");
-        mListener.searchWord(search_word_et.getText().toString().trim());
+        mListener.request();
+        //search_word_et.getText().toString().trim()
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cha_cancel_tv:
-                mListener.searchWord(search_word_et.getText().toString().trim());
+                //mListener.request();
+                //search_word_et.getText().toString().trim()
                 break;
         }
     }
 
     @Override
     public void loadView(List<DBTZTGInfo> mList) {
-        mAdapter = new CommonAdapter<DBTZTGInfo>(mInstance, mList, 0) {
+        mAdapter = new CommonAdapter<DBTZTGInfo>(mInstance, mList, R.layout.item_notice) {
             @Override
             public void convert(ViewHolder holder, DBTZTGInfo dbtztgInfo, int position) {
-                
+
+                if(dbtztgInfo.getIsRead()==1){
+                    holder.setImageResource(R.id.person_iv,R.mipmap.open_xf);
+                }else {
+                    holder.setImageResource(R.id.person_iv, R.mipmap.no_open_xf);
+                }
+                holder.setText(R.id.person_name_tv,dbtztgInfo.getFBR());
+                holder.setText(R.id.address_tv,dbtztgInfo.getTGBT());
+                holder.setText(R.id.notice_time,dbtztgInfo.getFBSJ());
+
             }
         };
     }

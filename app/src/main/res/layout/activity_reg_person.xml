@@ -112,7 +112,6 @@
                     android:text="性    别"
                     android:textColor="@color/total_deep_lab"
                     android:textSize="17sp" />
-
                 <TextView
                     android:id="@+id/xingbie_val_tv"
                     android:layout_width="0dp"
@@ -122,19 +121,16 @@
                     android:text="男"
                     android:textColor="@color/total_shallow_lab"
                     android:textSize="16sp" />
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/select_sanjiao" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/minzu_ll"
                 style="@style/EditTextStyle"
                 android:gravity="center_vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,7 +138,6 @@
                     android:text="民    族"
                     android:textColor="@color/total_deep_lab"
                     android:textSize="17sp" />
-
                 <TextView
                     android:id="@+id/minzu_val_tv"
                     android:layout_width="0dp"
@@ -152,20 +147,16 @@
                     android:text="汉族"
                     android:textColor="@color/total_shallow_lab"
                     android:textSize="16sp" />
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/select_sanjiao" />
             </LinearLayout>
-
-
             <net.tsz.afinal.view.ImageEditText
                 android:id="@+id/address_iet"
                 style="@style/EditTextStyle"
                 app:ie_left_text="地    址" />
-
             <Button
                 android:id="@+id/save_btn"
                 android:layout_width="match_parent"

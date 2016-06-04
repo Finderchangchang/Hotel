@@ -18,6 +18,15 @@ public class DBTZTGInfo implements Serializable {
     private String TGTP;//通告图片
     private String FBR;//发布人
     private String FBSJ;//发布时间
+    private int isRead;//1已读0未读
+
+    public int getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(int isRead) {
+        this.isRead = isRead;
+    }
 
     public int getId() {
         return id;
