@@ -74,6 +74,22 @@ public class Utils {
         return df.format(new Date());
     }
 
+    //将20160302210101转换为yyyy-MM-dd HH:mm:ss
+    public static String DataTimeTO(String time) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat dfstr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+
+        Date date = null;
+        try {
+            date = df.parse(time);
+            return dfstr.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
     /**
      * 读取xml文件
      *

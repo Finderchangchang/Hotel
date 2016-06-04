@@ -1,6 +1,7 @@
 package liuliu.hotel.ui.activity;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,13 +30,14 @@ public class NoticeActivity extends BaseActivity implements INoticeView {
     TextView cha_cancel_tv;
     CommonAdapter<DBTZTGInfo> mAdapter;
     NoticeListener mListener;
-@CodeNote(id=R.id.notice_lv)
+    @CodeNote(id = R.id.notice_lv)
     ListView lv;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_notice);
         mInstance = this;
-        mListener = new NoticeListener(this,finalDb);
+        mListener = new NoticeListener(this, finalDb);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class NoticeActivity extends BaseActivity implements INoticeView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cha_cancel_tv:
-                //mListener.request();
+                mListener.request();
                 //search_word_et.getText().toString().trim()
                 break;
         }
@@ -60,16 +62,26 @@ public class NoticeActivity extends BaseActivity implements INoticeView {
             @Override
             public void convert(ViewHolder holder, DBTZTGInfo dbtztgInfo, int position) {
 
-                if(dbtztgInfo.getIsRead()==1){
-                    holder.setImageResource(R.id.person_iv,R.mipmap.open_xf);
-                }else {
+                if (dbtztgInfo.getIsRead() == 1) {
+                    holder.setImageResource(R.id.person_iv, R.mipmap.open_xf);
+                } else {
                     holder.setImageResource(R.id.person_iv, R.mipmap.no_open_xf);
                 }
-                holder.setText(R.id.person_name_tv,dbtztgInfo.getFBR());
-                holder.setText(R.id.address_tv,dbtztgInfo.getTGBT());
-                holder.setText(R.id.notice_time,dbtztgInfo.getFBSJ());
+                holder.setText(R.id.person_name_tv, dbtztgInfo.getFBR());
+                holder.setText(R.id.address_tv, dbtztgInfo.getTGBT());
+                holder.setText(R.id.notice_time, dbtztgInfo.getFBSJ());
 
             }
         };
+        mAdapter.notifyDataSetChanged();
+        lv.setAdapter(mAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
+
+
 }

@@ -22,7 +22,7 @@ public class NoticeListener {
     INoticeView mView;
     List<DBTZTGInfo> mList = null;
     HashMap<String, String> properties;
-FinalDb finalDb;
+    FinalDb finalDb;
     public NoticeListener(INoticeView mView, FinalDb db) {
         this.mView = mView;
         finalDb=db;
@@ -32,8 +32,8 @@ FinalDb finalDb;
      */
     public void request() {
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("lgdm", "1306010001");//如果建立资源，就返回true
-        properties.put("qyscm", "A0A91-2384F-5FD17-225EA-CB717");//DisposeServerSource(string lgdm)释放资源
+        properties.put("lgdm", "1306010010");//如果建立资源，就返回true
+        properties.put("qyscm", "CDFFB-115B6-0555B-3F0C8-2F716");//DisposeServerSource(string lgdm)释放资源
         WebServiceUtils.callWebService(true, "RequestServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
 
             @Override
@@ -59,7 +59,7 @@ FinalDb finalDb;
      */
     public void searchWord(String word) {
         properties = new HashMap<String, String>();
-        properties.put("lgdm", "1306010001");
+        properties.put("lgdm", "1306010010");
         properties.put("pcs", "130601400");
         properties.put("lastGetTime", "2016-05-25");
 
@@ -76,10 +76,12 @@ FinalDb finalDb;
                         for (Object ob : invokeReturn.getData()) {
                             DBTZTGInfo info=(DBTZTGInfo)ob;
                             info.setIsRead(0);
+                           // info.setFBSJ(Utils.DataTimeTO(info.getFBSJ()));
                             mList.add(info);
                             finalDb.save(info);
                             Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME,"");
                         }
+
 //                        mView.loadView();
                     } else {
 //                        ToastShort("下载失败");
@@ -87,10 +89,13 @@ FinalDb finalDb;
                 } else {
 //                    ToastShort("下载失败");
                 }
+                List<DBTZTGInfo>list=finalDb.findAllByWhere(DBTZTGInfo.class," 1=1 order by FBSJ");
+
+                mView.loadView(mList);
                 System.out.println("result==" + result);
             }
         });
-        mView.loadView(mList);
+
     }
     private void cancelRequest() {
         HashMap<String, String> properties = new HashMap<String, String>();
