@@ -113,8 +113,13 @@ public class AUtils {
      * @param hcount    在住房间数
      */
     public static void showChart(Context context, int count, float range, PieChart pieChart, int allcount,int hcount) {
-        float num =hcount/allcount;
-        int baifenbi=Integer.parseInt(new java.text.DecimalFormat("0").format(num));
+        int baifenbi=0;
+        if(allcount!=0){
+            float num =hcount/allcount;
+             baifenbi=Integer.parseInt(new java.text.DecimalFormat("0").format(num));
+        }
+
+
         PieData pieData = getPieData(context, hcount, allcount);
         pieChart.setHoleColorTransparent(true);
         pieChart.setHoleColor(Color.rgb(205, 205, 205));
@@ -144,7 +149,11 @@ public class AUtils {
         // mChart.setTouchEnabled(false);
 //      mChart.setOnAnimationListener(this);
 
-        pieChart.setCenterText("在住率" + baifenbi*100+"%");  //饼状图中间的文字
+        if(allcount!=0) {
+            pieChart.setCenterText("在住率" + baifenbi * 100 + "%");  //饼状图中间的文字
+        }else{
+            pieChart.setCenterText("在住率" +"0%");  //饼状图中间的文字
+        }
         pieChart.setCenterTextSize(12);
 
         //设置数据
