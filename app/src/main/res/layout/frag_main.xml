@@ -1,109 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:layout_height="280dp"
+        android:layout_marginTop="-80dp">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/title_bg_iv"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:paddingBottom="5dp">
+            android:layout_height="match_parent"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@mipmap/main_top_bg">
-
-                <TextView
-                    android:id="@+id/hotel_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="30dp"
-                    android:text="燕赵大酒店一区彦霖连锁店"
-                    android:textColor="@android:color/white"
-                    android:textSize="26sp" />
-            </LinearLayout>
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/liveing_chart"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="20dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="145dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="在住人数"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/live_num_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="0"
-                    android:textColor="@color/pressed_lab" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="人"
-                    android:textColor="@android:color/black" />
-
-                <Button
-                    android:id="@+id/add_person_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/item_btn_style"
-                    android:text="添加旅客"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-        </RelativeLayout>
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@mipmap/main_top_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/item_line"></LinearLayout>
+            android:layout_height="80dp"
+            android:gravity="center">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <net.tsz.afinal.view.TotalListView
-                android:id="@+id/live_lv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/no_connect_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更新中..."
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <net.tsz.afinal.view.PullScrollView
+        android:id="@+id/main_sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:headerHeight="260dp"
+        app:headerVisibleHeight="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="网络连接超时"
-                android:visibility="gone" />
+                android:layout_height="206dp"
+                android:paddingBottom="5dp">
 
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
 
-    </LinearLayout>
-</ScrollView>
+                    <TextView
+                        android:id="@+id/hotel_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:text="燕赵大酒店一区彦霖连锁店"
+                        android:textColor="@android:color/white"
+                        android:textSize="26sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_alignParentBottom="true"
+
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="145dp"
+                        android:text="在住人数"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/live_num_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="0"
+                        android:textColor="@color/pressed_lab" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="人"
+                        android:textColor="@android:color/black" />
+
+                    <Button
+                        android:id="@+id/add_person_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/item_btn_style"
+                        android:text="添加旅客"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/liveing_chart"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/item_line"></LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <net.tsz.afinal.view.TotalListView
+                    android:id="@+id/live_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/no_connect_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="网络连接超时"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </net.tsz.afinal.view.PullScrollView>
+
+
+</RelativeLayout>

@@ -3,6 +3,7 @@ package liuliu.hotel.ui.frag;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -12,6 +13,7 @@ import net.tsz.afinal.utils.AUtils;
 import net.tsz.afinal.utils.CommonAdapter;
 import net.tsz.afinal.utils.ViewHolder;
 import net.tsz.afinal.view.NormalDialog;
+import net.tsz.afinal.view.PullScrollView;
 import net.tsz.afinal.view.TotalListView;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import liuliu.hotel.utils.Utils;
  * 首页详细内容
  * Created by Administrator on 2016/5/24.
  */
-public class MainFragment extends BaseFragment implements IFMainView {
+public class MainFragment extends BaseFragment implements IFMainView, PullScrollView.OnTurnListener {
     @CodeNote(id = R.id.add_person_btn, click = "onClick")
     Button add_person_btn;
     @CodeNote(id = R.id.live_lv)
@@ -46,6 +48,10 @@ public class MainFragment extends BaseFragment implements IFMainView {
     PieChart liveing_chart;
     @CodeNote(id = R.id.no_connect_tv)
     TextView no_connect_tv;
+    @CodeNote(id = R.id.title_bg_iv)
+    ImageView title_bg_iv;
+    @CodeNote(id = R.id.main_sv)
+    PullScrollView main_sv;
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
@@ -61,9 +67,12 @@ public class MainFragment extends BaseFragment implements IFMainView {
 
     @Override
     public void initEvents() {
+        main_sv.setHeader(title_bg_iv);
+        main_sv.setOnTurnListener(this);
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         listener.LoadMain();//加载百分比数据，以及在住人员数量
         listener.LeavePerson("1");
+        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
     }
 
     public void onClick(View view) {
@@ -78,7 +87,7 @@ public class MainFragment extends BaseFragment implements IFMainView {
     @Override
     public void GetPersonNum(int hcount, int allhcount, int personcount) {
         live_num_tv.setText(personcount + "");
-//        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
+        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
     }
 
     /**
@@ -154,5 +163,10 @@ public class MainFragment extends BaseFragment implements IFMainView {
         } else {
             MainActivity.mInstance.ToastShort("离店失败，请重新操作！");
         }
+    }
+
+    @Override
+    public void onTurn() {
+
     }
 }

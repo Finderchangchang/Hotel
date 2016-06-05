@@ -129,7 +129,7 @@ public class MainSearchListener {
                         for (int i = 0; i < 3; i++) {
                             nums[i] = Integer.parseInt(threeNum[i]);
                         }
-//                        mMain.GetPersonNum(nums[0], nums[1], nums[2]);
+                        mMain.GetPersonNum(nums[0], nums[1], nums[2]);
                     }
                 }
                 System.out.println("result==" + result);
