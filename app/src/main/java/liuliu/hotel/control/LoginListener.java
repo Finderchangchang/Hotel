@@ -26,17 +26,18 @@ public class LoginListener {
     FinalDb finalDb;
     List<DBLGInfo> myList;
     DBLGInfo info = null;
+
     public LoginListener(INoticeView mView, FinalDb db) {
         this.mView = mView;
         finalDb = db;
     }
 
     /**
-     * 请求下载字典信息
+     * 请求资源
      */
     public void request() {
         myList = finalDb.findAll(DBLGInfo.class);
-        if(myList.size()>0) {
+        if (myList.size() > 0) {
             HashMap<String, String> properties = new HashMap<String, String>();
             properties.put("lgdm", myList.get(0).getLGDM());//如果建立资源，就返回true
             properties.put("qyscm", myList.get(0).getQYSCM());//DisposeServerSource(string lgdm)释放资源
@@ -58,7 +59,7 @@ public class LoginListener {
                     }
                 }
             });
-        }else{
+        } else {
             mView.loadView(null);
         }
     }
@@ -73,7 +74,7 @@ public class LoginListener {
         if (myList.size() > 0) {
             info = myList.get(0);
             String time = Utils.ReadString(SaveKey.KEY_NOTICE_LASTTIME);
-            System.out.println("time=="+time);
+            System.out.println("time==" + time);
             if (time.equals("")) {
                 time = "2016-01-01";
             }
@@ -108,12 +109,12 @@ public class LoginListener {
                     } else {
 //                    ToastShort("下载失败");
                     }
-                List<DBTZTGInfo> list = finalDb.findAllByWhere(DBTZTGInfo.class, " 1=1 order by FBSJ desc");
-                if (list.size() > 0) {
-                    Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME, list.get(0).getFBSJ());
-                }else{
-                    Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME, finalTime);
-                }
+                    List<DBTZTGInfo> list = finalDb.findAllByWhere(DBTZTGInfo.class, " 1=1 order by FBSJ desc");
+                    if (list.size() > 0) {
+                        Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME, list.get(0).getFBSJ());
+                    } else {
+                        Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME, finalTime);
+                    }
 
                     System.out.println("result==" + result);
                 }
@@ -121,9 +122,10 @@ public class LoginListener {
         }
     }
 
+    //释放资源
     private void cancelRequest() {
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("lgdm",info.getLGDM());//如果建立资源，就返回true
+        properties.put("lgdm", info.getLGDM());//如果建立资源，就返回true
         WebServiceUtils.callWebService(true, "DisposeServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
 
             @Override

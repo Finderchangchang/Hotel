@@ -101,6 +101,7 @@ public class NoticeListener {
 
     }
 
+    //释放资源
     private void cancelRequest() {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");//如果建立资源，就返回true
