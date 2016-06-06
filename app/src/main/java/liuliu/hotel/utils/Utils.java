@@ -2,6 +2,7 @@ package liuliu.hotel.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +39,7 @@ import java.lang.reflect.Constructor;
 import java.net.URLEncoder;
 import java.util.Calendar;
 
+import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.config.SaveKey;
@@ -45,6 +48,16 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    /*自定义加载条*/
+    public static Dialog ProgressDialog(Context context, Dialog progressDialog, String val, boolean istrue) {
+        progressDialog = new Dialog(context, R.style.progress_dialog);
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setCancelable(istrue);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView msg = (TextView) progressDialog.findViewById(R.id.id_tv_loadingmsg);
+        msg.setText(val);
+        return progressDialog;
+    }
     /**
      * 获取当前应用的版本号：
      */

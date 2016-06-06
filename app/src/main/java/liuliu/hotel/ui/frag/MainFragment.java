@@ -71,7 +71,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
         main_sv.setOnTurnListener(this);
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         listener.LoadMain();//加载百分比数据，以及在住人员数量
-        listener.LeavePerson("1");
+        listener.LeavePerson(1);
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
     }
 
@@ -159,7 +159,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
     public void LeaveHotel(boolean result) {
         if (result) {
             MainActivity.mInstance.ToastShort("离店成功");
-            listener.LeavePerson("1");
+            listener.LeavePerson(1);
         } else {
             MainActivity.mInstance.ToastShort("离店失败，请重新操作！");
         }

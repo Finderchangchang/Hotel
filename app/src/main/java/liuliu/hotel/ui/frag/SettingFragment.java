@@ -1,5 +1,6 @@
 package liuliu.hotel.ui.frag;
 
+import android.app.Dialog;
 import android.widget.TextView;
 
 import android.bluetooth.BluetoothAdapter;
@@ -36,7 +37,7 @@ import liuliu.hotel.utils.Utils;
 public class SettingFragment extends BaseFragment implements IDownHotelView {
     @CodeNote(id = R.id.title_name_tv)
     TextView center_title_tv;
-    SpinnerDialog dialog;//选择
+    SpinnerDialog Contentdialog;//选择
     @CodeNote(id = R.id.tongzhi_wode_ll, click = "onClick")
     LinearLayout tongzhi;
     @CodeNote(id = R.id.update_sys_wode_ll, click = "onClick")
@@ -54,7 +55,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
     @CodeNote(id = R.id.wode_blueth_name)
     TextView myBlooth;
     SettingSysListener listener;
-
+    Dialog dialog;
     @Override
     public void initViews() {
         setContentView(R.layout.frag_setting);
@@ -67,7 +68,9 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
         dialog = new SpinnerDialog(MainActivity.mInstance);
         dialog.setCanceledOnTouchOutside(true);
         myBlooth.setText(Utils.ReadString("BlueToothName"));
+        getBluetooth();
     }
+
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -76,7 +79,9 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 break;
             case R.id.update_zidian_wode_ll:
                 //更新字典
-                listener.refushCode();
+                dialog = Utils.ProgressDialog(MainActivity.mInstance, dialog, "更新字典中，请稍候...", false);
+                dialog.show();
+                listener.request();
                 break;
             case R.id.tongzhi_wode_ll:
                 Utils.IntentPost(NoticeActivity.class);
@@ -93,9 +98,9 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 break;
             case R.id.lanya_setting_wode_ll:
                 //蓝牙设置选择
-                dialog.setListView(listblue);
-                dialog.show();
-                dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
+                Contentdialog.setListView(listblue);
+                Contentdialog.show();
+                Contentdialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
                     public void onClick(int position, CodeModel val) {
                         myBlooth.setText(val.getVal());
@@ -137,6 +142,8 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
 
     @Override
     public void checkHotel(boolean result, String mes) {
+        dialog.dismiss();
         MainActivity.mInstance.ToastShort(mes);
+
     }
 }

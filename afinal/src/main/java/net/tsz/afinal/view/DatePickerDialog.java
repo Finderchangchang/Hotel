@@ -71,7 +71,6 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         data = sdf.format(calendar.getTime());
         dig.setTitle(data);
-
     }
 
     //实现将初始日期时间2012年07月11日拆分成年月日，并赋值给calender

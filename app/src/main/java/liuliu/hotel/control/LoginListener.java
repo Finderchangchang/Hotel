@@ -82,7 +82,7 @@ public class LoginListener {
             properties = new HashMap<String, String>();
             properties.put("lgdm", info.getLGDM());
             properties.put("pcs", info.getSSXQ());
-            properties.put("lastGetTime", "2016/5/30 17:02:00");
+            properties.put("lastGetTime",time);
 
             final String finalTime = time;
             WebServiceUtils.callWebService(true, "GetAllUndownloadTZTGInfo", properties, new WebServiceUtils.WebServiceCallBack() {

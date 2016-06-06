@@ -55,6 +55,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     DatePickerDialog datePickerDialog;
     NormalDialog dialog;
     MainSearchListener mListener;
+    int pageNum = 1;
 
     @Override
     public void initViews() {
@@ -65,21 +66,22 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
 
     @Override
     public void initEvents() {
+        start_time_et.setText(Utils.getNormalTime().substring(0,10));
+        end_time_et.setText(Utils.getNormalTime().substring(0,10));
         center_title_tv.setText("人员查询");
         mListener = new MainSearchListener(MainActivity.mInstance, this);
-
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_btn://查询按钮
-
+                mListener.SearchByWord(start_time_et.getText().toString(), end_time_et.getText().toString(), house_num_et.getText().toString().trim(), pageNum);
                 break;
-            case R.id.rili_left_ll:
+            case R.id.rili_left_ll://起始时间
                 datePickerDialog = new DatePickerDialog(MainActivity.mInstance, "");
                 datePickerDialog.datePickerDialog(start_time_et);
                 break;
-            case R.id.rili_right_ll:
+            case R.id.rili_right_ll://结束时间
                 datePickerDialog = new DatePickerDialog(MainActivity.mInstance, "");
                 datePickerDialog.datePickerDialog(end_time_et);
                 break;
@@ -88,50 +90,57 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
 
     @Override
     public void loadPerson(List<CustomerModel> mList) {
-        mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
-            @Override
-            public void convert(ViewHolder holder, final CustomerModel model, final int position) {
-                holder.setText(R.id.num_btn, (position + 1) + "");
-                //图片
-                holder.setText(R.id.person_name_tv, model.getName());
-                if (model.getSex().equals("2")) {
-                    holder.setText(R.id.sex_tv, "女");
+        if(null!=mList||mList.size()==0) {
+
+
+            mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
+                @Override
+                public void convert(ViewHolder holder, final CustomerModel model, final int position) {
+                    holder.setText(R.id.num_btn, (position + 1) + "");
+                    //图片
+                    holder.setText(R.id.person_name_tv, model.getName());
+                    if (model.getSex().equals("2")) {
+                        holder.setText(R.id.sex_tv, "女");
+                    }
+                    holder.setText(R.id.nation_tv, model.getNation());
+                    holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                    holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.setMiddleMessage("确定要离店？");
+                            dialog.setOnPositiveListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {//确定
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog.setOnNegativeListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {//取消
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog.show();
+                        }
+                    });
+                    holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
+                                @Override
+                                public void put(Intent intent) {
+                                    intent.putExtra(Key.Person_Detail_Model, model);
+                                }
+                            });
+                        }
+                    });
                 }
-                holder.setText(R.id.nation_tv, model.getNation());
-                holder.setText(R.id.hotel_num_tv, model.getRoomId());
-                holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.setMiddleMessage("确定要离店？");
-                        dialog.setOnPositiveListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {//确定
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.setOnNegativeListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {//取消
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.show();
-                    }
-                });
-                holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
-                            @Override
-                            public void put(Intent intent) {
-                                intent.putExtra(Key.Person_Detail_Model, model);
-                            }
-                        });
-                    }
-                });
-            }
-        };
-        live_lv.setAdapter(mAdapter);
-        AUtils.setListViewHeight(live_lv);
+            };
+            live_lv.setAdapter(mAdapter);
+            AUtils.setListViewHeight(live_lv);
+        }else{
+
+        }
+
     }
 }

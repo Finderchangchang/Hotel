@@ -86,7 +86,7 @@ public class DownHotelListener {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "RequestServerSource");
                     System.out.println(result);
                     if (invokeReturn.isSuccess()) {
-
+                        Utils.WriteString("CodeLastChangeTime", Utils.getNormalTime());
                         getCodeServer("ZJLX");
                     } else {
                         mView.checkHotel(false, invokeReturn.getMessage());
@@ -123,7 +123,7 @@ public class DownHotelListener {
                                             getCodeServer("MZ");//民族
                                         }
                                         if (name.equals("MZ")) {
-                                           // getCodeServer("SSXQ");//辖区
+                                            // getCodeServer("SSXQ");//辖区
                                             getCodeServer("QFJG");//籍贯
                                         }
 //                                        if(name.equals("SSXQ")){
@@ -131,7 +131,7 @@ public class DownHotelListener {
 //                                        }
                                     }
                                 }
-                            }else{
+                            } else {
                                 mView.checkHotel(false, "字典下载失败，请重新下载！");
                             }
                             if (name.equals("QFJG")) {//籍贯

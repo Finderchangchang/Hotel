@@ -24,8 +24,8 @@ import liuliu.hotel.web.XmlUtils;
  * Created by Administrator on 2016/5/30.
  */
 public class MainSearchListener {
-    IFMainView mMain;
-    IFSearchView mSearch;
+    IFMainView mMain=null;
+    IFSearchView mSearch=null;
     Context myContext;
 
     public MainSearchListener(Context context, IFMainView view) {
@@ -41,7 +41,7 @@ public class MainSearchListener {
     /**
      * 在住人员列表
      */
-    public void LeavePerson(String page_num) {
+    public void LeavePerson(int page_num) {
         SearchByWord("2015-01-01", Utils.getNormalTime().substring(0, 10), "", page_num);
     }
 
@@ -53,14 +53,14 @@ public class MainSearchListener {
      * @param homeId    房间号
      * @param page_num  当前页数
      */
-    public void SearchByWord(String startTime, String end, String homeId, String page_num) {
+    public void SearchByWord(String startTime, String end, String homeId, int page_num) {
         HashMap<String, String> properties = new HashMap<String, String>();
-        properties.put("RZSJBEGIN", "2015-01-01");//入住起始时间
+        properties.put("RZSJBEGIN", startTime);//入住起始时间
         properties.put("RZSJEND", end);//入住截止时间
         properties.put("FH", homeId);
         properties.put("LKZT", "0");//0在住，1离店
         properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
-        properties.put("YS", page_num);
+        properties.put("YS", page_num+"");
         WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
             @Override
             public void callBack(SoapObject result) {
@@ -72,12 +72,27 @@ public class MainSearchListener {
                         for (int i = 0; i < invokeReturn.getData().size(); i++) {
                             list.add((CustomerModel) invokeReturn.getData().get(i));
                         }
-                        mMain.LoadStayPerson(list);
+                        if(mMain!=null) {
+                            mMain.LoadStayPerson(list);
+                        }
+                        if(mSearch!=null){
+                            mSearch.loadPerson(list);
+                        }
                     } else {
-                        mMain.LoadStayPerson(null);
+                        if(mMain!=null) {
+                            mMain.LoadStayPerson(null);
+                        }
+                        if(mSearch!=null){
+                            mSearch.loadPerson(null);
+                        }
                     }
                 } else {
-                    mMain.LoadStayPerson(null);
+                    if(mMain!=null) {
+                        mMain.LoadStayPerson(null);
+                    }
+                    if(mSearch!=null){
+                        mSearch.loadPerson(null);
+                    }
                 }
             }
         });
