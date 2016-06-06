@@ -40,6 +40,7 @@ public class SoapObjectUtils {
                     lg.setLGDZ(soaplist.getProperty("LGDZ").toString());
                     lg.setLGMC(soaplist.getProperty("LGMC").toString());
                     lg.setQYSCM(soaplist.getProperty("QYSCM").toString());
+                    lg.setSSXQ(soaplist.getProperty("SSXQ").toString());
                     list.add(lg);
                 } else if (method.equals("GetAllCodeLastChangeTime")) {
 

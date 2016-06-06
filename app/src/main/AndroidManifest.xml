@@ -41,11 +41,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.NoticeDetailActivity"/>
         <activity android:name=".activity.BluetoothListActivity" />
         <activity android:name=".ui.activity.DownHotelActivity" />
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.PersonDetailActivity" />
         <activity android:name=".ui.activity.RevisePwdActivity" />
-        <activity android:name=".ui.activity.NoticeActivity" />
+        <activity android:name=".ui.activity.NoticeActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 </manifest>

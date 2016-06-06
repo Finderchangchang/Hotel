@@ -24,7 +24,7 @@ import liuliu.hotel.ui.activity.MainActivity;
 public abstract class BaseActivity extends BActiviy {
     public FinalDb finalDb;
     TextView title_name_tv;
-    Toolbar toolbar;
+    public Toolbar toolbar;
     public ImageLoader mLoader;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public abstract class BaseActivity extends BActiviy {
             }
         });
     }
+
 
     public abstract void initViews();
 

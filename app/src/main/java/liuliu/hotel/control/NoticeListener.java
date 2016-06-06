@@ -23,10 +23,12 @@ public class NoticeListener {
     List<DBTZTGInfo> mList = null;
     HashMap<String, String> properties;
     FinalDb finalDb;
+
     public NoticeListener(INoticeView mView, FinalDb db) {
         this.mView = mView;
-        finalDb=db;
+        finalDb = db;
     }
+
     /**
      * 请求下载字典信息
      */
@@ -44,7 +46,7 @@ public class NoticeListener {
                     if (invokeReturn.isSuccess()) {
                         searchWord("");
                     } else {
-                       // mView.checkHotel(false, invokeReturn.getMessage());
+                        // mView.checkHotel(false, invokeReturn.getMessage());
                     }
                 } else {
                     //mView.checkHotel(false, "网络错误！");
@@ -52,6 +54,7 @@ public class NoticeListener {
             }
         });
     }
+
     /**
      * 根据指定内容进行查询
      *
@@ -74,14 +77,12 @@ public class NoticeListener {
                     cancelRequest();
                     if (invokeReturn.isSuccess()) {
                         for (Object ob : invokeReturn.getData()) {
-                            DBTZTGInfo info=(DBTZTGInfo)ob;
+                            DBTZTGInfo info = (DBTZTGInfo) ob;
                             info.setIsRead(0);
-                           // info.setFBSJ(Utils.DataTimeTO(info.getFBSJ()));
+                            // info.setFBSJ(Utils.DataTimeTO(info.getFBSJ()));
                             mList.add(info);
                             finalDb.save(info);
-                            Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME,"");
                         }
-
 //                        mView.loadView();
                     } else {
 //                        ToastShort("下载失败");
@@ -89,14 +90,17 @@ public class NoticeListener {
                 } else {
 //                    ToastShort("下载失败");
                 }
-                List<DBTZTGInfo>list=finalDb.findAllByWhere(DBTZTGInfo.class," 1=1 order by FBSJ");
-
-                mView.loadView(mList);
+                List<DBTZTGInfo> list = finalDb.findAllByWhere(DBTZTGInfo.class, " 1=1 order by FBSJ desc");
+                if (list.size() > 0) {
+                    Utils.WriteString(SaveKey.KEY_NOTICE_LASTTIME, list.get(0).getFBSJ());
+                }
+                mView.loadView(list);
                 System.out.println("result==" + result);
             }
         });
 
     }
+
     private void cancelRequest() {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", "1306010001");//如果建立资源，就返回true

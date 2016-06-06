@@ -9,12 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
+import net.tsz.afinal.model.CodeModel;
 
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
 import liuliu.hotel.control.DownHotelListener;
 import liuliu.hotel.control.IDownHotelView;
+import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.utils.Utils;
 
 /**
@@ -56,6 +58,8 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
             Utils.IntentPost(LoginActivity.class);
             this.finish();//关闭当前页面
         } else {
+            finalDb.deleteAll(DBLGInfo.class);
+            finalDb.deleteAll(CodeModel.class);
             ToastShort(mes);
             daima_et.setEnabled(true);
             down_btn.setText("下载");

@@ -14,14 +14,18 @@ import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
 import liuliu.hotel.config.SaveKey;
+import liuliu.hotel.control.INoticeView;
+import liuliu.hotel.control.LoginListener;
+import liuliu.hotel.control.NoticeListener;
 import liuliu.hotel.model.DBLGInfo;
+import liuliu.hotel.model.DBTZTGInfo;
 import liuliu.hotel.utils.Utils;
 
 /**
  * 用户登录页面
  * Created by Administrator on 2016/5/19.
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements INoticeView {
     public static LoginActivity mInstance;
     @CodeNote(id = R.id.hotel_name_et)
     EditText hotel_name_et;
@@ -31,11 +35,13 @@ public class LoginActivity extends BaseActivity {
     Button login_btn;
     @CodeNote(id = R.id.back_setting_iv, click = "onClick")
     ImageView back_setting_iv;
+    LoginListener listener;
 
     @Override
     public void initViews() {
         setContentView(R.layout.activity_login);
         mInstance = this;
+        listener = new LoginListener(this, finalDb);
     }
 
     @Override
@@ -49,9 +55,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.login_btn:
                 List<DBLGInfo> list = finalDb.findAllByWhere(DBLGInfo.class, "LGMC='" + hotel_name_et.getText() + "' and LoginPwd='" + pwd_et.getText().toString().trim() + "'");
                 if (list.size() > 0) {
-                    ToastShort("登录成功！");
-                    Utils.IntentPost(MainActivity.class);
-                    this.finish();
+                    listener.request();
                 } else {
                     ToastShort("密码错误，请重新输入");
                 }
@@ -65,5 +69,12 @@ public class LoginActivity extends BaseActivity {
                 });
                 break;
         }
+    }
+
+    @Override
+    public void loadView(List<DBTZTGInfo> mList) {
+        ToastShort("登录成功！");
+        Utils.IntentPost(MainActivity.class);
+        this.finish();
     }
 }
