@@ -298,7 +298,7 @@ public class Utils {
         return "";
     }
 
-    public static final String allChar = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String allChar = "0123456789";
 
     /**
      * 返回一个定长的随机字符串(只包含大小写字母、数字)

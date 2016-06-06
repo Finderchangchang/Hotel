@@ -43,4 +43,5 @@ public abstract class BaseFragment extends Fragment {
     public void setContentView(int layoutId) {
         mLayId = layoutId;
     }
+
 }

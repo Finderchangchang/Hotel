@@ -85,7 +85,7 @@ public class PullScrollView extends ScrollView {
     /**
      * 状态变化时的监听器.
      */
-    private OnTurnListener mOnTurnListener;
+    private OnScrollChange mOnScrollChange;
 
     private enum State {
         /**
@@ -123,7 +123,6 @@ public class PullScrollView extends ScrollView {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        // set scroll mode
         setOverScrollMode(OVER_SCROLL_NEVER);
 
         if (null != attrs) {
@@ -147,13 +146,8 @@ public class PullScrollView extends ScrollView {
         mHeader = view;
     }
 
-    /**
-     * 设置状态改变时的监听器
-     *
-     * @param turnListener
-     */
-    public void setOnTurnListener(OnTurnListener turnListener) {
-        mOnTurnListener = turnListener;
+    public void setOnScrollChange(OnScrollChange mOnScrollChange) {
+        this.mOnScrollChange = mOnScrollChange;
     }
 
     @SuppressLint("MissingSuperCall")
@@ -174,20 +168,23 @@ public class PullScrollView extends ScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return onTouchEvent(ev) || super.onInterceptTouchEvent(ev);
+        onTouchEvent(ev);
+        super.onInterceptTouchEvent(ev);
+        return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        mOnScrollChange.onState(ev);
         if (mContentView != null) {
             int action = ev.getAction();
             switch (action) {
-                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_DOWN://按下
                     mStartPoint.set(ev.getX(), ev.getY());
                     mCurrentTop = mInitTop = mHeader.getTop();
                     mCurrentBottom = mInitBottom = mHeader.getBottom();
                     return super.onTouchEvent(ev);
-                case MotionEvent.ACTION_MOVE:
+                case MotionEvent.ACTION_MOVE://移动
                     float deltaY = Math.abs(ev.getY() - mStartPoint.y);
                     if (deltaY > 10 && deltaY > Math.abs(ev.getX() - mStartPoint.x)) {
                         mHeader.clearAnimation();
@@ -195,16 +192,16 @@ public class PullScrollView extends ScrollView {
                         doActionMove(ev);
                     }
                     break;
-                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_UP://离开
                     // 回滚动画
                     if (isNeedAnimation()) {
                         rollBackAnimation();
                     }
 
                     if (getScrollY() == 0) {
+                        Log.i("event", "" + ev.getY());
                         mState = State.NORMAL;
                     }
-
                     isMoving = false;
                     break;
                 default:
@@ -222,7 +219,7 @@ public class PullScrollView extends ScrollView {
                 Log.w(LOG_TAG, e);
             }
         }
-        return isHandle;
+        return false;
     }
 
     /**
@@ -285,7 +282,6 @@ public class PullScrollView extends ScrollView {
             if (top <= headerBottom) {
                 // 移动content view
                 mContentView.layout(mContentRect.left, top, mContentRect.right, bottom);
-
                 // 移动header view
                 mHeader.layout(mHeader.getLeft(), mCurrentTop, mHeader.getRight(), mCurrentBottom);
             }
@@ -305,13 +301,7 @@ public class PullScrollView extends ScrollView {
         innerAnim.setDuration(200);
         mContentView.startAnimation(innerAnim);
         mContentView.layout(mContentRect.left, mContentRect.top, mContentRect.right, mContentRect.bottom);
-
         mContentRect.setEmpty();
-
-        // 回调监听器
-        if (mCurrentTop > mInitTop + TURN_DISTANCE && mOnTurnListener != null) {
-            mOnTurnListener.onTurn();
-        }
     }
 
     /**
@@ -322,14 +312,10 @@ public class PullScrollView extends ScrollView {
     }
 
     /**
-     * 翻转事件监听器
-     *
-     * @author markmjw
+     * 监听移动滚动状态
      */
-    public interface OnTurnListener {
-        /**
-         * 翻转回调方法
-         */
-        public void onTurn();
+    public interface OnScrollChange {
+        void onState(MotionEvent event);
     }
+
 }

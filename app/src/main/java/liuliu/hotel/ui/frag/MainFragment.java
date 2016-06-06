@@ -1,9 +1,15 @@
 package liuliu.hotel.ui.frag;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -13,6 +19,7 @@ import net.tsz.afinal.utils.AUtils;
 import net.tsz.afinal.utils.CommonAdapter;
 import net.tsz.afinal.utils.ViewHolder;
 import net.tsz.afinal.view.NormalDialog;
+import net.tsz.afinal.view.PullListView;
 import net.tsz.afinal.view.PullScrollView;
 import net.tsz.afinal.view.TotalListView;
 
@@ -35,11 +42,11 @@ import liuliu.hotel.utils.Utils;
  * 首页详细内容
  * Created by Administrator on 2016/5/24.
  */
-public class MainFragment extends BaseFragment implements IFMainView, PullScrollView.OnTurnListener {
+public class MainFragment extends BaseFragment implements IFMainView, PullScrollView.OnScrollChange {
     @CodeNote(id = R.id.add_person_btn, click = "onClick")
     Button add_person_btn;
     @CodeNote(id = R.id.live_lv)
-    TotalListView live_lv;
+    PullListView live_lv;
     @CodeNote(id = R.id.hotel_name_tv)
     TextView hotel_name_tv;
     @CodeNote(id = R.id.live_num_tv)
@@ -50,12 +57,14 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
     TextView no_connect_tv;
     @CodeNote(id = R.id.title_bg_iv)
     ImageView title_bg_iv;
-    @CodeNote(id = R.id.main_sv)
+    @CodeNote(id = R.id.main_sv, click = "onClick")
     PullScrollView main_sv;
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
     MainSearchListener listener;
+    @CodeNote(id = R.id.title_shuaxin_ll)
+    LinearLayout title_shuaxin_ll;
 
     @Override
     public void initViews() {
@@ -68,7 +77,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
     @Override
     public void initEvents() {
         main_sv.setHeader(title_bg_iv);
-        main_sv.setOnTurnListener(this);
+        main_sv.setOnScrollChange(this);
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         listener.LoadMain();//加载百分比数据，以及在住人员数量
         listener.LeavePerson(1);
@@ -80,10 +89,18 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
             case R.id.add_person_btn://点击添加按钮触发事件
                 Utils.IntentPost(RegPersonActivity.class);
                 break;
+            case R.id.main_sv:
+                MainActivity.mInstance.ToastShort("what");
+                break;
         }
     }
 
 
+    /**
+     * @param hcount      在住房间数
+     * @param allhcount   全部房间数
+     * @param personcount 在住总人数
+     */
     @Override
     public void GetPersonNum(int hcount, int allhcount, int personcount) {
         live_num_tv.setText(personcount + "");
@@ -94,7 +111,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
      * @param list 在住人员
      */
     @Override
-    public void LoadStayPerson(List<CustomerModel> list) {
+    public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh) {
         if (null != list) {
             no_connect_tv.setVisibility(View.GONE);
             mList = list;
@@ -145,6 +162,24 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
             };
             mAdapter.notifyDataSetChanged();
             live_lv.setAdapter(mAdapter);
+            live_lv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.mInstance.ToastShort("点击哈哈");
+                }
+            });
+            live_lv.setOnItemClickListener(
+                    new PullListView.OnItemClickListener() {
+                        @Override
+                        public void onClick(View v, int position) {
+
+                        }
+                    }
+            );
+            title_shuaxin_ll.setVisibility(View.GONE);
+            if (isRefresh) {
+                MainActivity.mInstance.ToastShort("更新成功");
+            }
         } else {
             no_connect_tv.setVisibility(View.VISIBLE);
         }
@@ -165,8 +200,35 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
         }
     }
 
-    @Override
-    public void onTurn() {
+    float start_y;//开始位置
+    float end_y;//结束位置
+    float start_sl;//scrollview起始位置
 
+    /**
+     * @param event
+     */
+    @Override
+    public void onState(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN://按下
+                start_y = event.getY();
+                start_sl = main_sv.getScrollY();
+                break;
+            case MotionEvent.ACTION_MOVE://滚动
+                if (start_sl == 0 && (event.getY() - start_y) > 100) {
+                    title_shuaxin_ll.setVisibility(View.VISIBLE);
+                } else {
+                    title_shuaxin_ll.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case MotionEvent.ACTION_UP://抬起
+                end_y = event.getY();
+                if (start_sl == 0 && (end_y - start_y) > 100) {
+                    listener.LeavePerson(1);
+                } else {
+                    title_shuaxin_ll.setVisibility(View.INVISIBLE);
+                }
+                break;
+        }
     }
 }

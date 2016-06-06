@@ -2,11 +2,9 @@ package net.tsz.afinal.view;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import net.tsz.afinal.R;
@@ -17,7 +15,6 @@ import net.tsz.afinal.R;
 public class NormalDialog extends Dialog {
     TextView title;
     Button ensure_btn, cancel_btn;
-    EditText middle_et;
     TextView mes;
 
     public NormalDialog(Context context) {
@@ -32,7 +29,6 @@ public class NormalDialog extends Dialog {
                 dismiss();
             }
         });
-        middle_et = (EditText) mView.findViewById(R.id.middle_et_ll_dialog);
         mes = (TextView) mView.findViewById(R.id.middle_et_ll_dialog_mes);
         super.setContentView(mView);
     }
@@ -42,11 +38,6 @@ public class NormalDialog extends Dialog {
         title.setText(tit);
     }
 
-    /*为中部的EditText赋值*/
-    public void setMiddleVal(String val) {
-        middle_et.setVisibility(View.VISIBLE);
-        middle_et.setText(val);
-    }
 
     //中间提示信息
     public void setMiddleMessage(String text) {
@@ -61,11 +52,6 @@ public class NormalDialog extends Dialog {
     /*设置右侧按钮文字*/
     public void setRightButtonVal(String val) {
         cancel_btn.setText(val);
-    }
-
-    /*获得文本框的文字内容*/
-    public String getMiddleVal() {
-        return middle_et.getText().toString();
     }
 
     /**
