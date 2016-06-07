@@ -18,7 +18,7 @@ import java.util.List;
 
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
-import liuliu.hotel.ui.frag.MainFragment;
+import liuliu.hotel.ui.frag.MainFragments;
 import liuliu.hotel.ui.frag.SearchFragment;
 import liuliu.hotel.ui.frag.SettingFragment;
 import liuliu.hotel.utils.Utils;
@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
     TextView search_tv;
     @CodeNote(id = R.id.setting_tv)
     TextView setting_tv;
-    MainFragment main_frag;
+    MainFragments main_frag;
     SearchFragment search_frag;
     SettingFragment setting_frag;
     //底部菜单相关联
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
             case 0:
                 if (main_frag == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
-                    main_frag = new MainFragment();
+                    main_frag = new MainFragments();
                     transaction.add(R.id.main_frag, main_frag);
                 } else {
                     // 如果MessageFragment不为空，则直接将它显示出来

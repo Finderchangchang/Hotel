@@ -28,4 +28,5 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile files('libs/mpandroidchartlibrary-2-1-6.jar')//圆盘百分比
     compile files('libs/volley.jar')
+    compile 'com.android.support:recyclerview-v7:22.2.0'
 }

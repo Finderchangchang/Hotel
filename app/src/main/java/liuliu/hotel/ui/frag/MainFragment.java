@@ -46,7 +46,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
     @CodeNote(id = R.id.add_person_btn, click = "onClick")
     Button add_person_btn;
     @CodeNote(id = R.id.live_lv)
-    PullListView live_lv;
+    TotalListView live_lv;
     @CodeNote(id = R.id.hotel_name_tv)
     TextView hotel_name_tv;
     @CodeNote(id = R.id.live_num_tv)
@@ -59,6 +59,8 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
     ImageView title_bg_iv;
     @CodeNote(id = R.id.main_sv, click = "onClick")
     PullScrollView main_sv;
+    @CodeNote(id = R.id.bottom_loading_more_tv)
+    TextView bottom_loading_more_tv;
     CommonAdapter<CustomerModel> mAdapter;
     List<CustomerModel> mList;
     NormalDialog dialog;
@@ -162,20 +164,17 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
             };
             mAdapter.notifyDataSetChanged();
             live_lv.setAdapter(mAdapter);
-            live_lv.setOnClickListener(new View.OnClickListener() {
+            live_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View v) {
-                    MainActivity.mInstance.ToastShort("点击哈哈");
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
+                        @Override
+                        public void put(Intent intent) {
+                            intent.putExtra(Key.Person_Detail_Model, mList.get(position));
+                        }
+                    });
                 }
             });
-            live_lv.setOnItemClickListener(
-                    new PullListView.OnItemClickListener() {
-                        @Override
-                        public void onClick(View v, int position) {
-
-                        }
-                    }
-            );
             title_shuaxin_ll.setVisibility(View.GONE);
             if (isRefresh) {
                 MainActivity.mInstance.ToastShort("更新成功");

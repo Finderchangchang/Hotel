@@ -106,7 +106,7 @@ public class MainSearchListener {
      */
     public void MakeLeaveHotel(String serialId) {
         CustomerModel customerModel = new CustomerModel();
-        customerModel.setSerialId("1306010001201605219502");//人员序列号
+        customerModel.setSerialId(serialId);//人员序列号
         customerModel.setCheckOutTime(Utils.getNormalTime());//离店时间
         String xml = customerModel.getLeaveXml(Utils.getAssetsFileData("checkOutNativeParameter.xml"));
         WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
