@@ -481,7 +481,7 @@ public class DownLoadActivity extends BaseActivity {
         CustomerModel customerModel = new CustomerModel();
         customerModel.setAddress("2");
         customerModel.setCheckOutTime("2016-05-20 00:00:00");
-        customerModel.setArea("");
+        customerModel.setArea("130601400");
         customerModel.setBirthday("1992-06-03");
         customerModel.setCardId("130682199206033463");
         customerModel.setCardType("11");

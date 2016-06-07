@@ -82,7 +82,8 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     RegPersonListener listener;
     CustomerModel customerModel;
     List<CodeModel> xbCode;
-    List<String> zjlxList;
+    List<CodeModel>MZcode=new ArrayList<>();
+    List<CodeModel>ZJLXcode=new ArrayList<>();
 
     @Override
     public void initViews() {
@@ -96,6 +97,17 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
 
     @Override
     public void initEvents() {
+        ZJLXcode=finalDb.findAllByWhere(CodeModel.class, "CodeName='ZJLX'");
+        zhengjian_val_tv.setText(ZJLXcode.get(0).getVal());
+        customerModel.setCardType(ZJLXcode.get(0).getKey());
+        MZcode=finalDb.findAllByWhere(CodeModel.class, "CodeName='MZ'");
+        minzu_val_tv.setText(MZcode.get(0).getVal());
+        customerModel.setNation(MZcode.get(0).getKey());
+        xbCode = new ArrayList<CodeModel>();
+        xbCode.add(new CodeModel("1", "男"));
+        xbCode.add(new CodeModel("2", "女"));
+        xingbie_val_tv.setText("男");
+        customerModel.setSex("1");//性别
         dialog = new SpinnerDialog(this);
         dialog.setCanceledOnTouchOutside(true);
     }
@@ -109,8 +121,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 }
                 break;
             case R.id.zhengjian_ll://证件照
-                zjlxList = new ArrayList<>();
-                dialog.setListView(finalDb.findAllByWhere(CodeModel.class, "CodeName='ZJLX'"));
+                dialog.setListView(ZJLXcode);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
@@ -121,9 +132,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 });
                 break;
             case R.id.xingbie_ll://性别
-                xbCode = new ArrayList<CodeModel>();
-                xbCode.add(new CodeModel("1", "男"));
-                xbCode.add(new CodeModel("2", "女"));
                 dialog.setListView(xbCode);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
@@ -135,7 +143,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 });
                 break;
             case R.id.minzu_ll://民族
-                dialog.setListView(finalDb.findAllByWhere(CodeModel.class, "CodeName='MZ'"));
+                dialog.setListView(MZcode);
                 dialog.show();
                 dialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
                     @Override
@@ -169,7 +177,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, type);
     }
-
     //cvr
     private void onReadCardCvr() {
         if (Utils.checkBluetooth(this, 2)) {
@@ -198,7 +205,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                     }
                 }
             };
-
             new Cvr100bMYTask().startCvr100bTask(this, new Cvr100bTask.Cvr100bListener() {
                 @Override
                 public BlueToothModel reauestBlueDevice() {
@@ -206,7 +212,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                     blue.setDeviceAddress(Utils.ReadString("BlueToothAddress"));
                     return blue;
                 }
-
                 @Override
                 public void onResult(boolean result, PersonModel person) {
                     Message msg = handler.obtainMessage(1);
@@ -246,12 +251,12 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         String card_num = idcard_iet.getText();
         customerModel.setName(user_name_iet.getText());
         customerModel.setCardId(idcard_iet.getText());
-        customerModel.setSex(xingbie_val_tv.getText().toString());
+        //customerModel.setSex(xingbie_val_tv.getText().toString());
         customerModel.setAddress(address_iet.getText());
-        customerModel.setNation(minzu_val_tv.getText().toString());
+        //customerModel.setNation(minzu_val_tv.getText().toString());
         customerModel.setCheckInTime(Utils.getNormalTime());
         customerModel.setCheckOutTime(Utils.getNormalTime());
-        customerModel.setArea("");//所属辖区
+
         if (card_num.length() == 15 || card_num.length() == 18) {
             customerModel.setBirthday(new StringBuffer(card_num.substring(6, 14)).insert(4, "-").insert(7, "-").toString());
             customerModel.setNative(card_num.substring(0, 6));
@@ -261,28 +266,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         String num = new DBHelper(finalDb, this).getSeralNum();
         customerModel.setSerialId(num);
         customerModel.setRoomId(home_num_iet.getText());
-        DBLGInfo dblgInfo = new DBLGInfo();
-        dblgInfo.setLGDM("1306010001");
-        dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
-        String xml = customerModel.getXml(Utils.getAssetsFileData("checkInNativeParameter.xml"), true, dblgInfo);
-        WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
-            @Override
-            public void callBack(String result) {
-                if (!result.equals("")) {
-                    System.out.println(result);
-                    InvokeReturn invokeReturn = XmlUtils.parseXml(result, "");
-                    if (invokeReturn.isSuccess()) {
-                        System.out.println("添加成功");
-                        SerialNumModel model = finalDb.findAll(SerialNumModel.class).get(0);
-                        model.setSerialNum((Integer.parseInt(model.getSerialNum()) + 1) + "");
-                        finalDb.update(model);
-                        mInstance.finish();
-                    } else {
-                        System.out.println("添加失败");
-                    }
-                }
-            }
-        });
+
     }
 
     //读卡以后界面赋值
@@ -307,5 +291,6 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void checkHotel(boolean result, String mes) {
         ToastShort(mes);
+        finish();
     }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import net.tsz.afinal.FinalDb;
 
+import java.util.List;
+
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.InvokeReturn;
@@ -29,17 +31,23 @@ public class RegPersonListener {
     }
     //添加入住信息
     public void addRZInfo(CustomerModel model){
+        List<DBLGInfo> info=db.findAll(DBLGInfo.class);
+        if(info.size()>0) {
+            model.setArea(info.get(0).getSSXQ());//所属辖区
+
         final String num = dbHelper.getSeralNum();
         model.setSerialId(num);
         DBLGInfo dblgInfo = new DBLGInfo();
-        dblgInfo.setLGDM("1306010001");
-        dblgInfo.setQYSCM("A0A91-2384F-5FD17-225EA-CB717");
+        dblgInfo.setLGDM(info.get(0).getLGDM());
+        dblgInfo.setQYSCM(info.get(0).getQYSCM());
+
         String xml = model.getXml(Utils.getAssetsFileData(myContext,"checkInNativeParameter.xml"), true, dblgInfo);
         WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
             @Override
             public void callBack(String result) {
                 if (!result.equals("")) {
                     InvokeReturn invokeReturn = XmlUtils.parseXml(result, "");
+                    System.out.println(result);
                     if (invokeReturn.isSuccess()) {
                         //添加成功
                         mView.checkHotel(true,"添加成功");
@@ -56,5 +64,6 @@ public class RegPersonListener {
                 }
             }
         });
+        }
     }
 }
