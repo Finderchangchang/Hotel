@@ -25,7 +25,7 @@ public interface IFMainView {
      * @param isRefresh   是否为下拉刷新(false为上划加载更多)
      * @param haveLoading 是否还有加载更多（true,有）
      */
-    void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, boolean haveLoading);
+    void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, String haveLoading);
 
     /**
      * 执行离店操作的处理结果

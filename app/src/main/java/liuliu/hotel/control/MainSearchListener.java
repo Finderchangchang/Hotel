@@ -40,9 +40,12 @@ public class MainSearchListener {
 
     /**
      * 在住人员列表
+     *
+     * @param page_num  当前页数
+     * @param isRefresh 是否刷新
      */
-    public void LeavePerson(int page_num) {
-        SearchByWord("2015-01-01", Utils.getNormalTime().substring(0, 10), "", page_num);
+    public void LeavePerson(int page_num, boolean isRefresh) {
+        SearchByWord("2015-01-01", Utils.getNormalTime().substring(0, 10), "", page_num, isRefresh);
     }
 
     /**
@@ -53,8 +56,7 @@ public class MainSearchListener {
      * @param homeId    房间号
      * @param page_num  当前页数
      */
-//    public void SearchByWord(String startTime, String end, String homeId, String page_num, final boolean isRefresh) {
-    public void SearchByWord(String startTime, String end, String homeId, int page_num) {
+    public void SearchByWord(String startTime, String end, String homeId, int page_num, final boolean isRefresh) {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("RZSJBEGIN", startTime);//入住起始时间
         properties.put("RZSJEND", end);//入住截止时间
@@ -62,43 +64,47 @@ public class MainSearchListener {
         properties.put("LKZT", "0");//0在住，1离店
         properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         properties.put("YS", page_num + "");
-        mMain.LoadStayPerson(null, false, true);
-//        WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
-//            @Override
-//            public void callBack(SoapObject result) {
-//                System.out.println(result);
-//                List<CustomerModel> list = null;
-//                if (null != result) {
-//                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
-//                    if (invokeReturn.isSuccess()) {
-//                        list = new ArrayList<CustomerModel>();
-//                        for (int i = 0; i < invokeReturn.getData().size(); i++) {
-//                            list.add((CustomerModel) invokeReturn.getData().get(i));
-//                        }
-//                        if (mMain != null) {
-//                            mMain.LoadStayPerson(list, false);
-//                        }
-//                        if (mSearch != null) {
-//                            mSearch.loadPerson(list);
-//                        }
-//                    } else {
-//                        if (mMain != null) {
-//                            mMain.LoadStayPerson(null, false);
-//                        }
-//                        if (mSearch != null) {
-//                            mSearch.loadPerson(null);
-//                        }
-//                    }
-//                } else {
-//                    if (mMain != null) {
-//                        mMain.LoadStayPerson(null, false);
-//                    }
-//                    if (mSearch != null) {
-//                        mSearch.loadPerson(null);
-//                    }
-//                }
-//            }
-//        });
+//        mMain.LoadStayPerson(null, false, true);
+        WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
+            /**
+             * @param result
+             */
+            @Override
+            public void callBack(SoapObject result) {
+                System.out.println(result);
+                List<CustomerModel> list = null;
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
+
+                    if (invokeReturn.isSuccess()) {
+                        list = new ArrayList<CustomerModel>();
+                        for (int i = 0; i < invokeReturn.getData().size(); i++) {
+                            list.add((CustomerModel) invokeReturn.getData().get(i));
+                        }
+                        if (mMain != null) {
+                            mMain.LoadStayPerson(list, isRefresh, invokeReturn.getMessage());
+                        }
+                        if (mSearch != null) {
+                            mSearch.loadPerson(list);
+                        }
+                    } else {
+                        if (mMain != null) {
+                            mMain.LoadStayPerson(list, isRefresh, invokeReturn.getMessage());
+                        }
+                        if (mSearch != null) {
+                            mSearch.loadPerson(null);
+                        }
+                    }
+                } else {
+                    if (mMain != null) {
+                        mMain.LoadStayPerson(null, isRefresh, "False");
+                    }
+                    if (mSearch != null) {
+                        mSearch.loadPerson(null);
+                    }
+                }
+            }
+        });
     }
 
     /**

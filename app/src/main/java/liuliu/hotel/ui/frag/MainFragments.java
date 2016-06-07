@@ -65,6 +65,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
 
     private static final int TIME = 1000;
     PersonAdapter mAdapter;
+    private int maxPage = 1;
 
     @Override
     public void initViews() {
@@ -75,7 +76,6 @@ public class MainFragments extends BaseFragment implements IFMainView {
     public void initEvents() {
         main_lv.setSwipeEnable(true);
         listener = new MainSearchListener(MainActivity.mInstance, this);
-        main_lv.addHeaderView(View.inflate(MainActivity.mInstance, R.layout.header, null));
         main_lv.setEmptyView(View.inflate(MainActivity.mInstance, R.layout.empty_view, null));
         DemoLoadMoreView loadMoreView = new DemoLoadMoreView(MainActivity.mInstance, main_lv.getRecyclerView());
         loadMoreView.setLoadmoreString("加载更多...");
@@ -94,76 +94,73 @@ public class MainFragments extends BaseFragment implements IFMainView {
             }
         });
         main_lv.addHeaderView(view);
-        main_lv.setEmptyView(View.inflate(MainActivity.mInstance, R.layout.empty_view, null));
         main_lv.setLoadMoreFooter(loadMoreView);
         main_lv.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
             @Override
-            public void onLoadMoreItems() {
-                mHandler.sendEmptyMessageDelayed(MSG_CODE_LOADMORE, TIME);
+            public void onLoadMoreItems() {//加载更多
+                listener.LeavePerson(maxPage++, false);
             }
         });
         main_lv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                mHandler.sendEmptyMessageDelayed(MSG_CODE_REFRESH, TIME);
+            public void onRefresh() {//刷新
+                maxPage = 1;
+                listener.LeavePerson(maxPage, true);
             }
         });
-        init();
+        listener.LeavePerson(maxPage, false);
+        if (modelList == null) modelList = new ArrayList<>();
         mAdapter = new PersonAdapter<CustomerModel>(modelList, R.layout.item_person) {
             @Override
-            public void convert(VViewHolder holder, CustomerModel model, int position) {
+            public void convert(VViewHolder holder, final CustomerModel model, int position) {
+                holder.setText(R.id.num_btn, (position + 1) + "");
                 holder.setText(R.id.person_name_tv, model.getName());
+                holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);
+                if (model.getSex().equals("2")) {
+                    holder.setText(R.id.sex_tv, "女");
+                }
+                holder.setText(R.id.nation_tv, model.getNation());
+                holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                holder.setText(R.id.address_tv, model.getAddress());
+                holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.setMiddleMessage("确定要离店？");
+                        dialog.setOnPositiveListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {//确定
+                                listener.MakeLeaveHotel(model.getSerialId());//执行离店操作
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.setOnNegativeListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {//取消
+                                dialog.cancel();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+                holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
+                            @Override
+                            public void put(Intent intent) {
+                                intent.putExtra(Key.Person_Detail_Model, model);
+                            }
+                        });
+                    }
+                });
             }
         };
         main_lv.setAdapter(mAdapter);
         listener.LoadMain();
-//        listener.LeavePerson(1);
-        main_lv.onFinishLoading(true, false);
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
     }
 
     List<CustomerModel> modelList;//当前页面显示的
-    boolean haveMore = false;
-
-    private void init() {
-        modelList = new ArrayList<>();
-        for (int i = 1; i < 11; i++) {
-            modelList.add(new CustomerModel("", "", "", "", ""));
-        }
-    }
-
-    private void add() {
-        if (modelList == null) {
-            modelList = new ArrayList<>();
-        }
-        for (int i = 1; i < 6; i++) {
-            modelList.add(new CustomerModel("", "", "", "", ""));
-        }
-    }
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == MSG_CODE_REFRESH) {
-                init();
-                mAdapter.notifyDataSetChanged();
-                main_lv.setOnRefreshComplete();
-                main_lv.onFinishLoading(true, false);
-                Toast.makeText(MainActivity.mInstance, "刷新成功", Toast.LENGTH_SHORT).show();
-            } else if (msg.what == MSG_CODE_LOADMORE) {
-                if (mAdapter.getItemCount() == DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET) {
-                    //over
-                    Toast.makeText(MainActivity.mInstance, "无更多数据", Toast.LENGTH_SHORT).show();
-                    main_lv.onFinishLoading(false, false);
-                } else {
-                    add();
-                    mAdapter.notifyDataSetChanged();
-                    main_lv.onFinishLoading(true, false);
-                }
-            }
-        }
-    };
 
     /**
      * @param hcount      在住房间数
@@ -176,9 +173,29 @@ public class MainFragments extends BaseFragment implements IFMainView {
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
     }
 
+    /**
+     * @param list        在住人员
+     * @param isRefresh   是否为下拉刷新(false为上划加载更多)
+     * @param haveRefresh 是否还有数据
+     */
     @Override
-    public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, boolean haveRefresh) {
-
+    public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, String haveRefresh) {
+        boolean result = true;
+        if (isRefresh) {//下拉刷新
+            modelList = new ArrayList<>();
+            Toast.makeText(MainActivity.mInstance, "刷新成功", Toast.LENGTH_SHORT).show();
+        } else {//上划加载更多
+            if (modelList == null) modelList = new ArrayList<>();//为空赋值
+        }
+        for (CustomerModel model : list) {
+            modelList.add(model);
+        }
+        if (haveRefresh == "False" && isRefresh) {
+            result = false;
+            Toast.makeText(MainActivity.mInstance, "无更多数据", Toast.LENGTH_SHORT).show();
+        }
+        mAdapter.notifyDataSetChanged();
+        main_lv.onFinishLoading(true, false);
     }
 
     /**
