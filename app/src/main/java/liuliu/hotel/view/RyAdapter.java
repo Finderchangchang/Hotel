@@ -17,14 +17,14 @@ import java.util.List;
 import liuliu.hotel.R;
 
 public abstract class RyAdapter<T> extends RecyclerView.Adapter<VViewHolder> {
-    private List<T> mMessages;
     private int mLayoutId;
     private List<T> mData;
+    private Context mContext;
 
     public RyAdapter(Context context, List<T> messages, int layoutId) {
-        mMessages = messages;
         mLayoutId = layoutId;
         mData = messages;
+        mContext = context;
     }
 
     /**
@@ -34,10 +34,10 @@ public abstract class RyAdapter<T> extends RecyclerView.Adapter<VViewHolder> {
      * @return
      */
     @Override
-    public VViewHolder onCreateViewHolder(ViewGroup parent, int layoutId) {
+    public VViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater
-                .from(parent.getContext())
-                .inflate(layoutId, parent, false);
+                .from(mContext)
+                .inflate(mLayoutId, parent, false);
         return new VViewHolder(v);
     }
 
@@ -54,7 +54,7 @@ public abstract class RyAdapter<T> extends RecyclerView.Adapter<VViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mMessages.size();
+        return mData.size();
     }
 
     public abstract void convert(VViewHolder holder, T t, int position);

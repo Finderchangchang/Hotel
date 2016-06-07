@@ -62,42 +62,43 @@ public class MainSearchListener {
         properties.put("LKZT", "0");//0在住，1离店
         properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         properties.put("YS", page_num + "");
-        WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
-            @Override
-            public void callBack(SoapObject result) {
-                System.out.println(result);
-                List<CustomerModel> list = null;
-                if (null != result) {
-                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
-                    if (invokeReturn.isSuccess()) {
-                        list = new ArrayList<CustomerModel>();
-                        for (int i = 0; i < invokeReturn.getData().size(); i++) {
-                            list.add((CustomerModel) invokeReturn.getData().get(i));
-                        }
-                        if (mMain != null) {
-                            mMain.LoadStayPerson(list, false);
-                        }
-                        if (mSearch != null) {
-                            mSearch.loadPerson(list);
-                        }
-                    } else {
-                        if (mMain != null) {
-                            mMain.LoadStayPerson(null, false);
-                        }
-                        if (mSearch != null) {
-                            mSearch.loadPerson(null);
-                        }
-                    }
-                } else {
-                    if (mMain != null) {
-                        mMain.LoadStayPerson(null, false);
-                    }
-                    if (mSearch != null) {
-                        mSearch.loadPerson(null);
-                    }
-                }
-            }
-        });
+        mMain.LoadStayPerson(null, false, true);
+//        WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
+//            @Override
+//            public void callBack(SoapObject result) {
+//                System.out.println(result);
+//                List<CustomerModel> list = null;
+//                if (null != result) {
+//                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
+//                    if (invokeReturn.isSuccess()) {
+//                        list = new ArrayList<CustomerModel>();
+//                        for (int i = 0; i < invokeReturn.getData().size(); i++) {
+//                            list.add((CustomerModel) invokeReturn.getData().get(i));
+//                        }
+//                        if (mMain != null) {
+//                            mMain.LoadStayPerson(list, false);
+//                        }
+//                        if (mSearch != null) {
+//                            mSearch.loadPerson(list);
+//                        }
+//                    } else {
+//                        if (mMain != null) {
+//                            mMain.LoadStayPerson(null, false);
+//                        }
+//                        if (mSearch != null) {
+//                            mSearch.loadPerson(null);
+//                        }
+//                    }
+//                } else {
+//                    if (mMain != null) {
+//                        mMain.LoadStayPerson(null, false);
+//                    }
+//                    if (mSearch != null) {
+//                        mSearch.loadPerson(null);
+//                    }
+//                }
+//            }
+//        });
     }
 
     /**

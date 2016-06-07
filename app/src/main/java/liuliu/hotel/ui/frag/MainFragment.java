@@ -113,7 +113,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
      * @param list 在住人员
      */
     @Override
-    public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh) {
+    public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, boolean haveLoading) {
         if (null != list) {
             no_connect_tv.setVisibility(View.GONE);
             mList = list;

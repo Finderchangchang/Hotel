@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import in.srain.cube.image.CubeImageView;
+import in.srain.cube.image.ImageLoader;
+
 /**
  * Created by Administrator on 2016/6/7.
  */
@@ -57,6 +60,33 @@ public class VViewHolder extends RecyclerView.ViewHolder {
     public VViewHolder setText(int viewId, String text) {
         TextView tv = getView(viewId);
         tv.setText(text);
+        return this;
+    }
+
+    /**
+     * 设置带缓存的ImageView
+     *
+     * @param viewId 组件id
+     * @param url    图片的地址
+     * @param loader 加载图片的变量
+     * @return 当前viewholder
+     */
+    public VViewHolder setCubeImage(int viewId, String url, ImageLoader loader) {
+        CubeImageView iv = getView(viewId);
+        if (url != null) {
+            iv.loadImage(loader, url);
+            iv.setVisibility(View.VISIBLE);
+        }
+        return this;
+    }
+
+    /**
+     * 关于事件的
+     */
+    public VViewHolder setOnClickListener(int viewId,
+                                          View.OnClickListener listener) {
+        View view = getView(viewId);
+        view.setOnClickListener(listener);
         return this;
     }
 }

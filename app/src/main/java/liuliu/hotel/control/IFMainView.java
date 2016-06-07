@@ -21,10 +21,11 @@ public interface IFMainView {
     /**
      * 加载在住人员列表
      *
-     * @param list      在住人员
-     * @param isRefresh 是否为下拉刷新
+     * @param list        在住人员
+     * @param isRefresh   是否为下拉刷新(false为上划加载更多)
+     * @param haveLoading 是否还有加载更多（true,有）
      */
-    void LoadStayPerson(List<CustomerModel> list, boolean isRefresh);
+    void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, boolean haveLoading);
 
     /**
      * 执行离店操作的处理结果
