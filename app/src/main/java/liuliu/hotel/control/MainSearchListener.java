@@ -140,7 +140,7 @@ public class MainSearchListener {
      */
     public void LoadMain() {
         HashMap<String, String> p = new HashMap<String, String>();
-        p.put("hotelId", "1306010001");
+        p.put("hotelId", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         WebServiceUtils.callWebService(true, "GetRoomRate", p, new WebServiceUtils.WebServiceCallBack() {
 
             @Override
@@ -160,7 +160,5 @@ public class MainSearchListener {
                 System.out.println("result==" + result);
             }
         });
-
-
     }
 }
