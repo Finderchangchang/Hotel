@@ -65,6 +65,7 @@ public class MainSearchListener {
         WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
             @Override
             public void callBack(SoapObject result) {
+                System.out.println(result);
                 List<CustomerModel> list = null;
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
@@ -139,6 +140,7 @@ public class MainSearchListener {
             public void callBack(SoapObject result) {
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetRoomRate");
+                    System.out.println(result);
                     if (invokeReturn.isSuccess()) {
                         String[] threeNum = invokeReturn.getMessage().split(":");
                         int[] nums = new int[3];

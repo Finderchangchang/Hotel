@@ -140,14 +140,16 @@ public class MainFragments extends BaseFragment implements IFMainView {
 
     @Override
     public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh) {
-        modelRyAdapter = new RyAdapter<CustomerModel>(MainActivity.mInstance, list, R.layout.item_person) {
-            @Override
-            public void convert(VViewHolder holder, CustomerModel model, int position) {
+        if(null!=list) {
+            modelRyAdapter = new RyAdapter<CustomerModel>(MainActivity.mInstance, list, R.layout.item_person) {
+                @Override
+                public void convert(VViewHolder holder, CustomerModel model, int position) {
 //                holder.setText()
-            }
-        };
-        main_lv.setAdapter(modelRyAdapter);
-        main_lv.onFinishLoading(true, false);
+                }
+            };
+            main_lv.setAdapter(modelRyAdapter);
+            main_lv.onFinishLoading(true, false);
+        }
     }
 
     @Override
