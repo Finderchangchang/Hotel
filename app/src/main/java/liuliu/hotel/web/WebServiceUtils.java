@@ -79,7 +79,7 @@ public class WebServiceUtils {
             Element[] header = new Element[1];
             header[0] = new Element().createElement(NAMESPACE, "LGSoapHeader");
             Element element = new Element().createElement(NAMESPACE, "LGDM");
-            element.addChild(Node.TEXT,Utils.ReadString(SaveKey.KEY_Hotel_Id));
+            element.addChild(Node.TEXT,"1306010010");
             Element psw = new Element().createElement(NAMESPACE, "QQM");
             psw.addChild(Node.TEXT, "Kiwi:" + Utils.getQINGQIUMA());
             header[0].addChild(Node.ELEMENT, element);
@@ -94,7 +94,6 @@ public class WebServiceUtils {
                 super.handleMessage(msg);
                 // 将返回值回调到callBack的参数中
                 webServiceCallBack.callBack((SoapObject) msg.obj);
-
             }
 
         };

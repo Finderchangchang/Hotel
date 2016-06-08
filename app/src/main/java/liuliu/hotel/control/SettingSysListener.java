@@ -92,21 +92,15 @@ public class SettingSysListener {
                             //需要更新
                             db.deleteAll(CodeModel.class);
                             getCodeServer("XZQH");
-
-
-
                         }
                         //比对时间，服务器更新时间大于本地更新时间，就更新字典
-
                     } else {
-                        //ToastShort("下载失败");
                         mView.checkHotel(false, "");
                     }
                 } else {
                     //ToastShort("下载失败");
                     mView.checkHotel(false, "请检查网络连接");
                 }
-                System.out.println("result==" + result);
             }
         });
     }

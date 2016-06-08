@@ -14,6 +14,7 @@ import net.tsz.afinal.model.CodeModel;
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
+import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.control.DownHotelListener;
 import liuliu.hotel.control.IDownHotelView;
 import liuliu.hotel.model.DBLGInfo;
@@ -75,6 +76,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
             case R.id.down_btn:
                 if (down_btn.getText().equals("下载")) {
                     if (daima_et.getText().toString().trim().length() == 10) {
+                        Utils.WriteString(SaveKey.KEY_Hotel_Id,daima_et.getText().toString().trim());
                         daima_et.setEnabled(false);
                         down_btn.setEnabled(false);
                         down_btn.setText("重置");
