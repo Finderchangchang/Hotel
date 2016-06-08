@@ -1,16 +1,9 @@
 package liuliu.hotel.ui.frag;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,10 +46,12 @@ public class MainFragments extends BaseFragment implements IFMainView {
     PullToRefreshRecyclerView main_lv;
     RyAdapter<CustomerModel> modelRyAdapter;
     MainSearchListener listener;
+
     TextView live_num_tv;
     PieChart liveing_chart;
     Button add_person_btn;
-    NormalDialog dialog;
+
+    NormalDialog dialog;//自定义dialog
     private static final int DEFAULT_ITEM_SIZE = 20;
     private static final int ITEM_SIZE_OFFSET = 20;
 
@@ -98,7 +93,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
         main_lv.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
             @Override
             public void onLoadMoreItems() {//加载更多
-                listener.LeavePerson(maxPage++, false);
+                listener.LeavePerson(++maxPage, false);
             }
         });
         main_lv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -121,7 +116,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
                 }
                 holder.setText(R.id.nation_tv, model.getNation());
                 holder.setText(R.id.hotel_num_tv, model.getRoomId());
-                holder.setText(R.id.address_tv, model.getAddress());
+                holder.setText(R.id.address_tv, model.getNation());
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -190,12 +185,12 @@ public class MainFragments extends BaseFragment implements IFMainView {
         for (CustomerModel model : list) {
             modelList.add(model);
         }
-        if (haveRefresh == "False" && isRefresh) {
+        if (("False").equals(haveRefresh) && !isRefresh) {
             result = false;
             Toast.makeText(MainActivity.mInstance, "无更多数据", Toast.LENGTH_SHORT).show();
         }
         mAdapter.notifyDataSetChanged();
-        main_lv.onFinishLoading(true, false);
+        main_lv.onFinishLoading(result, false);
     }
 
     /**

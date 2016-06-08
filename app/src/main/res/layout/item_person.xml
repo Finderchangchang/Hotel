@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/total_ll"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="90dp"
     android:background="@drawable/item_style"
     android:clickable="true"
     android:gravity="center_vertical"
@@ -79,16 +79,14 @@
                     android:textColor="@color/item_lab"
                     android:textSize="10sp" />
 
-
                 <TextView
-                    android:id="@+id/hotel_num_tv"
+                    android:id="@+id/nation_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:text="05月12日 12:23"
+                    android:text="汉族"
                     android:textColor="@color/deep_lab"
                     android:textSize="10sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -113,13 +111,7 @@
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/nation_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="汉族"
-                    android:textColor="@color/deep_lab"
-                    android:textSize="10sp" />
+
 
             </LinearLayout>
 
@@ -137,13 +129,22 @@
 
                 <TextView
                     android:id="@+id/address_tv"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="50dp"
                     android:text="河北保定"
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/hotel_num_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="05月12日 12:23"
+                    android:textColor="@color/deep_lab"
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
 
