@@ -2,51 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/total_ll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:background="@drawable/item_style"
     android:clickable="true"
-    android:orientation="vertical">
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TextView
+        android:id="@+id/num_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@android:color/white"
+        android:textSize="13sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_width="70dp"
+        android:layout_height="70dp">
 
-        <TextView
-            android:id="@+id/num_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="@android:color/white"
-            android:textSize="13sp" />
-
-        <LinearLayout
+        <in.srain.cube.image.CubeImageView
+            android:id="@+id/person_iv"
             android:layout_width="70dp"
-            android:layout_height="70dp">
+            android:layout_height="70dp"
+            android:visibility="gone" />
 
-            <in.srain.cube.image.CubeImageView
-                android:id="@+id/person_iv"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:visibility="gone" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:src="@mipmap/item_default" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/item_default" />
-        </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="7dp"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -78,15 +77,18 @@
                     android:layout_marginRight="10dp"
                     android:text="男"
                     android:textColor="@color/item_lab"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
+
 
                 <TextView
-                    android:id="@+id/nation_tv"
+                    android:id="@+id/hotel_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="汉族"
-                    android:textColor="@color/item_lab"
-                    android:textSize="12sp" />
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="05月12日 12:23"
+                    android:textColor="@color/deep_lab"
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -102,35 +104,29 @@
                     android:src="@mipmap/home_num_img" />
 
                 <TextView
+                    android:id="@+id/hotel_num_tvs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="入住"
-                    android:textColor="@color/item_lab"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/hotel_num_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="22"
-                    android:textColor="@color/deep_lab"
+                    android:text="202号202号202号202号"
+                    android:textColor="@color/item_lab"
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/nation_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="号房间"
-                    android:textColor="@color/item_lab"
-                    android:textSize="12sp" />
+                    android:text="汉族"
+                    android:textColor="@color/deep_lab"
+                    android:textSize="10sp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -141,10 +137,11 @@
 
                 <TextView
                     android:id="@+id/address_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="河北省保定市新市区先锋街道1122"
+                    android:layout_marginRight="50dp"
+                    android:text="河北保定"
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -154,16 +151,12 @@
             android:id="@+id/leave_hotel_btn"
             android:layout_width="50dp"
             android:layout_height="28dp"
-            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/item_btn_style"
             android:focusable="false"
             android:text="离店"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/item_line"></LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

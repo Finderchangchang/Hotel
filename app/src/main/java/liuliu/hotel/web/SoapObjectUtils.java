@@ -21,6 +21,7 @@ public class SoapObjectUtils {
         InvokeReturn invokeReturn = new InvokeReturn();
         SoapObject provinceSoapObject = (SoapObject) result.getProperty(method + "Result");
         List<Object> list = new ArrayList<>();
+        invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
         if (provinceSoapObject.getProperty("Sucess").toString().equals("true")) {
             invokeReturn.setSuccess(true);
             if (method.equals("GetAllCodeLastChangeTime")) {
@@ -85,6 +86,7 @@ public class SoapObjectUtils {
                             }
                         }
                     }
+
                 } catch (Exception ex) {
                     invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
                 }

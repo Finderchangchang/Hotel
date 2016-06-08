@@ -75,7 +75,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_btn://查询按钮
-                mListener.SearchByWord(start_time_et.getText().toString(), end_time_et.getText().toString(), house_num_et.getText().toString().trim(), pageNum);
+//                mListener.SearchByWord(start_time_et.getText().toString(), end_time_et.getText().toString(), house_num_et.getText().toString().trim(), pageNum);
                 break;
             case R.id.rili_left_ll://起始时间
                 datePickerDialog = new DatePickerDialog(MainActivity.mInstance, "");
