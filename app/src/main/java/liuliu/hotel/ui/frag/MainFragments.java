@@ -210,7 +210,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         for (CustomerModel model : list) {
             modelList.add(model);
         }
-
         mAdapter.notifyDataSetChanged();
     }
 
@@ -245,6 +244,8 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
+                    maxPage = 1;
+                    listener.LeavePerson(maxPage, true);
                     main_lv.refreshComplete();
                     mAdapter.notifyDataSetChanged();
                     break;
