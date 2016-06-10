@@ -124,14 +124,14 @@ public class DownHotelListener {
                                         }
                                         if (name.equals("MZ")) {
                                             // getCodeServer("SSXQ");//辖区
-                                            getCodeServer("QFJG");//籍贯
+                                            getCodeServer("XZQH");//籍贯
                                         }
                                     }
                                 }
                             } else {
                                 mView.checkHotel(false, "字典下载失败，请重新下载！");
                             }
-                            if (name.equals("QFJG")) {//籍贯
+                            if (name.equals("XZQH")) {//籍贯
 
                                 mView.checkHotel(true, "");
 

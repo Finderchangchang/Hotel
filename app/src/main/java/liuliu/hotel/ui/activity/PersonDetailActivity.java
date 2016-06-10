@@ -75,6 +75,8 @@ public class PersonDetailActivity extends BaseActivity {
         user_name_tv.setText(model.getName());
         if (("2").equals(model.getSex())) {
             person_sex_tv.setText("女");
+        }else{
+            person_sex_tv.setText("男");
         }
         if (model.getBirthday().length() == 8) {
             StringBuffer buffer = new StringBuffer(model.getBirthday());
@@ -96,7 +98,7 @@ public class PersonDetailActivity extends BaseActivity {
                 card_type_tv.setText(cardtype.toString());
             }
         }
-        list = finalDb.findAllByWhere(CodeModel.class, "CodeName='QFJG' AND KEY='" + model.getNative().substring(0, 4) + "'");
+        list = finalDb.findAllByWhere(CodeModel.class, "CodeName='XZQH' AND KEY='" + model.getNative().substring(0, 4) + "'");
         if (list != null) {
             if (list.size() > 0) {
                 persn_native_tv.setText(list.get(0).getVal());

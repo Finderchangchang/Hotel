@@ -136,8 +136,21 @@
                     android:text="河北保定"
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/time_person" />
                 <TextView
-                    android:id="@+id/hotel_num_tv"
+                    android:id="@+id/item_rz_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"

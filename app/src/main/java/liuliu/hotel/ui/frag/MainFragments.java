@@ -17,7 +17,9 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
 
+import net.tsz.afinal.FinalDb;
 import net.tsz.afinal.annotation.view.CodeNote;
+import net.tsz.afinal.model.CodeModel;
 import net.tsz.afinal.utils.AUtils;
 import net.tsz.afinal.utils.CommonAdapter;
 import net.tsz.afinal.utils.ViewHolder;
@@ -71,14 +73,20 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     private int maxPage = 1;
     View topView;
     View footerView;
+    List<CodeModel> MZlist = new ArrayList<>();
+    List<CodeModel> JGlist = new ArrayList<>();
+    FinalDb db = null;
 
     @Override
     public void initViews() {
         setContentView(R.layout.frag_mains);
+        db = MainActivity.mInstance.finalDb;
     }
 
     @Override
     public void initEvents() {
+        MZlist = db.findAllByWhere(CodeModel.class, "CodeName='MZ'");
+        JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH'");
         dialog = new NormalDialog(MainActivity.mInstance);
         listener = new MainSearchListener(MainActivity.mInstance, this);
         initTopView();
@@ -93,10 +101,13 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);
                 if (model.getSex().equals("2")) {
                     holder.setText(R.id.sex_tv, "女");
+                } else {
+                    holder.setText(R.id.sex_tv, "男");
                 }
-                holder.setText(R.id.nation_tv, model.getNation());
-                holder.setText(R.id.hotel_num_tv, model.getRoomId());
-                holder.setText(R.id.address_tv, model.getNation());
+                holder.setText(R.id.nation_tv, getCodeValuebyKey(MZlist,model.getNation()));
+                holder.setText(R.id.hotel_num_tvs, model.getRoomId());
+                holder.setText(R.id.item_rz_time,model.getCheckInTime());
+                holder.setText(R.id.address_tv, getCodeValuebyKey(JGlist,model.getNative()));
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -137,6 +148,15 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     }
 
     TextView bottom_ll;
+
+    private String getCodeValuebyKey(List<CodeModel> list, String key) {
+        for (CodeModel code : list) {
+            if (code.getKey().equals(key)) {
+                return code.getVal();
+            }
+        }
+        return "";
+    }
 
     /**
      *
@@ -220,6 +240,12 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
      */
     @Override
     public void LeaveHotel(boolean result) {
+        if (result) {
+            Toast.makeText(MainActivity.mInstance, "离店成功！", Toast.LENGTH_SHORT);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(MainActivity.mInstance, "离店失败！", Toast.LENGTH_SHORT);
+        }
 
     }
 
