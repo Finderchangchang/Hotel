@@ -82,7 +82,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
         main_sv.setOnScrollChange(this);
         hotel_name_tv.setText(Utils.ReadString(SaveKey.KEY_Hotel_Name));
         listener.LoadMain();//加载百分比数据，以及在住人员数量
-//        listener.LeavePerson(1);
+//      listener.LeavePerson(1);
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
     }
 
@@ -127,7 +127,7 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
                         holder.setText(R.id.sex_tv, "女");
                     }
                     holder.setText(R.id.nation_tv, model.getNation());
-                    holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                   // holder.setText(R.id.hotel_num_tv, model.getRoomId());
                     holder.setText(R.id.address_tv, model.getAddress());
                     holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                         @Override

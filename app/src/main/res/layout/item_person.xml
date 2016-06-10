@@ -68,7 +68,6 @@
                     android:text="李婷婷"
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
-
                 <TextView
                     android:id="@+id/sex_tv"
                     android:layout_width="wrap_content"
@@ -78,31 +77,24 @@
                     android:text="男"
                     android:textColor="@color/item_lab"
                     android:textSize="10sp" />
-
-
                 <TextView
-                    android:id="@+id/hotel_num_tv"
+                    android:id="@+id/nation_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:text="05月12日 12:23"
+                    android:text="汉族"
                     android:textColor="@color/deep_lab"
                     android:textSize="10sp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/home_num_img" />
-
                 <TextView
                     android:id="@+id/hotel_num_tvs"
                     android:layout_width="wrap_content"
@@ -112,29 +104,17 @@
                     android:text="202号202号202号202号"
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/nation_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="汉族"
-                    android:textColor="@color/deep_lab"
-                    android:textSize="10sp" />
-
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/dingwei_img" />
-
+                    android:src="@mipmap/dingwei_img"/>
                 <TextView
                     android:id="@+id/address_tv"
                     android:layout_width="match_parent"
@@ -145,8 +125,27 @@
                     android:textColor="@color/item_lab"
                     android:textSize="12sp" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/time_person" />
+                <TextView
+                    android:id="@+id/person_rztime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="50dp"
+                    android:text="2015-06-09"
+                    android:textColor="@color/item_lab"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
-
         <Button
             android:id="@+id/leave_hotel_btn"
             android:layout_width="50dp"

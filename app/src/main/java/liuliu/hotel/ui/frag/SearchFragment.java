@@ -91,8 +91,6 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     @Override
     public void loadPerson(List<CustomerModel> mList) {
         if(null!=mList||mList.size()==0) {
-
-
             mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
                 @Override
                 public void convert(ViewHolder holder, final CustomerModel model, final int position) {
@@ -103,7 +101,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                         holder.setText(R.id.sex_tv, "女");
                     }
                     holder.setText(R.id.nation_tv, model.getNation());
-                    holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                    //holder.setText(R.id.hotel_num_tv, model.getRoomId());
                     holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -141,6 +139,5 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
         }else{
 
         }
-
     }
 }

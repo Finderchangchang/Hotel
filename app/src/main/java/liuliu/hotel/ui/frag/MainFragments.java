@@ -120,7 +120,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
                     holder.setText(R.id.sex_tv, "女");
                 }
                 holder.setText(R.id.nation_tv, model.getNation());
-                holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                //holder.setText(R.id.hotel_num_tv, model.getRoomId());
                 holder.setText(R.id.address_tv, model.getAddress());
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
@@ -159,9 +159,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
         listener.LoadMain();
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
     }
-
     List<CustomerModel> modelList;//当前页面显示的
-
     /**
      * @param hcount      在住房间数
      * @param allhcount   全部房间数
@@ -172,7 +170,6 @@ public class MainFragments extends BaseFragment implements IFMainView {
         live_num_tv.setText(personcount + "");
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
     }
-
     /**
      * @param list        在住人员
      * @param isRefresh   是否为下拉刷新(false为上划加载更多)
@@ -197,7 +194,6 @@ public class MainFragments extends BaseFragment implements IFMainView {
         mAdapter.notifyDataSetChanged();
         main_lv.onFinishLoading(true, false);
     }
-
     /**
      * 离店操作处理结果
      *

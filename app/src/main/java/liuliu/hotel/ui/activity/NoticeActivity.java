@@ -45,7 +45,6 @@ public class NoticeActivity extends BaseActivity{
     public void initViews() {
         setContentView(R.layout.activity_notice);
         mInstance = this;
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
