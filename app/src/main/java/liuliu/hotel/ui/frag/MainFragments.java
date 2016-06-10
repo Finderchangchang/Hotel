@@ -53,6 +53,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
     PullToRefreshRecyclerView main_lv;
     RyAdapter<CustomerModel> modelRyAdapter;
     MainSearchListener listener;
+
     TextView live_num_tv;
     PieChart liveing_chart;
     Button add_person_btn;
@@ -98,7 +99,7 @@ public class MainFragments extends BaseFragment implements IFMainView {
         main_lv.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
             @Override
             public void onLoadMoreItems() {//加载更多
-                listener.LeavePerson(maxPage++, false);
+                listener.LeavePerson(++maxPage, false);
             }
         });
         main_lv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -159,7 +160,9 @@ public class MainFragments extends BaseFragment implements IFMainView {
         listener.LoadMain();
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
     }
+
     List<CustomerModel> modelList;//当前页面显示的
+
     /**
      * @param hcount      在住房间数
      * @param allhcount   全部房间数
@@ -187,13 +190,14 @@ public class MainFragments extends BaseFragment implements IFMainView {
         for (CustomerModel model : list) {
             modelList.add(model);
         }
-        if (haveRefresh == "False" && isRefresh) {
+        if (("False").equals(haveRefresh) && !isRefresh) {
             result = false;
             Toast.makeText(MainActivity.mInstance, "无更多数据", Toast.LENGTH_SHORT).show();
         }
         mAdapter.notifyDataSetChanged();
-        main_lv.onFinishLoading(true, false);
+        main_lv.onFinishLoading(result, false);
     }
+
     /**
      * 离店操作处理结果
      *

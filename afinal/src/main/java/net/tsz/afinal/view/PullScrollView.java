@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,7 +21,7 @@ import net.tsz.afinal.R;
  * @author markmjw
  * @date 2013-09-13
  */
-public class PullScrollView extends ScrollView {
+public class PullScrollView extends RecyclerView {
     private static final String LOG_TAG = "PullScrollView";
     /**
      * 阻尼系数,越小阻力就越大.
@@ -175,7 +176,7 @@ public class PullScrollView extends ScrollView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        mOnScrollChange.onState(ev);
+//        mOnScrollChange.onState(ev);
         if (mContentView != null) {
             int action = ev.getAction();
             switch (action) {

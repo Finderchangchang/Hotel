@@ -126,9 +126,6 @@ public class DownHotelListener {
                                             // getCodeServer("SSXQ");//辖区
                                             getCodeServer("QFJG");//籍贯
                                         }
-//                                        if(name.equals("SSXQ")){
-//
-//                                        }
                                     }
                                 }
                             } else {
