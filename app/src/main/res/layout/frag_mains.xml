@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="-1dp"
     android:orientation="vertical">
-    <com.lhh.ptrrv.library.PullToRefreshRecyclerView
+
+    <net.tsz.afinal.view.RefreshListView
         android:id="@+id/main_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.lhh.ptrrv.library.PullToRefreshRecyclerView>
+        android:layout_height="match_parent"
+        android:background="#fff"></net.tsz.afinal.view.RefreshListView>
 </LinearLayout>
