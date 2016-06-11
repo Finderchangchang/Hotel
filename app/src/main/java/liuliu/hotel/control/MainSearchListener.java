@@ -75,7 +75,6 @@ public class MainSearchListener {
                 List<CustomerModel> list = null;
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
-
                     if (invokeReturn.isSuccess()) {
                         list = new ArrayList<CustomerModel>();
                         for (int i = 0; i < invokeReturn.getData().size(); i++) {

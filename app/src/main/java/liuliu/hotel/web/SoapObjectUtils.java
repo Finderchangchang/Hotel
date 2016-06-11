@@ -12,6 +12,7 @@ import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.DBTZTGInfo;
 import liuliu.hotel.model.InvokeReturn;
+import liuliu.hotel.utils.Utils;
 
 /**
  * Created by Administrator on 2016/5/20.
@@ -67,10 +68,10 @@ public class SoapObjectUtils {
                                 model.setAddress(soapObject.getProperty("XZ").toString());
                                 model.setRoomId(soapObject.getProperty("FH").toString());
                                 //model.setArea(soapObject.getProperty("SSXQ").toString());
-                                //model.setHeadphoto(soapObject.getProperty("NBZP").toString());
+                                model.setHeadphoto(Utils.getBitmapByte(soapObject.getProperty("NBZP").toString()));
                                 model.setCheckInSign(soapObject.getProperty("FSBZ").toString());
-                                //model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
-                                //model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
+                                model.setCheckOutTime(soapObject.getProperty("LDSJ").toString());
+                                model.setCheckInTime(soapObject.getProperty("RZSJ").toString());
                                 // model.setComment(soapObject.getProperty("BZ").toString());
                                 list.add(model);
                             } else if (method.equals("GetAllUndownloadTZTGInfo")) {
