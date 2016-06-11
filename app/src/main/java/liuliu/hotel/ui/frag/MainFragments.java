@@ -96,6 +96,11 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
+                if(null==model.getHeadphoto()){
+                    holder.setImageResource(R.id.item_header, R.mipmap.item_default);
+                }else {
+                    holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
+                }
                 holder.setText(R.id.num_btn, (position + 1) + "");
                 holder.setText(R.id.person_name_tv, model.getName());
                 holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);

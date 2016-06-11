@@ -68,7 +68,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
         dialog = new SpinnerDialog(MainActivity.mInstance);
         dialog.setCanceledOnTouchOutside(true);
         myBlooth.setText(Utils.ReadString("BlueToothName"));
-        getBluetooth();
+
     }
 
 
@@ -97,6 +97,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 });
                 break;
             case R.id.lanya_setting_wode_ll:
+                getBluetooth();
                 //蓝牙设置选择
                 Contentdialog.setListView(listblue);
                 Contentdialog.show();
