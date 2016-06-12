@@ -51,8 +51,9 @@ public class WebServiceUtils {
     public static void callWebService(boolean isHearder, final String methodName,
                                       HashMap<String, String> properties,
                                       final WebServiceCallBack webServiceCallBack) {
+        String url = "http://" + Utils.ReadString(SaveKey.KEY_IP) + ":" + Utils.ReadString(SaveKey.KEY_PORT) + "/WebServices/LGXX/Mobile.asmx";
         // 创建HttpTransportSE对象，传递WebService服务器地址
-        final HttpTransportSE httpTransportSE = new HttpTransportSE(MYURL, 30000);
+        final HttpTransportSE httpTransportSE = new HttpTransportSE(url, 30000);
 
         // / 创建SoapObject对象
         SoapObject soapObject = new SoapObject(NAMESPACE, methodName);
@@ -149,7 +150,7 @@ public class WebServiceUtils {
 //        if (data == null || data.equals("")) {
 //            return "DataNull";
 //        }
-
+        String url = "http://" + Utils.ReadString(SaveKey.KEY_IP) + ":" + Utils.ReadString(SaveKey.KEY_PORT) + "/WebServices/LGXX/Mobile.asmx";
         final Handler mHandler = new Handler() {
 
             @Override
@@ -179,7 +180,7 @@ public class WebServiceUtils {
             envelope.setOutputSoapObject(request);
 
             int timeout = 20000;
-            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(MYURL,
+            final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(url,
                     timeout);
 
             transport.debug = true;

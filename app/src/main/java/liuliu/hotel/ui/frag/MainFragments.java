@@ -255,7 +255,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         } else {
             Toast.makeText(MainActivity.mInstance, "离店失败！", Toast.LENGTH_SHORT);
         }
-
     }
 
     @Override

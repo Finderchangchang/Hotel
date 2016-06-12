@@ -2,6 +2,8 @@ package liuliu.hotel.ui.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -84,7 +86,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     List<CodeModel> xbCode;
     List<CodeModel>MZcode=new ArrayList<>();
     List<CodeModel>ZJLXcode=new ArrayList<>();
-
+    Bitmap bm = null;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_reg_person);
@@ -161,6 +163,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                 } else {
                     onReadCardCvr();
                 }
+                break;
+            case R.id.user_img_iv:
+                startCamera(11);
                 break;
         }
     }
@@ -255,8 +260,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         customerModel.setAddress(address_iet.getText());
         //customerModel.setNation(minzu_val_tv.getText().toString());
         customerModel.setCheckInTime(Utils.getNormalTime());
-        customerModel.setCheckOutTime(Utils.getNormalTime());
-
+        customerModel.setCheckOutTime("");
         if (card_num.length() == 15 || card_num.length() == 18) {
             customerModel.setBirthday(new StringBuffer(card_num.substring(6, 14)).insert(4, "-").insert(7, "-").toString());
             customerModel.setNative(card_num.substring(0, 6));
@@ -266,7 +270,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         String num = new DBHelper(finalDb, this).getSeralNum();
         customerModel.setSerialId(num);
         customerModel.setRoomId(home_num_iet.getText());
-
+        customerModel.setCheckInSign(getVersionName());
     }
 
     //读卡以后界面赋值
@@ -292,5 +296,40 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     public void checkHotel(boolean result, String mes) {
         ToastShort(mes);
         finish();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 11 && resultCode == -1) {
+            bm = Utils.getimage(this, path.toString());
+           // person_path = path.toString();
+            if (bm != null) {
+                user_img_iv.setImageBitmap(Utils.centerSquareScaleBitmap(bm, 60));
+                user_img_iv.setTag(bm);
+            } else {
+                user_img_iv.setImageResource(R.mipmap.main_zhengjian);
+                user_img_iv.setTag(bm);
+            }
+            //personModel.setPersonImgUrl(path.toString());
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    /**
+     * 获取当前应用的版本号：
+     */
+    public String getVersionName() {
+        // 获取packagemanager的实例
+        String Version = "[Version:num]-[Registe:Phone]";
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo;
+        try {
+            packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            String version = packInfo.versionName;
+            return Version.replace("num", version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return Version.replace("num", "1.0");
     }
 }

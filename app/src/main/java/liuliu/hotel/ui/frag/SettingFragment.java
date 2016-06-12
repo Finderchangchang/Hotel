@@ -64,11 +64,11 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
 
     @Override
     public void initEvents() {
+        Contentdialog=new SpinnerDialog(MainActivity.mInstance);
         center_title_tv.setText("设置");
         dialog = new SpinnerDialog(MainActivity.mInstance);
         dialog.setCanceledOnTouchOutside(true);
         myBlooth.setText(Utils.ReadString("BlueToothName"));
-
     }
 
 
@@ -98,17 +98,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 break;
             case R.id.lanya_setting_wode_ll:
                 getBluetooth();
-                //蓝牙设置选择
-                Contentdialog.setListView(listblue);
-                Contentdialog.show();
-                Contentdialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
-                    @Override
-                    public void onClick(int position, CodeModel val) {
-                        myBlooth.setText(val.getVal());
-                        Utils.WriteString("BlueToothName", listblue.get(position).getVal());
-                        Utils.WriteString("BlueToothAddress", listAddress.get(position));
-                    }
-                });
+
                 break;
         }
     }
@@ -138,6 +128,18 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 listAddress.add(device.getAddress());
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }
+            //蓝牙设置选择
+            MainActivity.mInstance.ToastShort("list size:"+listblue.size());
+            Contentdialog.setListView(listblue);
+            Contentdialog.show();
+            Contentdialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
+                @Override
+                public void onClick(int position, CodeModel val) {
+                    myBlooth.setText(val.getVal());
+                    Utils.WriteString("BlueToothName", listblue.get(position).getVal());
+                    Utils.WriteString("BlueToothAddress", listAddress.get(position));
+                }
+            });
         }
     }
 
@@ -145,6 +147,5 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
     public void checkHotel(boolean result, String mes) {
         dialog.dismiss();
         MainActivity.mInstance.ToastShort(mes);
-
     }
 }

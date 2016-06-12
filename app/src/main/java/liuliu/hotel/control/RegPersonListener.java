@@ -1,6 +1,8 @@
 package liuliu.hotel.control;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import net.tsz.afinal.FinalDb;
 
@@ -66,4 +68,6 @@ public class RegPersonListener {
         });
         }
     }
+
+
 }

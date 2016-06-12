@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.model.SerialNumModel;
 import liuliu.hotel.utils.Utils;
 
@@ -52,7 +53,7 @@ public class DBHelper {
             model.setLastUserDate(Utils.getSystemNowDate());
             finalDb.save(model);
         }
-        String companyID = "1306010001";//企业ID
+        String companyID =Utils.ReadString(SaveKey.KEY_Hotel_Id);//企业ID
 
         return companyID + Utils.getSystemNowDate() + model.getSerialNum();
     }
