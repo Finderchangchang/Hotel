@@ -178,9 +178,20 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         add_person_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.IntentPost(RegPersonActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.mInstance, RegPersonActivity.class);
+                startActivityForResult(intent, 14);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 14 && resultCode == -1) {
+            listener.LoadMain();
+            listener.LeavePerson(maxPage, true);
+        }
     }
 
     /**
@@ -251,7 +262,8 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     public void LeaveHotel(boolean result) {
         if (result) {
             Toast.makeText(MainActivity.mInstance, "离店成功！", Toast.LENGTH_SHORT);
-            mAdapter.notifyDataSetChanged();
+            listener.LoadMain();
+            listener.LeavePerson(maxPage, true);
         } else {
             Toast.makeText(MainActivity.mInstance, "离店失败！", Toast.LENGTH_SHORT);
         }

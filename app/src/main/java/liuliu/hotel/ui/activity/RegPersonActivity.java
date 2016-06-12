@@ -295,7 +295,10 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void checkHotel(boolean result, String mes) {
         ToastShort(mes);
-        finish();
+        if(result) {
+            setResult(-1);
+            finish();
+        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
