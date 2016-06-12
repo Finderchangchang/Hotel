@@ -64,14 +64,12 @@ public class MainSearchListener {
         properties.put("LKZT", "0");//0在住，1离店
         properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         properties.put("YS", page_num + "");
-//        mMain.LoadStayPerson(null, false, true);
         WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
             /**
              * @param result
              */
             @Override
             public void callBack(SoapObject result) {
-                System.out.println(result);
                 List<CustomerModel> list = null;
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
@@ -91,7 +89,7 @@ public class MainSearchListener {
                             mMain.LoadStayPerson(list, isRefresh, invokeReturn.getMessage());
                         }
                         if (mSearch != null) {
-                            mSearch.loadPerson(null);
+                            mSearch.loadPerson(new ArrayList<CustomerModel>());
                         }
                     }
                 } else {

@@ -86,7 +86,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     @Override
     public void initEvents() {
         MZlist = db.findAllByWhere(CodeModel.class, "CodeName='MZ'");
-        JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH'");
         dialog = new NormalDialog(MainActivity.mInstance);
         listener = new MainSearchListener(MainActivity.mInstance, this);
         initTopView();
@@ -96,9 +95,9 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
-                if(null==model.getHeadphoto()){
+                if (null == model.getHeadphoto()) {
                     holder.setImageResource(R.id.item_header, R.mipmap.item_default);
-                }else {
+                } else {
                     holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
                 }
                 holder.setText(R.id.num_btn, (position + 1) + "");
@@ -109,10 +108,15 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 } else {
                     holder.setText(R.id.sex_tv, "男");
                 }
-                holder.setText(R.id.nation_tv, getCodeValuebyKey(MZlist,model.getNation()));
+                holder.setText(R.id.nation_tv, getCodeValuebyKey(MZlist, model.getNation()));
                 holder.setText(R.id.hotel_num_tvs, model.getRoomId());
-                holder.setText(R.id.item_rz_time,model.getCheckInTime());
-                holder.setText(R.id.address_tv, getCodeValuebyKey(JGlist,model.getNative()));
+                holder.setText(R.id.item_rz_time, model.getCheckInTime());
+                JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH' AND KEY='" + model.getNative() + "'");
+
+                if (JGlist != null) {
+                    holder.setText(R.id.address_tv, JGlist.get(0).getVal());
+                }
+
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -217,7 +221,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, String haveRefresh) {
         boolean result = true;
         if (isRefresh) {//下拉刷新
-            modelList = new ArrayList<>();
+            modelList.removeAll(modelList);
             Toast.makeText(MainActivity.mInstance, "刷新成功", Toast.LENGTH_SHORT).show();
         } else {//上划加载更多
             if (modelList == null) modelList = new ArrayList<>();//为空赋值
@@ -257,7 +261,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     @Override
     public void onRefresh() {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 try {

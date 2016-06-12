@@ -45,7 +45,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     @CodeNote(id = R.id.search_btn, click = "onClick")
     Button search_btn;
     @CodeNote(id = R.id.live_lv)
-    TotalListView live_lv;
+    ListView live_lv;
     @CodeNote(id = R.id.rili_left_ll, click = "onClick")
     LinearLayout rili_left_ll;
     @CodeNote(id = R.id.rili_right_ll, click = "onClick")
@@ -135,7 +135,6 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                 }
             };
             live_lv.setAdapter(mAdapter);
-            AUtils.setListViewHeight(live_lv);
         }else{
 
         }

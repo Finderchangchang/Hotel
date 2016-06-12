@@ -68,7 +68,7 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
         //获得日历实例
         Calendar calendar = Calendar.getInstance();
         calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         data = sdf.format(calendar.getTime());
         dig.setTitle(data);
     }
@@ -77,7 +77,7 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
     private Calendar getCalendarByInitData(String initDate) {
         Calendar calendar = Calendar.getInstance();
         if (initDate.equals("")) {
-            SimpleDateFormat ss = new SimpleDateFormat("yyyy年MM月dd日");
+            SimpleDateFormat ss = new SimpleDateFormat("yyyy-MM-dd");
             initDate = ss.format(new Date());
         }
         String year = initDate.substring(0, 4);
