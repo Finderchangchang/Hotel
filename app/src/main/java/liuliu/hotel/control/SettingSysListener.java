@@ -130,7 +130,7 @@ public class SettingSysListener {
                                         }
                                         if (name.equals("MZ")) {
                                             //getCodeServer("SSXQ");//辖区
-                                            getCodeServer("QFJG");//籍贯
+                                            getCodeServer("XZQH");//籍贯
                                         }
 //                                        if(name.equals("SSXQ")){
 //                                            getCodeServer("QFJG");//籍贯
@@ -138,7 +138,7 @@ public class SettingSysListener {
                                     }
                                 }
                             }
-                            if (name.equals("QFJG")) {//籍贯
+                            if (name.equals("XZQH")) {//籍贯
                                 cancelRequest();
                                 mView.checkHotel(true,"字典更新成功！");
                             }

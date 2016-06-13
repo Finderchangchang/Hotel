@@ -1,5 +1,6 @@
 package liuliu.hotel.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     TextView code_tv;
     DownHotelListener mListener;
     String hotel_code = "";//绑定手机的随机码
-
+    Dialog dialog;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_download_hotel);
@@ -54,6 +55,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
      */
     @Override
     public void checkHotel(boolean result, final String mes) {
+        dialog.dismiss();
         if (result) {//比对成功，登录页面.
             ToastShort("绑定成功，正在跳转。。。");
             Utils.IntentPost(LoginActivity.class);
@@ -78,7 +80,10 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.down_btn:
+
                 if (down_btn.getText().equals("下载")) {
+                    dialog = Utils.ProgressDialog(this, dialog, "下载旅馆信息中，请稍候...", false);
+                    dialog.show();
                     if (daima_et.getText().toString().trim().length() == 10) {
                         Utils.WriteString(SaveKey.KEY_Hotel_Id, daima_et.getText().toString().trim());
                         daima_et.setEnabled(false);

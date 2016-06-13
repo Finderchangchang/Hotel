@@ -56,6 +56,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
     TextView myBlooth;
     SettingSysListener listener;
     Dialog dialog;
+
     @Override
     public void initViews() {
         setContentView(R.layout.frag_setting);
@@ -64,7 +65,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
 
     @Override
     public void initEvents() {
-        Contentdialog=new SpinnerDialog(MainActivity.mInstance);
+        Contentdialog = new SpinnerDialog(MainActivity.mInstance);
         center_title_tv.setText("设置");
         dialog = new SpinnerDialog(MainActivity.mInstance);
         dialog.setCanceledOnTouchOutside(true);
@@ -129,7 +130,7 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 // blue_device_scale[count++] = device.getName() + "\n" + device.getAddress();
             }
             //蓝牙设置选择
-            MainActivity.mInstance.ToastShort("list size:"+listblue.size());
+            // MainActivity.mInstance.ToastShort("list size:"+listblue.size());
             Contentdialog.setListView(listblue);
             Contentdialog.show();
             Contentdialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
