@@ -68,7 +68,7 @@ public class PersonDetailActivity extends BaseActivity {
         model = (CustomerModel) getIntent().getSerializableExtra(Key.Person_Detail_Model);//获得流水号
         model.setHeadphoto(Utils.getBitmapByte(getIntent().getStringExtra("image")));
         setTitleBar("旅客详情");
-        if(null!=model){
+        if(null!=model.getHeadphoto()){
             user_img_iv.setImageBitmap(model.getHeadphoto());
         }else{
             user_img_iv.setImageResource(R.mipmap.main_zhengjian);

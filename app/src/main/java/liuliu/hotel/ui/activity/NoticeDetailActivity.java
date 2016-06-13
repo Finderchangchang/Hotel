@@ -40,7 +40,6 @@ public class NoticeDetailActivity extends BaseActivity {
             authoer.setText(info.getFBR());
             time.setText(info.getFBSJ());
             value.setText((Html.fromHtml(info.getTGNR())));
-           // fanwei.setText(info.getTZFW());
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
