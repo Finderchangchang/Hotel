@@ -45,7 +45,7 @@ public class MainSearchListener {
      * @param isRefresh 是否刷新
      */
     public void LeavePerson(int page_num, boolean isRefresh) {
-        SearchByWord("2015-01-01", Utils.getNormalTime().substring(0, 10), "", page_num, isRefresh);
+        SearchByWord("2015-01-01", Utils.getNormalTime().substring(0, 10), "", page_num, isRefresh, false);
     }
 
     /**
@@ -56,12 +56,17 @@ public class MainSearchListener {
      * @param homeId    房间号
      * @param page_num  当前页数
      */
-    public void SearchByWord(String startTime, String end, String homeId, int page_num, final boolean isRefresh) {
+    public void SearchByWord(String startTime, String end, String homeId, int page_num, final boolean isRefresh, boolean searchAll) {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("RZSJBEGIN", startTime);//入住起始时间
         properties.put("RZSJEND", end);//入住截止时间
         properties.put("FH", homeId);
-        properties.put("LKZT", "0");//0在住，1离店
+        if (searchAll) {
+            properties.put("LKZT", "2");//0在住，1离店,2全部
+        } else {
+            properties.put("LKZT", "0");//0在住，1离店,2全部
+        }
+
         properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         properties.put("YS", page_num + "");
         WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
@@ -97,7 +102,7 @@ public class MainSearchListener {
                         mMain.LoadStayPerson(null, isRefresh, "False");
                     }
                     if (mSearch != null) {
-                        mSearch.loadPerson(null);
+                        mSearch.loadPerson(new ArrayList<CustomerModel>());
                     }
                 }
             }

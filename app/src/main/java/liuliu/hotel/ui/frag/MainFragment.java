@@ -120,14 +120,14 @@ public class MainFragment extends BaseFragment implements IFMainView, PullScroll
             mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
                 @Override
                 public void convert(ViewHolder holder, final CustomerModel model, final int position) {
-                    holder.setText(R.id.num_btn, (position + 1) + "");
+//                    holder.setText(R.id.num_btn, (position + 1) + "");
                     holder.setText(R.id.person_name_tv, model.getName());
                     holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);
                     if (model.getSex().equals("2")) {
                         holder.setText(R.id.sex_tv, "女");
                     }
                     holder.setText(R.id.nation_tv, model.getNation());
-                   // holder.setText(R.id.hotel_num_tv, model.getRoomId());
+                    // holder.setText(R.id.hotel_num_tv, model.getRoomId());
                     holder.setText(R.id.address_tv, model.getAddress());
                     holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                         @Override

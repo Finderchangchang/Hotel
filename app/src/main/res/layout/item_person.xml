@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/total_ll"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/item_style"
     android:clickable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/num_btn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="@android:color/white"
-        android:textSize="13sp" />
+    <!--<TextView-->
+        <!--android:id="@+id/num_btn"-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:gravity="center"-->
+        <!--android:text="1"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="13sp" />-->
 
     <LinearLayout
         android:layout_width="70dp"
@@ -92,7 +92,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -109,8 +109,7 @@
                     android:layout_marginRight="10dp"
                     android:text="202号202号202号202号"
                     android:textColor="@color/item_lab"
-                    android:textSize="12sp" />
-
+                    android:textSize="10sp" />
 
 
             </LinearLayout>
@@ -118,7 +117,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -135,13 +134,14 @@
                     android:layout_marginRight="50dp"
                     android:text="河北保定"
                     android:textColor="@color/item_lab"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -149,6 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/time_person" />
+
                 <TextView
                     android:id="@+id/item_rz_time"
                     android:layout_width="wrap_content"

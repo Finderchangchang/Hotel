@@ -39,13 +39,7 @@ import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.PersonDetailActivity;
 import liuliu.hotel.ui.activity.RegPersonActivity;
 import liuliu.hotel.utils.Utils;
-import liuliu.hotel.view.DemoLoadMoreView;
-import liuliu.hotel.view.DividerItemDecoration;
-import liuliu.hotel.view.PersonAdapter;
-import liuliu.hotel.view.PtrrvBaseAdapter;
-import liuliu.hotel.view.RecycleBaseAdapter;
 import liuliu.hotel.view.RyAdapter;
-import liuliu.hotel.view.VViewHolder;
 
 /**
  * 首页fragment
@@ -100,7 +94,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 } else {
                     holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
                 }
-                holder.setText(R.id.num_btn, (position + 1) + "");
+//                holder.setText(R.id.num_btn, (position + 1) + "");
                 holder.setText(R.id.person_name_tv, model.getName());
                 holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);
                 if (model.getSex().equals("2")) {

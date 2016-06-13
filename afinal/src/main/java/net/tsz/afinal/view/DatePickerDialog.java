@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
         this.initData = initDataTime;
     }
 
-    public AlertDialog datePickerDialog(final TextView inputDate) {
+    public AlertDialog datePickerDialog(final EditText inputDate) {
         LinearLayout dateTimeLayout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.my_datapicker, null);
         datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.my_datapicker);
         init(datePicker);
