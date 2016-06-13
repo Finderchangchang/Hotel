@@ -51,7 +51,7 @@ public class DownHotelListener {
             @Override
             public void callBack(SoapObject result) {
                 if (null != result) {
-                    System.out.println("下载："+result);
+                    System.out.println("下载：" + result);
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetLGInfoByLGDM");
                     if (invokeReturn.isSuccess()) {
 
@@ -67,7 +67,7 @@ public class DownHotelListener {
                         mView.checkHotel(false, "旅馆信息下载失败");
                     }
                 } else {
-                    mView.checkHotel(false, "旅馆信息下载失败");
+                    mView.checkHotel(false, result + "");
                 }
             }
         });

@@ -2,6 +2,8 @@ package net.tsz.afinal.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,6 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/5/24.
  */
 public class AUtils {
-
     /**
      * 设置TotalListView(自定义)的高度
      *
@@ -49,8 +50,8 @@ public class AUtils {
     /**
      * 获得所画的图
      *
-     * @param context 系统变量
-     * @param count   分成几部分
+     * @param context  系统变量
+     * @param count    分成几部分
      * @param allcount 总人数
      * @return
      */
@@ -109,14 +110,14 @@ public class AUtils {
      * @param count    分成的份数
      * @param range    组件大小
      * @param pieChart 页面上显示的组件
-     * @param allcount    全部房间数
-     * @param hcount    在住房间数
+     * @param allcount 全部房间数
+     * @param hcount   在住房间数
      */
-    public static void showChart(Context context, int count, float range, PieChart pieChart, int allcount,int hcount) {
-        int baifenbi=0;
-        if(allcount!=0){
-            float num =hcount/allcount;
-             baifenbi=Integer.parseInt(new java.text.DecimalFormat("0").format(num));
+    public static void showChart(Context context, int count, float range, PieChart pieChart, int allcount, int hcount) {
+        int baifenbi = 0;
+        if (allcount != 0) {
+            float num = hcount / allcount;
+            baifenbi = Integer.parseInt(new java.text.DecimalFormat("0").format(num));
         }
 
 
@@ -149,10 +150,10 @@ public class AUtils {
         // mChart.setTouchEnabled(false);
 //      mChart.setOnAnimationListener(this);
 
-        if(allcount!=0) {
+        if (allcount != 0) {
             pieChart.setCenterText("在住率" + baifenbi * 100 + "%");  //饼状图中间的文字
-        }else{
-            pieChart.setCenterText("在住率" +"0%");  //饼状图中间的文字
+        } else {
+            pieChart.setCenterText("在住率" + "0%");  //饼状图中间的文字
         }
         pieChart.setCenterTextSize(12);
 

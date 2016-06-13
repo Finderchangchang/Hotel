@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-1dp"
@@ -9,5 +9,19 @@
         android:id="@+id/main_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"></net.tsz.afinal.view.RefreshListView>
-</LinearLayout>
+        android:background="#fff"
+        android:divider="@null"
+        android:dividerHeight="0dp"></net.tsz.afinal.view.RefreshListView>
+
+    <TextView
+        android:id="@+id/no_data_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="211dp"
+        android:background="@color/cube_mints_white"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:text="当前无数据。。"
+        android:textSize="18sp"
+        android:visibility="gone" />
+</RelativeLayout>

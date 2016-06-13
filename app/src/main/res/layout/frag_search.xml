@@ -24,7 +24,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="入住时间"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/rili_left_ll"
@@ -125,7 +125,7 @@
                 android:layout_marginLeft="15dp"
                 android:text="入住房号"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/house_num_et"
@@ -136,19 +136,16 @@
                 android:layout_weight="1"
                 android:background="@drawable/et_bg"
                 android:paddingLeft="3dp" />
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/search_btn"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_style"
-            android:text="搜索"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            <Button
+                android:id="@+id/search_btn"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_style"
+                android:text="查询"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

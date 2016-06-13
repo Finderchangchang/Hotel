@@ -5,5 +5,4 @@
     android:layout_height="50dp"
     android:gravity="center"
     android:orientation="vertical"
-    android:text="加载更多..."
     android:textSize="18sp"></TextView>

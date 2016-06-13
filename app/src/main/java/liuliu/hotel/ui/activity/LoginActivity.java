@@ -73,7 +73,6 @@ public class LoginActivity extends BaseActivity implements INoticeView {
 
     @Override
     public void loadView(List<DBTZTGInfo> mList) {
-        ToastShort("登录成功！");
         Utils.IntentPost(MainActivity.class);
         this.finish();
     }

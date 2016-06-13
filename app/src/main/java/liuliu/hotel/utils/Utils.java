@@ -12,6 +12,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
@@ -49,6 +51,24 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    public static String getString(int key) {
+        return BaseApplication.getContext().getString(key);
+    }
+
+    /**
+     * 检查网络连接状态
+     *
+     * @return 连接成功
+     */
+    public static boolean isNetworkConnected() {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) BaseApplication.getContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            return mNetworkInfo.isAvailable();
+        }
+        return false;
+    }
 
     public static Bitmap getimage(Context contxt, String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();

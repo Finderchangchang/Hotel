@@ -6,11 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ import liuliu.hotel.config.Key;
 import liuliu.hotel.control.IFMainView;
 import liuliu.hotel.control.MainSearchListener;
 import liuliu.hotel.model.CustomerModel;
+import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.PersonDetailActivity;
 import liuliu.hotel.ui.activity.RegPersonActivity;
@@ -55,7 +59,9 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     TextView live_num_tv;
     PieChart liveing_chart;
     Button add_person_btn;
-
+    TextView hotel_name_tv;
+    @CodeNote(id = R.id.no_data_tv)
+    TextView no_data_tv;
     NormalDialog dialog;//自定义dialog
     private static final int DEFAULT_ITEM_SIZE = 20;
     private static final int ITEM_SIZE_OFFSET = 20;
@@ -78,15 +84,21 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         db = MainActivity.mInstance.finalDb;
     }
 
+    private DisplayMetrics dis;
+
     @Override
     public void initEvents() {
+        initFooterView();
+        dis = MainActivity.mInstance.getResources().getDisplayMetrics();
         MZlist = db.findAllByWhere(CodeModel.class, "CodeName='MZ'");
         dialog = new NormalDialog(MainActivity.mInstance);
         listener = new MainSearchListener(MainActivity.mInstance, this);
         initTopView();
         main_lv.addHeaderView(topView);
+        if (dis.widthPixels > 700) {
+            hotel_name_tv.setTextSize(26);
+        }
         listener.LeavePerson(maxPage, false);
-        if (modelList == null) modelList = new ArrayList<>();
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
@@ -136,13 +148,13 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                     public void onClick(View v) {
                         Intent intent = new Intent();
                         intent.setClass(MainActivity.mInstance, PersonDetailActivity.class);
-                        intent.putExtra("image",Utils.encodeBitmap(model.getHeadphoto()));
+                        intent.putExtra("image", Utils.encodeBitmap(model.getHeadphoto()));
                         Bundle bundle = new Bundle();
                         model.setHeadphoto(null);
                         bundle.putSerializable(Key.Person_Detail_Model, model);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                     }
+                    }
                 });
             }
         };
@@ -150,6 +162,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         main_lv.setOnRefreshListener(this);
         listener.LoadMain();
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
+        hotel_name_tv.setText(MainActivity.mInstance.finalDb.findAll(DBLGInfo.class).get(0).getLGMC());
     }
 
     TextView bottom_ll;
@@ -170,6 +183,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         topView = View.inflate(MainActivity.mInstance, R.layout.header, null);
         liveing_chart = (PieChart) topView.findViewById(R.id.liveing_chart);
         live_num_tv = (TextView) topView.findViewById(R.id.live_num_tv);
+        hotel_name_tv = (TextView) topView.findViewById(R.id.hotel_name_tv);
         add_person_btn = (Button) topView.findViewById(R.id.add_person_btn);
         add_person_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +220,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         main_lv.addFooterView(footerView);
     }
 
-    List<CustomerModel> modelList;//当前页面显示的
+    List<CustomerModel> modelList = new ArrayList<>();//当前页面显示的
 
     /**
      * @param hcount      在住房间数
@@ -228,18 +242,37 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     public void LoadStayPerson(List<CustomerModel> list, boolean isRefresh, String haveRefresh) {
         boolean result = true;
         if (isRefresh) {//下拉刷新
-            modelList.removeAll(modelList);
-            Toast.makeText(MainActivity.mInstance, "刷新成功", Toast.LENGTH_SHORT).show();
-        } else {//上划加载更多
-            if (modelList == null) modelList = new ArrayList<>();//为空赋值
-            if (("False").equals(haveRefresh)) {
-                result = false;
-                bottom_ll.setClickable(false);
-                bottom_ll.setText("无更多数据");
+            if (list.size() == 0) {
+                MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
             } else {
-                initFooterView();
-                bottom_ll.setClickable(true);
-                bottom_ll.setText("加载更多...");
+                modelList.removeAll(modelList);
+                MainActivity.mInstance.ToastShort("刷新成功");
+                if (("True").equals(haveRefresh)) {
+                    if (list.size() == 20) {
+                        bottom_ll.setVisibility(View.VISIBLE);
+                        bottom_ll.setClickable(true);
+                        bottom_ll.setText("加载更多...");
+                    }
+                }
+            }
+        } else {//上划加载更多
+            if (list.size() == 0) {
+                MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
+                bottom_ll.setClickable(false);
+                bottom_ll.setText(Utils.getString(R.string.check_online));
+                Log.i("TAG", topView.getY() + ":" + topView.getY());
+                bottom_ll.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, (int) (dis.heightPixels - topView.getY())));
+            } else {
+                if (("False").equals(haveRefresh)) {
+                    result = false;
+                    bottom_ll.setClickable(false);
+                    bottom_ll.setText("无更多数据");
+                } else {
+                    if (list.size() == 20) {
+                        bottom_ll.setClickable(true);
+                        bottom_ll.setText("加载更多...");
+                    }
+                }
             }
         }
         for (CustomerModel model : list) {
@@ -269,25 +302,30 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(3000);
+                if (Utils.isNetworkConnected()) {
                     mHandler.sendEmptyMessage(REFRESH_COMPLETE);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } else {
+                    mHandler.sendEmptyMessage(NO_ONLINE);
                 }
             }
         }).start();
     }
 
     private final static int REFRESH_COMPLETE = 0;
+    private final static int NO_ONLINE = 1;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
                     maxPage = 1;
                     listener.LeavePerson(maxPage, true);
+                    listener.LoadMain();
                     main_lv.refreshComplete();
                     mAdapter.notifyDataSetChanged();
+                    break;
+                case NO_ONLINE:
+                    MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
+                    main_lv.refreshComplete();//关闭顶部下拉动画
                     break;
                 default:
                     break;

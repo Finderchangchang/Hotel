@@ -61,7 +61,11 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
         } else {
             finalDb.deleteAll(DBLGInfo.class);
             finalDb.deleteAll(CodeModel.class);
-            ToastShort(mes);
+            if (mes.equals("null")) {
+                ToastShort("请检查ip端口是否正确！！");
+            } else {
+                ToastShort(mes);
+            }
             daima_et.setEnabled(true);
             down_btn.setText("下载");
             down_btn.setEnabled(true);
@@ -76,7 +80,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
             case R.id.down_btn:
                 if (down_btn.getText().equals("下载")) {
                     if (daima_et.getText().toString().trim().length() == 10) {
-                        Utils.WriteString(SaveKey.KEY_Hotel_Id,daima_et.getText().toString().trim());
+                        Utils.WriteString(SaveKey.KEY_Hotel_Id, daima_et.getText().toString().trim());
                         daima_et.setEnabled(false);
                         down_btn.setEnabled(false);
                         down_btn.setText("重置");

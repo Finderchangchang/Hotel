@@ -99,7 +99,7 @@ public class MainSearchListener {
                     }
                 } else {
                     if (mMain != null) {
-                        mMain.LoadStayPerson(null, isRefresh, "False");
+                        mMain.LoadStayPerson(new ArrayList<CustomerModel>(), isRefresh, "False");
                     }
                     if (mSearch != null) {
                         mSearch.loadPerson(new ArrayList<CustomerModel>());
@@ -149,7 +149,6 @@ public class MainSearchListener {
             public void callBack(SoapObject result) {
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetRoomRate");
-                    System.out.println(result);
                     if (invokeReturn.isSuccess()) {
                         String[] threeNum = invokeReturn.getMessage().split(":");
                         int[] nums = new int[3];
