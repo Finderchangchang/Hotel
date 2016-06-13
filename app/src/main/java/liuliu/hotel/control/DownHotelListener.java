@@ -134,7 +134,7 @@ public class DownHotelListener {
                                 mView.checkHotel(false, "字典下载失败，请重新下载！");
                             }
                             if (name.equals("XZQH")) {//籍贯
-
+                                cancelRequest();
                                 mView.checkHotel(true, "");
 
                             }
@@ -145,5 +145,27 @@ public class DownHotelListener {
                 }
 
         );
+    }
+
+    private void cancelRequest() {
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put("lgdm", model.getLGDM());//如果建立资源，就返回true
+        WebServiceUtils.callWebService(true, "DisposeServerSource", properties, new WebServiceUtils.WebServiceCallBack() {
+
+            @Override
+            public void callBack(SoapObject result) {
+                if (null != result) {
+                    InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "DisposeServerSource");
+                    System.out.println("DisposeServerSource" + result);
+                    if (invokeReturn.isSuccess()) {
+                        //ToastShort("下载成功");
+                    } else {
+                        //ToastShort("下载失败");
+                    }
+                } else {
+                    //ToastShort("下载失败");
+                }
+            }
+        });
     }
 }
