@@ -1,6 +1,7 @@
 package liuliu.hotel.ui.frag;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -106,7 +107,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 holder.setText(R.id.hotel_num_tvs, model.getRoomId());
                 holder.setText(R.id.item_rz_time, model.getCheckInTime());
                 JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH' AND KEY='" + model.getNative() + "'");
-
                 if (JGlist != null) {
                     holder.setText(R.id.address_tv, JGlist.get(0).getVal());
                 }
@@ -134,13 +134,15 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
-                            @Override
-                            public void put(Intent intent) {
-                                intent.putExtra(Key.Person_Detail_Model, model);
-                            }
-                        });
-                    }
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.mInstance, PersonDetailActivity.class);
+                        intent.putExtra("image",Utils.encodeBitmap(model.getHeadphoto()));
+                        Bundle bundle = new Bundle();
+                        model.setHeadphoto(null);
+                        bundle.putSerializable(Key.Person_Detail_Model, model);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                     }
                 });
             }
         };
@@ -238,7 +240,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 initFooterView();
                 bottom_ll.setClickable(true);
                 bottom_ll.setText("加载更多...");
-
             }
         }
         for (CustomerModel model : list) {

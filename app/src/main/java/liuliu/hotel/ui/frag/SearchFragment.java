@@ -1,6 +1,7 @@
 package liuliu.hotel.ui.frag;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -183,12 +184,14 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                     holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Utils.IntentPost(PersonDetailActivity.class, new Utils.putListener() {
-                                @Override
-                                public void put(Intent intent) {
-                                    intent.putExtra(Key.Person_Detail_Model, model);
-                                }
-                            });
+                            Intent intent = new Intent();
+                            intent.setClass(MainActivity.mInstance, PersonDetailActivity.class);
+                            intent.putExtra("image",Utils.encodeBitmap(model.getHeadphoto()));
+                            Bundle bundle = new Bundle();
+                            model.setHeadphoto(null);
+                            bundle.putSerializable(Key.Person_Detail_Model, model);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
                     });
                 }

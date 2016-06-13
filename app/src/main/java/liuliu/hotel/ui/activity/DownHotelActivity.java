@@ -57,7 +57,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
         if (result) {//比对成功，登录页面.
             ToastShort("绑定成功，正在跳转。。。");
             Utils.IntentPost(LoginActivity.class);
-            this.finish();//关闭当前页面
+            DownHotelActivity.this.finish();//关闭当前页面
         } else {
             finalDb.deleteAll(DBLGInfo.class);
             finalDb.deleteAll(CodeModel.class);

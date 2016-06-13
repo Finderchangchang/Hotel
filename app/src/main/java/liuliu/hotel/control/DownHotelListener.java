@@ -51,8 +51,10 @@ public class DownHotelListener {
             @Override
             public void callBack(SoapObject result) {
                 if (null != result) {
+                    System.out.println("下载："+result);
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetLGInfoByLGDM");
                     if (invokeReturn.isSuccess()) {
+
                         //设置密码为1
                         db.deleteAll(DBTZTGInfo.class);
                         model = (DBLGInfo) invokeReturn.getData().get(0);

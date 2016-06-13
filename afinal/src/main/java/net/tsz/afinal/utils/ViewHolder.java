@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.util.Linkify;
@@ -124,7 +125,7 @@ public class ViewHolder {
 
     public ViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
         ImageView view = getView(viewId);
-        view.setImageBitmap(bitmap);
+        view.setImageDrawable(new BitmapDrawable(mContext.getResources(), bitmap));
         return this;
     }
 

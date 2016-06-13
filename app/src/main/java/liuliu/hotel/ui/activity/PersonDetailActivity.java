@@ -1,5 +1,6 @@
 package liuliu.hotel.ui.activity;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.config.Key;
 import liuliu.hotel.model.CustomerModel;
 import liuliu.hotel.model.PersonModel;
+import liuliu.hotel.utils.Utils;
 
 /**
  * 人员详细信息
@@ -29,7 +31,7 @@ public class PersonDetailActivity extends BaseActivity {
     @CodeNote(id = R.id.toolbar)
     Toolbar toolbar;
     @CodeNote(id = R.id.user_img_iv)
-    CubeImageView user_img_iv;
+    ImageView user_img_iv;
     @CodeNote(id = R.id.user_name_tv)
     TextView user_name_tv;
     @CodeNote(id = R.id.person_sex_tv)
@@ -48,8 +50,8 @@ public class PersonDetailActivity extends BaseActivity {
     TextView detail_address_tv;
     @CodeNote(id = R.id.card_type_tv)
     TextView card_type_tv;//证件类型
-    @CodeNote(id = R.id.default_img_iv)
-    ImageView default_img_iv;//默认图片效果
+//    @CodeNote(id = R.id.default_img_iv)
+//    ImageView default_img_iv;//默认图片效果
     CustomerModel model;//入住旅客信息
     List<CodeModel> list;
 
@@ -62,16 +64,24 @@ public class PersonDetailActivity extends BaseActivity {
     public void initEvents() {
         model = new CustomerModel();
         mInstance = this;
+
         model = (CustomerModel) getIntent().getSerializableExtra(Key.Person_Detail_Model);//获得流水号
+        model.setHeadphoto(Utils.getBitmapByte(getIntent().getStringExtra("image")));
         setTitleBar("旅客详情");
-        if (model.getUrl() != null) {
-            user_img_iv.loadImage(mLoader, model.getUrl());
-            default_img_iv.setVisibility(View.GONE);
-            user_img_iv.setVisibility(View.VISIBLE);
-        } else {
-            default_img_iv.setVisibility(View.VISIBLE);
-            user_img_iv.setVisibility(View.GONE);
+        if(null!=model){
+            user_img_iv.setImageBitmap(model.getHeadphoto());
+        }else{
+            user_img_iv.setImageResource(R.mipmap.main_zhengjian);
+            //user_img_iv.setImageBitmap(BitmapFactory.decodeResource(R.mipmap.main_zhengjian));
         }
+//        if (model.getUrl() != null) {
+//            user_img_iv.loadImage(mLoader, model.getUrl());
+//            default_img_iv.setVisibility(View.GONE);
+//            user_img_iv.setVisibility(View.VISIBLE);
+//        } else {
+//            default_img_iv.setVisibility(View.VISIBLE);
+//            user_img_iv.setVisibility(View.GONE);
+//        }
         user_name_tv.setText(model.getName());
         if (("2").equals(model.getSex())) {
             person_sex_tv.setText("女");

@@ -266,7 +266,12 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
             customerModel.setNative(card_num.substring(0, 6));
         }
         customerModel.setCheckInSign(Utils.getVersionName());//当前系统版本
-        customerModel.setHeadphoto(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        if(bm!=null){
+            customerModel.setHeadphoto(bm);
+        }else{
+            customerModel.setHeadphoto(null);
+        }
+        //customerModel.setHeadphoto(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         String num = new DBHelper(finalDb, this).getSeralNum();
         customerModel.setSerialId(num);
         customerModel.setRoomId(home_num_iet.getText());
