@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
@@ -32,6 +33,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     Button down_btn;
     @CodeNote(id = R.id.code_tv)
     TextView code_tv;
+    @CodeNote(id=R.id.back_setting_iv,click = "onClick")ImageView setting;
     DownHotelListener mListener;
     String hotel_code = "";//绑定手机的随机码
     Dialog dialog;
@@ -80,7 +82,6 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.down_btn:
-
                 if (down_btn.getText().equals("下载")) {
                     dialog = Utils.ProgressDialog(this, dialog, "下载旅馆信息中，请稍候...", false);
                     dialog.show();
@@ -100,6 +101,14 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
                     daima_et.setEnabled(true);
                     down_btn.setText("下载");
                 }
+                break;
+            case R.id.back_setting_iv:
+                Utils.IntentPost(SetIpActivity.class, new Utils.putListener() {
+                    @Override
+                    public void put(Intent intent) {
+                        intent.putExtra(Key.Reg_IP_Port, "down");//跳转到设置ip端口页面
+                    }
+                });
                 break;
         }
     }

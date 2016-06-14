@@ -11,6 +11,14 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
+        <ImageView
+            android:id="@+id/back_setting_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="40dp"
+            android:src="@mipmap/tab_icon_setting" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -10,12 +10,11 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.HashMap;
 import java.util.List;
 
-import liuliu.hotel.config.Key;
 import liuliu.hotel.config.SaveKey;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.InvokeReturn;
+import liuliu.hotel.utils.DBHelperUtils;
 import liuliu.hotel.utils.Utils;
-import liuliu.hotel.web.DBHelper;
 import liuliu.hotel.web.SoapObjectUtils;
 import liuliu.hotel.web.WebServiceUtils;
 
@@ -25,7 +24,7 @@ import liuliu.hotel.web.WebServiceUtils;
 public class SettingSysListener {
     IDownHotelView mView;
     FinalDb db;
-    DBHelper dbHelper;
+    DBHelperUtils dbHelper;
     Context myContext;
     List<DBLGInfo> myList;
     DBLGInfo info = null;
@@ -34,7 +33,6 @@ public class SettingSysListener {
         mView = view;
         db = finalDb;
         myContext = context;
-        dbHelper = new DBHelper(finalDb, context);
     }
 
 
@@ -78,6 +76,7 @@ public class SettingSysListener {
         WebServiceUtils.callWebService(true, "GetAllCodeLastChangeTime", properties, new WebServiceUtils.WebServiceCallBack() {
             @Override
             public void callBack(SoapObject result) {
+                System.out.println("...."+result);
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllCodeLastChangeTime");
                     if (invokeReturn.isSuccess()) {
@@ -86,16 +85,18 @@ public class SettingSysListener {
                         if (Utils.DateCompare(localTime, invokeReturn.getTime())) {
                             //不需要更新
                             mView.checkHotel(true, "字典已经是最新");
+                            cancelRequest();
                             Utils.WriteString("CodeLastChangeTime",localTime);
                         } else {
                             Utils.WriteString("CodeLastChangeTime",invokeReturn.getTime());
                             //需要更新
                             db.deleteAll(CodeModel.class);
-                            getCodeServer("XZQH");
+                            getCodeServer("ZJLX");
                         }
                         //比对时间，服务器更新时间大于本地更新时间，就更新字典
                     } else {
                         mView.checkHotel(false, "");
+
                     }
                 } else {
                     //ToastShort("下载失败");
@@ -118,25 +119,33 @@ public class SettingSysListener {
                     @Override
                     public void callBack(SoapObject result) {
                         if (null != result) {
-                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
+                            final InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
                             if (invokeReturn.isSuccess()) {
-                                for (int i = 0; i < invokeReturn.getData().size(); i++) {
-                                    CodeModel code = (CodeModel) invokeReturn.getData().get(i);
-                                    code.setCodeName(name);
-                                    db.save(code);
-                                    if (i == invokeReturn.getData().size() - 1) {
+                                DBHelperUtils.DBHelperListener dbHelperListener=new DBHelperUtils.DBHelperListener() {
+                                    @Override
+                                    public void dbHelper() {
+                                        for(Object o:invokeReturn.getData()){
+                                            CodeModel code= (CodeModel) o;
+                                            code.setCodeName(name);
+                                            db.save(code);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void dbHelperResult() {
+
                                         if (name.equals("ZJLX")) {//证件类型
                                             getCodeServer("MZ");//民族
                                         }
                                         if (name.equals("MZ")) {
-                                            //getCodeServer("SSXQ");//辖区
+                                            // getCodeServer("SSXQ");//辖区
                                             getCodeServer("XZQH");//籍贯
                                         }
-//                                        if(name.equals("SSXQ")){
-//                                            getCodeServer("QFJG");//籍贯
-//                                        }
                                     }
-                                }
+
+                                };
+                                dbHelper= new DBHelperUtils(db,dbHelperListener);
+                                dbHelper.start();
                             }
                             if (name.equals("XZQH")) {//籍贯
                                 cancelRequest();

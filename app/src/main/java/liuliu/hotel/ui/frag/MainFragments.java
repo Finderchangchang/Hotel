@@ -167,7 +167,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         main_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivity.mInstance.ToastShort("position:"+position);
+               // MainActivity.mInstance.ToastShort("position:"+position);
             }
         });
         main_lv.setAdapter(mAdapter);
