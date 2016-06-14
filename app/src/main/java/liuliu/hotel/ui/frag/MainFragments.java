@@ -175,9 +175,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
         hotel_name_tv.setText(MainActivity.mInstance.finalDb.findAll(DBLGInfo.class).get(0).getLGMC());
     }
-
     TextView bottom_ll;
-
     private String getCodeValuebyKey(List<CodeModel> list, String key) {
         for (CodeModel code : list) {
             if (code.getKey().equals(key)) {
