@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -71,7 +72,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
 
     private static final int TIME = 1000;
     CommonAdapter mAdapter;
-    private int maxPage = 1;
+    private int maxPage = 0;
     View topView;
     View footerView;
     List<CodeModel> MZlist = new ArrayList<>();
@@ -91,14 +92,19 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         initFooterView();
         dis = MainActivity.mInstance.getResources().getDisplayMetrics();
         MZlist = db.findAllByWhere(CodeModel.class, "CodeName='MZ'");
-        dialog = new NormalDialog(MainActivity.mInstance);
+        dialog = new NormalDialog(MainActivity.mInstance);//初始化dialog
         listener = new MainSearchListener(MainActivity.mInstance, this);
         initTopView();
         main_lv.addHeaderView(topView);
-        if (dis.widthPixels > 700) {
+        if (dis.widthPixels > 700) {//适配宽屏
             hotel_name_tv.setTextSize(26);
         }
-        listener.LeavePerson(maxPage, false);
+        if (Utils.isNetworkConnected()) {//首次进入页面
+            listener.LeavePerson(++maxPage, false);
+            listener.LoadMain();
+        } else {//无网状态
+            initNoDataView();
+        }
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, R.layout.item_person) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
@@ -158,9 +164,14 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 });
             }
         };
+        main_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MainActivity.mInstance.ToastShort("position:"+position);
+            }
+        });
         main_lv.setAdapter(mAdapter);
-        main_lv.setOnRefreshListener(this);
-        listener.LoadMain();
+        main_lv.setOnRefreshListener(this);//开启刷新
         AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, 100, 100);//显示百分比盘
         hotel_name_tv.setText(MainActivity.mInstance.finalDb.findAll(DBLGInfo.class).get(0).getLGMC());
     }
@@ -200,7 +211,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 14 && resultCode == -1) {
             listener.LoadMain();
-            listener.LeavePerson(maxPage, true);
+            listener.LeavePerson(++maxPage, true);
         }
     }
 
@@ -214,7 +225,11 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         bottom_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.LeavePerson(++maxPage, false);
+                if (Utils.isNetworkConnected()) {//联网状态，加载页面
+                    listener.LeavePerson(++maxPage, false);
+                } else {
+                    MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
+                }
             }
         });
         main_lv.addFooterView(footerView);
@@ -243,7 +258,9 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         boolean result = true;
         if (isRefresh) {//下拉刷新
             if (list.size() == 0) {
-                MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
+                bottom_ll.setVisibility(View.VISIBLE);
+                bottom_ll.setClickable(true);
+                bottom_ll.setText(Utils.getString(R.string.check_online));
             } else {
                 modelList.removeAll(modelList);
                 MainActivity.mInstance.ToastShort("刷新成功");
@@ -258,11 +275,8 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         } else {//上划加载更多
             if (list.size() == 0) {
                 MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
-                bottom_ll.setClickable(false);
-                bottom_ll.setText(Utils.getString(R.string.check_online));
-                Log.i("TAG", topView.getY() + ":" + topView.getY());
-                bottom_ll.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, (int) (dis.heightPixels - topView.getY())));
             } else {
+                no_data_tv.setVisibility(View.GONE);
                 if (("False").equals(haveRefresh)) {
                     result = false;
                     bottom_ll.setClickable(false);
@@ -326,10 +340,21 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
                 case NO_ONLINE:
                     MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
                     main_lv.refreshComplete();//关闭顶部下拉动画
+                    //首次无网状态刷新
+                    if (modelList.size() == 0) initNoDataView();
                     break;
                 default:
                     break;
             }
         }
     };
+
+    /**
+     * 加载底部无网络
+     */
+    private void initNoDataView() {
+        bottom_ll.setVisibility(View.VISIBLE);
+        bottom_ll.setClickable(true);
+        bottom_ll.setText(Utils.getString(R.string.no_online));
+    }
 }
