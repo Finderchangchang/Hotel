@@ -1,5 +1,6 @@
 package liuliu.hotel.ui.frag;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,7 +64,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     MainSearchListener mListener;
     int pageNum = 1;
     FinalDb db;
-
+    Dialog dialogProgress;
     @Override
     public void initViews() {
         setContentView(R.layout.frag_search);
@@ -83,6 +84,8 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_btn://查询按钮
+                dialogProgress = Utils.ProgressDialog(MainActivity.mInstance, dialog, "下载旅馆信息中，请稍候...", false);
+                dialogProgress.show();
                 if (checkChoices()) {
                     mListener.SearchByWord(start_time_et.getText().toString(), end_time_et.getText().toString(), house_num_et.getText().toString().trim(), pageNum, false, true);
                 } else {
@@ -127,6 +130,7 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
 
     @Override
     public void loadPerson(List<CustomerModel> mList) {
+        dialogProgress.dismiss();
         if (mList.size() != 0) {
             mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, mList, R.layout.item_person) {
                 @Override

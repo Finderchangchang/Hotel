@@ -80,7 +80,7 @@ public class WebServiceUtils {
             Element[] header = new Element[1];
             header[0] = new Element().createElement(NAMESPACE, "LGSoapHeader");
             Element element = new Element().createElement(NAMESPACE, "LGDM");
-            element.addChild(Node.TEXT,"1306010010");
+            element.addChild(Node.TEXT,Utils.ReadString(SaveKey.KEY_Hotel_Id));
             Element psw = new Element().createElement(NAMESPACE, "QQM");
             psw.addChild(Node.TEXT, "Kiwi:" + Utils.getQINGQIUMA());
             header[0].addChild(Node.ELEMENT, element);
@@ -179,7 +179,7 @@ public class WebServiceUtils {
 
             envelope.setOutputSoapObject(request);
 
-            int timeout = 20000;
+            int timeout = 30000;
             final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(url,
                     timeout);
 

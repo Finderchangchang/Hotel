@@ -56,7 +56,6 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     RefreshListView main_lv;
     RyAdapter<CustomerModel> modelRyAdapter;
     MainSearchListener listener;
-
     TextView live_num_tv;
     PieChart liveing_chart;
     Button add_person_btn;
@@ -66,10 +65,8 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
     NormalDialog dialog;//自定义dialog
     private static final int DEFAULT_ITEM_SIZE = 20;
     private static final int ITEM_SIZE_OFFSET = 20;
-
     private static final int MSG_CODE_REFRESH = 0;
     private static final int MSG_CODE_LOADMORE = 1;
-
     private static final int TIME = 1000;
     CommonAdapter mAdapter;
     private int maxPage = 0;
