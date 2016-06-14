@@ -53,7 +53,7 @@ public class WebServiceUtils {
                                       final WebServiceCallBack webServiceCallBack) {
         String url = "http://" + Utils.ReadString(SaveKey.KEY_IP) + ":" + Utils.ReadString(SaveKey.KEY_PORT) + "/WebServices/LGXX/Mobile.asmx";
         // 创建HttpTransportSE对象，传递WebService服务器地址
-        final HttpTransportSE httpTransportSE = new HttpTransportSE(url, 30000);
+        final HttpTransportSE httpTransportSE = new HttpTransportSE(url, 15000);
 
         // / 创建SoapObject对象
         SoapObject soapObject = new SoapObject(NAMESPACE, methodName);
@@ -179,7 +179,7 @@ public class WebServiceUtils {
 
             envelope.setOutputSoapObject(request);
 
-            int timeout = 30000;
+            int timeout = 15000;
             final MyAndroidHttpTransport transport = new MyAndroidHttpTransport(url,
                     timeout);
 
