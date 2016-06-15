@@ -48,7 +48,7 @@ public class ImageEditText extends LinearLayout {
         mEditBg_int = a.getResourceId(R.styleable.ImageEditText_ie_et_bg, 0);
         mLeftImg_int = a.getResourceId(R.styleable.ImageEditText_ie_left_img, 0);//文本框左侧显示的图片
         mHintText = a.getString(R.styleable.ImageEditText_ie_hint_text);
-        isNum = a.getBoolean(R.styleable.ImageEditText_num, false);
+//        isNum = a.getBoolean(R.styleable.ImageEditText_num, false);
         a.recycle();
         init(context);
     }

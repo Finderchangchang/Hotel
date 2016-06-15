@@ -22,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import net.tsz.afinal.R;
+import net.tsz.afinal.view.LabelView;
 
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
@@ -169,6 +170,24 @@ public class ViewHolder {
             alpha.setDuration(0);
             alpha.setFillAfter(true);
             getView(viewId).startAnimation(alpha);
+        }
+        return this;
+    }
+
+    /**
+     * 设置左侧顶部标签字
+     *
+     * @param viewId
+     * @param online
+     * @return
+     */
+    public ViewHolder setLabView(int viewId, boolean online) {
+        LabelView view = getView(viewId);
+        view.setVisibility(View.VISIBLE);
+        if (online) {
+            view.setText("在住");
+        } else {
+            view.setText("离店");
         }
         return this;
     }

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/total_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_style"
-        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="10dp">
@@ -24,7 +26,7 @@
         <!--android:textColor="@android:color/white"-->
         <!--android:textSize="13sp" />-->
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp">
 
@@ -38,9 +40,20 @@
                 android:id="@+id/item_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp"
                 android:src="@mipmap/item_default" />
-        </LinearLayout>
+
+            <net.tsz.afinal.view.LabelView
+                android:id="@+id/left_top_labv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:backgroundColor="@color/colorAccent"
+                app:direction="leftTop"
+                app:num=""
+                app:numStyle="normal"
+                app:text="在住"
+                app:textSize="9sp" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -179,6 +192,7 @@
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
