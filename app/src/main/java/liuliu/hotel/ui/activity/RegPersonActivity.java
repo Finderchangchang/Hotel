@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import com.ivsign.android.IDCReader.CopyFile;
 import com.ivsign.android.IDCReader.Cvr100bMYTask;
 import com.ivsign.android.IDCReader.Cvr100bTask;
+import com.ivsign.android.IDCReader.IdcardInfoExtractor;
+import com.ivsign.android.IDCReader.IdcardValidator;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.view.ImageEditText;
@@ -84,9 +88,10 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     RegPersonListener listener;
     CustomerModel customerModel;
     List<CodeModel> xbCode;
-    List<CodeModel>MZcode=new ArrayList<>();
-    List<CodeModel>ZJLXcode=new ArrayList<>();
+    List<CodeModel> MZcode = new ArrayList<>();
+    List<CodeModel> ZJLXcode = new ArrayList<>();
     Bitmap bm = null;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_reg_person);
@@ -99,10 +104,11 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
 
     @Override
     public void initEvents() {
-        ZJLXcode=finalDb.findAllByWhere(CodeModel.class, "CodeName='ZJLX'");
+        idcard_iet.AddChangeMethod(new EditChangedListener());
+        ZJLXcode = finalDb.findAllByWhere(CodeModel.class, "CodeName='ZJLX'");
         zhengjian_val_tv.setText(ZJLXcode.get(0).getVal());
         customerModel.setCardType(ZJLXcode.get(0).getKey());
-        MZcode=finalDb.findAllByWhere(CodeModel.class, "CodeName='MZ'");
+        MZcode = finalDb.findAllByWhere(CodeModel.class, "CodeName='MZ'");
         minzu_val_tv.setText(MZcode.get(0).getVal());
         customerModel.setNation(MZcode.get(0).getKey());
         xbCode = new ArrayList<CodeModel>();
@@ -182,6 +188,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, type);
     }
+
     //cvr
     private void onReadCardCvr() {
         if (Utils.checkBluetooth(this, 2)) {
@@ -198,7 +205,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                         if (result) {
                             find = true;
                             setPerson(person);
-                        }   else {
+                        } else {
                             if (null != person) {
                                 find = true;
                                 ToastShort(person.getPersonName());
@@ -217,6 +224,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
                     blue.setDeviceAddress(Utils.ReadString("BlueToothAddress"));
                     return blue;
                 }
+
                 @Override
                 public void onResult(boolean result, PersonModel person) {
                     Message msg = handler.obtainMessage(1);
@@ -245,6 +253,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         } else if (address_iet.getText().trim().equals("")) {
             ToastShort("请填写地址");
             return false;
+        } else if (!checkCardId()) {
+            ToastShort("请核对证件号码");
+            return false;
         }
         return true;
     }
@@ -266,9 +277,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
             customerModel.setNative(card_num.substring(0, 6));
         }
         customerModel.setCheckInSign(Utils.getVersionName());//当前系统版本
-        if(bm!=null){
+        if (bm != null) {
             customerModel.setHeadphoto(bm);
-        }else{
+        } else {
             customerModel.setHeadphoto(null);
         }
         //customerModel.setHeadphoto(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
@@ -300,17 +311,18 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void checkHotel(boolean result, String mes) {
         ToastShort(mes);
-        if(result) {
+        if (result) {
             setResult(-1);
             finish();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 11 && resultCode == -1) {
             bm = Utils.getimage(this, path.toString());
-           // person_path = path.toString();
+            // person_path = path.toString();
             if (bm != null) {
                 user_img_iv.setImageBitmap(Utils.centerSquareScaleBitmap(bm, 60));
                 user_img_iv.setTag(bm);
@@ -322,6 +334,7 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     /**
      * 获取当前应用的版本号：
      */
@@ -339,5 +352,65 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
             e.printStackTrace();
         }
         return Version.replace("num", "1.0");
+    }
+
+    class EditChangedListener implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            checkCardId();
+        }
+    }
+
+    //根据民族KEY
+    private String getValue(String key) {
+        for (CodeModel code : MZcode) {
+            if (code.getKey().equals(key)) {
+                return code.getVal();
+            }
+        }
+        return "";
+    }
+
+    private boolean checkCardId() {
+        boolean result = false;
+        try {
+            String card_id = idcard_iet.getText().toString();
+            if (!Utils.isEmptyString(card_id)) {
+                IdcardValidator iv = new IdcardValidator();
+                if (!iv.isValidatedAllIdcard(card_id)) {
+                    idcard_iet.setCenterTextRedColor();
+                } else {
+                    IdcardInfoExtractor iie = new IdcardInfoExtractor(card_id);
+                    customerModel.setSex(iie.getGender());
+                    if (iie.getGender().equals("1")) {
+                        xingbie_val_tv.setText("男");
+                    } else {
+                        xingbie_val_tv.setText("女");
+                    }
+                    //minzu_val_tv.setText(getValue(iie.getna));
+                    //iie.getNativeCode()
+                    customerModel.setNative(iie.getNativeCode());
+                    customerModel.setBirthday(String.format("%04d-%02d-%02d",
+                            iie.getYear(), iie.getMonth(), iie.getDay()));
+                    result = true;
+                    idcard_iet.setCenterTextRedColor2();
+                }
+            }
+        } catch (Exception e) {
+            idcard_iet.setCenterTextRedColor();
+            result = false;
+        }
+        return result;
     }
 }

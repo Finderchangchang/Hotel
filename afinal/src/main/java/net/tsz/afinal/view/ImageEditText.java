@@ -201,7 +201,9 @@ public class ImageEditText extends LinearLayout {
         this(context, null);
         init(context);
     }
-
+    public void AddChangeMethod(TextWatcher textWatcher) {
+        mEditText.addTextChangedListener(textWatcher);
+    }
     public ImageEditText(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         init(context);

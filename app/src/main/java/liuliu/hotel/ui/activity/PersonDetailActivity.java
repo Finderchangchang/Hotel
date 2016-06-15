@@ -50,6 +50,8 @@ public class PersonDetailActivity extends BaseActivity {
     TextView detail_address_tv;
     @CodeNote(id = R.id.card_type_tv)
     TextView card_type_tv;//证件类型
+    @CodeNote(id=R.id.detail_create_time)TextView createTime;
+    @CodeNote(id=R.id.detail_leave_time)TextView leaveTime;
 //    @CodeNote(id = R.id.default_img_iv)
 //    ImageView default_img_iv;//默认图片效果
     CustomerModel model;//入住旅客信息
@@ -64,7 +66,6 @@ public class PersonDetailActivity extends BaseActivity {
     public void initEvents() {
         model = new CustomerModel();
         mInstance = this;
-
         model = (CustomerModel) getIntent().getSerializableExtra(Key.Person_Detail_Model);//获得流水号
         model.setHeadphoto(Utils.getBitmapByte(getIntent().getStringExtra("image")));
         setTitleBar("旅客详情");
@@ -117,5 +118,12 @@ public class PersonDetailActivity extends BaseActivity {
         person_idcard_tv.setText(model.getCardId());//证件号码
         person_nation_tv.setText(model.getNation());
         detail_address_tv.setText(model.getAddress());
+        createTime.setText(model.getCheckInTime());
+        if(model.getCheckOutTime().equals("anyType{}")){
+            leaveTime.setText("无");
+        }else {
+            leaveTime.setText(model.getCheckOutTime());
+        }
     }
+
 }

@@ -211,7 +211,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 14 && resultCode == -1) {
             listener.LoadMain();
-            listener.LeavePerson(++maxPage, true);
+            listener.LeavePerson(1, true);
         }
     }
 
@@ -305,7 +305,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         if (result) {
             Toast.makeText(MainActivity.mInstance, "离店成功！", Toast.LENGTH_SHORT);
             listener.LoadMain();
-            listener.LeavePerson(maxPage, true);
+            listener.LeavePerson(1, true);
         } else {
             Toast.makeText(MainActivity.mInstance, "离店失败！", Toast.LENGTH_SHORT);
         }
