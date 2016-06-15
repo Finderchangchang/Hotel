@@ -211,7 +211,7 @@ public class MainFragments extends BaseFragment implements IFMainView, RefreshLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 14 && resultCode == -1) {
             listener.LoadMain();
-            listener.LeavePerson(1, true);
+            listener.LeavePerson(1  , true);
         }
     }
 
