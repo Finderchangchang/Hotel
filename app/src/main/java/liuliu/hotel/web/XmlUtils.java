@@ -49,7 +49,6 @@ public class XmlUtils {
                             }else{
                                 invokeReturn.setSuccess(false);
                             }
-
                         } else if (parser.getName().equals("Time")) {
                             parser.next();
                             invokeReturn.setTime(parser.getText().toString());
@@ -92,7 +91,6 @@ public class XmlUtils {
                                                     JSONUtils.setProperty(objectModel, property, null);
                                                 }
                                             }
-
                                             break;
                                         }
                                     }
@@ -103,7 +101,6 @@ public class XmlUtils {
                         break;
                     case XmlPullParser.END_TAG:
                         String n = parser.getName();
-
                         if (n.equals(modelName) || n.equals("Object")) {
                             if (objectModel != null) {
 
@@ -124,6 +121,5 @@ public class XmlUtils {
             e.printStackTrace();
         }
         return invokeReturn;
-
     }
 }

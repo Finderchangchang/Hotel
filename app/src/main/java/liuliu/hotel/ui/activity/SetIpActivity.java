@@ -57,19 +57,27 @@ public class SetIpActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.save_btn:
                 if (checkVal()) {
+                    Utils.WriteString(SaveKey.KEY_IP, ip_et.getText().toString());
+                    Utils.WriteString(SaveKey.KEY_PORT, duankou_et.getText().toString());
                     if (result != null) {
+
                         switch (result) {
                             case "login":
                                 LoginActivity.mInstance.finish();
+                                checkPost();
                                 break;
                             case "setting":
                                 MainActivity.mInstance.finish();
+                                checkPost();
                                 break;
+                            case "down":
+                                this.finish();
+                                break;
+
                         }
+                    }else {
+                        checkPost();
                     }
-                    Utils.WriteString(SaveKey.KEY_IP, ip_et.getText().toString());
-                    Utils.WriteString(SaveKey.KEY_PORT, duankou_et.getText().toString());
-                    checkPost();
                 }
                 break;
         }

@@ -13,6 +13,7 @@ import net.tsz.afinal.model.CodeModel;
 import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.model.DBTZTGInfo;
 import liuliu.hotel.model.InvokeReturn;
+import liuliu.hotel.utils.DBHelperUtils;
 import liuliu.hotel.utils.Utils;
 import liuliu.hotel.web.SoapObjectUtils;
 import liuliu.hotel.web.WebServiceUtils;
@@ -25,7 +26,7 @@ public class DownHotelListener {
     IDownHotelView mView;
     FinalDb db;
     DBLGInfo model;
-
+    DBHelperUtils dbHelper;
     public DownHotelListener(IDownHotelView mView, FinalDb finalDb) {
         this.mView = mView;
         db = finalDb;
@@ -112,31 +113,45 @@ public class DownHotelListener {
                     @Override
                     public void callBack(SoapObject result) {
                         if (null != result) {
-                            InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
+                            final InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
                             System.out.println(result);
                             if (invokeReturn.isSuccess()) {
-                                for (int i = 0; i < invokeReturn.getData().size(); i++) {
-                                    CodeModel code = (CodeModel) invokeReturn.getData().get(i);
-                                    code.setCodeName(name);
-                                    db.save(code);
-                                    if (i == invokeReturn.getData().size() - 1) {
-                                        if (name.equals("ZJLX")) {//证件类型
-                                            getCodeServer("MZ");//民族
-                                        }
-                                        if (name.equals("MZ")) {
-                                            // getCodeServer("SSXQ");//辖区
-                                            getCodeServer("XZQH");//籍贯
+
+                                DBHelperUtils.DBHelperListener dbHelperListener=new DBHelperUtils.DBHelperListener() {
+                                    @Override
+                                    public void dbHelper() {
+                                        for(Object o:invokeReturn.getData()){
+                                            CodeModel code= (CodeModel) o;
+                                            code.setCodeName(name);
+                                            db.save(code);
                                         }
                                     }
-                                }
+
+                                    @Override
+                                    public void dbHelperResult() {
+
+                                            if (name.equals("ZJLX")) {//证件类型
+                                                getCodeServer("MZ");//民族
+                                            }
+                                            if (name.equals("MZ")) {
+                                                // getCodeServer("SSXQ");//辖区
+                                                getCodeServer("XZQH");//籍贯
+                                            }
+                                        if (name.equals("XZQH")) {//籍贯
+                                            cancelRequest();
+                                            mView.checkHotel(true, "");
+                                        }
+                                        }
+
+
+                                };
+                                dbHelper=new DBHelperUtils(db,dbHelperListener);
+                                dbHelper.start();
                             } else {
                                 mView.checkHotel(false, "字典下载失败，请重新下载！");
                             }
-                            if (name.equals("XZQH")) {//籍贯
-                                cancelRequest();
-                                mView.checkHotel(true, "");
 
-                            }
+
                         } else {
                             mView.checkHotel(false, "字典下载失败，请重新下载！");
                         }
