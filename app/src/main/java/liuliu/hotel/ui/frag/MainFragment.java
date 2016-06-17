@@ -125,7 +125,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
                 holder.setText(R.id.hotel_num_tvs, model.getRoomId());
                 holder.setText(R.id.item_rz_time, model.getCheckInTime());
                 JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH' AND KEY='" + model.getCardId().substring(0,6) + "'");
-                if (JGlist != null) {
+                if (JGlist.size()>0) {
                     holder.setText(R.id.address_tv, JGlist.get(0).getVal());
                 }
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {

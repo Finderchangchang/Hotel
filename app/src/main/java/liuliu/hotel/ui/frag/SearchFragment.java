@@ -192,7 +192,6 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                             } else {
                                 IntentDetails(model);
                             }
-
                         }
                     });
                     holder.setOnClickListener(R.id.total_ll, new View.OnClickListener() {
