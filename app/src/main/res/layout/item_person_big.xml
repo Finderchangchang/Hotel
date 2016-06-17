@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/total_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_style"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15dp">
+        <!--<TextView-->
+        <!--android:id="@+id/num_btn"-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:gravity="center"-->
+        <!--android:text="1"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="13sp" />-->
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <in.srain.cube.image.CubeImageView
+                android:id="@+id/person_iv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/item_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/item_default" />
+
+            <net.tsz.afinal.view.LabelView
+                android:id="@+id/left_top_labv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:backgroundColor="@color/colorAccent"
+                app:direction="leftTop"
+                app:num=""
+                app:numStyle="normal"
+                app:text="在住"
+                app:textSize="9sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/person_name_img" />
+
+                    <TextView
+                        android:id="@+id/person_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="李婷婷"
+                        android:textColor="@color/item_lab"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/sex_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="男"
+                        android:textColor="@color/item_lab"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/nation_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="汉族"
+                        android:textColor="@color/deep_lab"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/home_num_img" />
+
+                    <TextView
+                        android:id="@+id/hotel_num_tvs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:text="202号202号202号202号"
+                        android:textColor="@color/item_lab"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/dingwei_img" />
+
+                    <TextView
+                        android:id="@+id/address_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="50dp"
+                        android:text="河北保定"
+                        android:textColor="@color/item_lab"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/time_person" />
+
+                    <TextView
+                        android:id="@+id/item_rz_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:text="05月12日 12:23"
+                        android:textColor="@color/deep_lab"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/leave_hotel_btn"
+                android:layout_width="50dp"
+                android:layout_height="28dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/item_btn_style"
+                android:focusable="false"
+                android:text="离店"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ececec"></LinearLayout>
+</LinearLayout>

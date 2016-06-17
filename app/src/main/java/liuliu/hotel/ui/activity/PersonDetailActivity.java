@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.model.CodeModel;
+import net.tsz.afinal.utils.AUtils;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class PersonDetailActivity extends BaseActivity {
     @CodeNote(id=R.id.detail_create_time)TextView createTime;
     @CodeNote(id=R.id.detail_leave_time)TextView leaveTime;
 //    @CodeNote(id = R.id.default_img_iv)
+    //    @CodeNote(id = R.id.default_img_iv)
 //    ImageView default_img_iv;//默认图片效果
     CustomerModel model;//入住旅客信息
     List<CodeModel> list;
@@ -69,24 +71,15 @@ public class PersonDetailActivity extends BaseActivity {
         model = (CustomerModel) getIntent().getSerializableExtra(Key.Person_Detail_Model);//获得流水号
         model.setHeadphoto(Utils.getBitmapByte(getIntent().getStringExtra("image")));
         setTitleBar("旅客详情");
-        if(null!=model.getHeadphoto()){
-            user_img_iv.setImageBitmap(model.getHeadphoto());
-        }else{
+        if (null != model.getHeadphoto()) {
+            user_img_iv.setImageBitmap(AUtils.centerSquareScaleBitmap(model.getHeadphoto(), 100));
+        } else {
             user_img_iv.setImageResource(R.mipmap.main_zhengjian);
-            //user_img_iv.setImageBitmap(BitmapFactory.decodeResource(R.mipmap.main_zhengjian));
         }
-//        if (model.getUrl() != null) {
-//            user_img_iv.loadImage(mLoader, model.getUrl());
-//            default_img_iv.setVisibility(View.GONE);
-//            user_img_iv.setVisibility(View.VISIBLE);
-//        } else {
-//            default_img_iv.setVisibility(View.VISIBLE);
-//            user_img_iv.setVisibility(View.GONE);
-//        }
         user_name_tv.setText(model.getName());
         if (("2").equals(model.getSex())) {
             person_sex_tv.setText("女");
-        }else{
+        } else {
             person_sex_tv.setText("男");
         }
         if (model.getBirthday().length() == 8) {
@@ -125,5 +118,4 @@ public class PersonDetailActivity extends BaseActivity {
             leaveTime.setText(model.getCheckOutTime());
         }
     }
-
 }

@@ -2,6 +2,8 @@ package liuliu.hotel.ui.activity;
 
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.model.ChangeItem;
 import net.tsz.afinal.model.ItemModel;
+import net.tsz.afinal.view.NormalDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,5 +147,36 @@ public class MainActivity extends BaseActivity {
                 break;
         }
         transaction.commit();
+    }
+
+    NormalDialog llDialog;
+
+    /**
+     * 点击返回弹出消息框，确定后完全退出系统
+     *
+     * @param keyCode key的编码
+     * @param event   key的时间
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            llDialog.setMiddleMessage("确认要退出系统？");
+            llDialog.setOnPositiveListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {//点击确定按钮
+                    llDialog.cancel();
+                    MainActivity.this.finish();//完全退出系统
+                }
+            });
+            llDialog.setOnNegativeListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    llDialog.cancel();
+                }
+            });//点击取消按钮
+            llDialog.show();
+        }
+        return false;
     }
 }

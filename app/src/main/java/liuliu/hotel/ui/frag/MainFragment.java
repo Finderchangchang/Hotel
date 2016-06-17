@@ -4,23 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
-import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
 
 import net.tsz.afinal.FinalDb;
 import net.tsz.afinal.annotation.view.CodeNote;
@@ -81,11 +72,12 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
 
     @Override
     public void initViews() {
-        setContentView(R.layout.frag_mains);
+        setContentView(R.layout.frag_main);
         db = MainActivity.mInstance.finalDb;
     }
 
     private DisplayMetrics dis;
+    int layoutId = R.layout.item_person;
 
     @Override
     public void initEvents() {
@@ -99,23 +91,26 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         if (dis.widthPixels > 700) {//适配宽屏
             hotel_name_tv.setTextSize(26);
         }
+        if (dis.widthPixels > 770) {
+            layoutId = R.layout.item_person_big;
+        }
         if (Utils.isNetworkConnected()) {//首次进入页面
             listener.LeavePerson(++maxPage, false);
             listener.LoadMain();
         } else {//无网状态
-            initNoDataView();
+            initNoDataView(true);
         }
-        mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, R.layout.item_person) {
+        mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, layoutId) {
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
                 if (null == model.getHeadphoto()) {
                     holder.setImageResource(R.id.item_header, R.mipmap.item_default);
                 } else {
+//                    holder.setCubeImage(R.id.person_iv, model.getHeadphoto(), MainActivity.mInstance.mLoader);
                     holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
                 }
-//                holder.setText(R.id.num_btn, (position + 1) + "");
                 holder.setText(R.id.person_name_tv, model.getName());
-                holder.setCubeImage(R.id.person_iv, model.getUrl(), MainActivity.mInstance.mLoader);
+
                 if (model.getSex().equals("2")) {
                     holder.setText(R.id.sex_tv, "女");
                 } else {
@@ -124,9 +119,14 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
                 holder.setText(R.id.nation_tv, getCodeValuebyKey(MZlist, model.getNation()));
                 holder.setText(R.id.hotel_num_tvs, model.getRoomId());
                 holder.setText(R.id.item_rz_time, model.getCheckInTime());
-                JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH' AND KEY='" + model.getCardId().substring(0,6) + "'");
+                JGlist = db.findAllByWhere(CodeModel.class, "CodeName='XZQH' AND KEY='" + model.getCardId().substring(0, 6) + "'");
                 if (JGlist != null) {
-                    holder.setText(R.id.address_tv, JGlist.get(0).getVal());
+                    String address = "未知";
+                    if (JGlist.size() > 0) {
+                        address = JGlist.get(0).getVal();
+                    }
+                    holder.setText(R.id.address_tv, address);
+
                 }
                 holder.setOnClickListener(R.id.leave_hotel_btn, new View.OnClickListener() {
                     @Override
@@ -204,6 +204,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 14 && resultCode == -1) {
             listener.LoadMain();
+            maxPage = 0;
             listener.LeavePerson(++maxPage, true);
         }
     }
@@ -251,7 +252,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         boolean result = true;
         if (isRefresh) {//下拉刷新
             if (list.size() == 0) {
-                initNoDataView();
+                initNoDataView(false);
             } else {
                 modelList.removeAll(modelList);
                 MainActivity.mInstance.ToastShort("刷新成功");
@@ -265,7 +266,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
             }
         } else {//上划加载更多
             if (list.size() == 0) {
-                initNoDataView();
+                initNoDataView(false);
             } else {
                 no_data_tv.setVisibility(View.GONE);
                 if (("False").equals(haveRefresh)) {
@@ -332,7 +333,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
                     MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
                     main_lv.refreshComplete();//关闭顶部下拉动画
                     //首次无网状态刷新
-                    if (modelList.size() == 0) initNoDataView();
+                    if (modelList.size() == 0) initNoDataView(false);
                     break;
                 default:
                     break;
@@ -342,11 +343,15 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
 
     /**
      * 加载底部无网络
+     *
+     * @param isFirst 第一次登陆
      */
-    private void initNoDataView() {
+    private void initNoDataView(boolean isFirst) {
         bottom_ll.setVisibility(View.VISIBLE);
         bottom_ll.setClickable(true);
         bottom_ll.setText(Utils.getString(R.string.no_online));
-        MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
+        if (!isFirst) {
+            MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
+        }
     }
 }

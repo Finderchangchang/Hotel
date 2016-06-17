@@ -33,10 +33,12 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     Button down_btn;
     @CodeNote(id = R.id.code_tv)
     TextView code_tv;
-    @CodeNote(id=R.id.back_setting_iv,click = "onClick")ImageView setting;
+    @CodeNote(id = R.id.back_setting_iv, click = "onClick")
+    ImageView setting;
     DownHotelListener mListener;
     String hotel_code = "";//绑定手机的随机码
     Dialog dialog;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_download_hotel);
@@ -58,8 +60,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
     @Override
     public void checkHotel(boolean result, final String mes) {
         dialog.dismiss();
-        if (result) {//比对成功，登录页面.
-            ToastShort("绑定成功，正在跳转。。。");
+        if (result) {//比成功，登录页面.
             Utils.IntentPost(LoginActivity.class);
             DownHotelActivity.this.finish();//关闭当前页面
         } else {
@@ -83,7 +84,7 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
         switch (view.getId()) {
             case R.id.down_btn:
                 if (down_btn.getText().equals("下载")) {
-                    dialog = Utils.ProgressDialog(this, dialog, "下载旅馆信息中，请稍候...", false);
+                    dialog = Utils.ProgressDialog(this, dialog, "第一次配置较慢，请耐心等待。。。", false);
                     dialog.show();
                     if (daima_et.getText().toString().trim().length() == 10) {
                         Utils.WriteString(SaveKey.KEY_Hotel_Id, daima_et.getText().toString().trim());

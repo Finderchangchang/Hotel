@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -109,6 +110,14 @@ public class ViewHolder {
         if (url != null) {
             iv.loadImage(loader, url);
             iv.setVisibility(View.VISIBLE);
+        }
+        return this;
+    }
+
+    public ViewHolder setCubeBitmap(int viewId, Bitmap bitmap, ImageLoader loader) {
+        CubeImageView iv = getView(viewId);
+        if (bitmap != null) {
+//            iv.loadImage(loader,bitmap);
         }
         return this;
     }

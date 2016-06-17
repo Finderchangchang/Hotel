@@ -66,7 +66,6 @@ public class MainSearchListener {
         } else {
             properties.put("LKZT", "0");//0在住，1离店,2全部
         }
-
         properties.put("LGDM", Utils.ReadString(SaveKey.KEY_Hotel_Id));
         properties.put("YS", page_num + "");
         WebServiceUtils.callWebService(true, "SearchNative", properties, new WebServiceUtils.WebServiceCallBack() {
@@ -87,14 +86,14 @@ public class MainSearchListener {
                             mMain.LoadStayPerson(list, isRefresh, invokeReturn.getMessage());
                         }
                         if (mSearch != null) {
-                            mSearch.loadPerson(list);
+                            mSearch.loadPerson(list, invokeReturn.getMessage());
                         }
                     } else {
                         if (mMain != null) {
-                            mMain.LoadStayPerson(list, isRefresh, invokeReturn.getMessage());
+                            mMain.LoadStayPerson(new ArrayList<CustomerModel>(), isRefresh, invokeReturn.getMessage());
                         }
                         if (mSearch != null) {
-                            mSearch.loadPerson(new ArrayList<CustomerModel>());
+                            mSearch.loadPerson(new ArrayList<CustomerModel>(), "False");
                         }
                     }
                 } else {
@@ -102,7 +101,7 @@ public class MainSearchListener {
                         mMain.LoadStayPerson(new ArrayList<CustomerModel>(), isRefresh, "False");
                     }
                     if (mSearch != null) {
-                        mSearch.loadPerson(new ArrayList<CustomerModel>());
+                        mSearch.loadPerson(new ArrayList<CustomerModel>(), "False");
                     }
                 }
             }
@@ -115,24 +114,27 @@ public class MainSearchListener {
      * @param serialId 流水号
      */
     public void MakeLeaveHotel(String serialId) {
-        CustomerModel customerModel = new CustomerModel();
+        final CustomerModel customerModel = new CustomerModel();
         customerModel.setSerialId(serialId);//人员序列号
-        customerModel.setCheckOutTime(Utils.getNormalTime());//离店时间
+        customerModel.setCheckOutTime(Utils.getNow());//离店时间
         String xml = customerModel.getLeaveXml(Utils.getAssetsFileData("checkOutNativeParameter.xml"));
         WebServiceUtils.SendDataToServer(xml, "GeneralInvoke", new WebServiceUtils.WebServiceCallBackString() {
             @Override
             public void callBack(String result) {
-                System.out.println(result);
+                boolean leave_result = false;
                 if (!result.equals("")) {
                     InvokeReturn invokeReturn = XmlUtils.parseXml(result, "");
                     if (invokeReturn.isSuccess()) {
-                        mMain.LeaveHotel(true);
-                    } else {
-                        mMain.LeaveHotel(false);
+                        leave_result = true;
                     }
-                } else {
-                    mMain.LeaveHotel(false);
                 }
+                if (mMain != null) {
+                    mMain.LeaveHotel(leave_result);
+                }
+                if (mSearch != null) {
+                    mSearch.LeaveHotel(leave_result, customerModel.getCheckOutTime());
+                }
+
             }
         });
     }

@@ -3,4 +3,6 @@
     <string name="app_long_name">旅馆业信息管理系统</string>
     <string name="no_online">网络连接异常，点击刷新</string>
     <string name="check_online">请检查网络连接</string>
+    <string name="no_more_data">无更多数据</string>
+    <string name="loading_more">加载更多...</string>
 </resources>

@@ -56,6 +56,24 @@ public class Utils {
     }
 
     /**
+     * 加载当前时间。
+     * 1.同一年的显示格式 05-11  07:45
+     * 2.前一年或者更多格式 2015-11-12
+     *
+     * @param old
+     * @return 需要显示的处理结果
+     */
+    public static String loadTime(String old) {
+        String old_year = old.substring(0, 4);//获得old里面的年
+        String now_year = new SimpleDateFormat("yyyy").format(new Date()).substring(0, 4);//获得当前的年
+        if (old_year.equals(now_year)) {//两者为同一年
+            return old.substring(5, 16);
+        } else {
+            return old.substring(0, 10);
+        }
+    }
+
+    /**
      * 检查网络连接状态
      *
      * @return 连接成功
@@ -186,9 +204,19 @@ public class Utils {
     /**
      * 获得当前系统时间
      *
-     * @return
+     * @return String类型的当前时间
      */
     public static String getNormalTime() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        return df.format(new Date());
+    }
+
+    /**
+     * 获得当前时间 yyyy/MM/dd HH:mm:ss
+     *
+     * @return String类型的当前时间
+     */
+    public static String getNow() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         return df.format(new Date());
     }
@@ -277,9 +305,21 @@ public class Utils {
         return str;
     }
 
-    //比较时间的大小str1小返回true
-    public static boolean DateCompare(String str1, String str2) {
-        java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    /**
+     * 比较时间的大小str1小返回true
+     *
+     * @param str1   起始时间
+     * @param str2   结束时间
+     * @param islong true,长时间串
+     * @return
+     */
+    public static boolean DateCompare(String str1, String str2, boolean islong) {
+        java.text.DateFormat df;
+        if (islong) {
+            df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        } else {
+            df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        }
         java.util.Calendar c1 = java.util.Calendar.getInstance();
         java.util.Calendar c2 = java.util.Calendar.getInstance();
         try {
@@ -293,7 +333,7 @@ public class Utils {
         if (result == 0) {
             //System.out.println("c1相等c2");
             return true;
-        } else if (result < 0) {
+        } else if (result >= 0) {
             return false;
             //System.out.println("c1小于c2");
         } else {

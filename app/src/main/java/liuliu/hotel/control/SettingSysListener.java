@@ -76,19 +76,18 @@ public class SettingSysListener {
         WebServiceUtils.callWebService(true, "GetAllCodeLastChangeTime", properties, new WebServiceUtils.WebServiceCallBack() {
             @Override
             public void callBack(SoapObject result) {
-                System.out.println("...."+result);
+                System.out.println("...." + result);
                 if (null != result) {
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetAllCodeLastChangeTime");
                     if (invokeReturn.isSuccess()) {
-                        //ToastShort("下载成功");
                         String localTime = Utils.ReadString("CodeLastChangeTime");
-                        if (Utils.DateCompare(localTime, invokeReturn.getTime())) {
+                        if (Utils.DateCompare(invokeReturn.getTime(), localTime, true)) {
                             //不需要更新
                             mView.checkHotel(true, "字典已经是最新");
                             cancelRequest();
-                            Utils.WriteString("CodeLastChangeTime",localTime);
+                            Utils.WriteString("CodeLastChangeTime", localTime);
                         } else {
-                            Utils.WriteString("CodeLastChangeTime",invokeReturn.getTime());
+                            Utils.WriteString("CodeLastChangeTime", invokeReturn.getTime());
                             //需要更新
                             db.deleteAll(CodeModel.class);
                             getCodeServer("ZJLX");
@@ -121,11 +120,11 @@ public class SettingSysListener {
                         if (null != result) {
                             final InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "GetCodeInfoByCodeName");
                             if (invokeReturn.isSuccess()) {
-                                DBHelperUtils.DBHelperListener dbHelperListener=new DBHelperUtils.DBHelperListener() {
+                                DBHelperUtils.DBHelperListener dbHelperListener = new DBHelperUtils.DBHelperListener() {
                                     @Override
                                     public void dbHelper() {
-                                        for(Object o:invokeReturn.getData()){
-                                            CodeModel code= (CodeModel) o;
+                                        for (Object o : invokeReturn.getData()) {
+                                            CodeModel code = (CodeModel) o;
                                             code.setCodeName(name);
                                             db.save(code);
                                         }
@@ -144,12 +143,12 @@ public class SettingSysListener {
                                     }
 
                                 };
-                                dbHelper= new DBHelperUtils(db,dbHelperListener);
+                                dbHelper = new DBHelperUtils(db, dbHelperListener);
                                 dbHelper.start();
                             }
                             if (name.equals("XZQH")) {//籍贯
                                 cancelRequest();
-                                mView.checkHotel(true,"字典更新成功！");
+                                mView.checkHotel(true, "字典更新成功！");
                             }
                         } else {
                             mView.checkHotel(false, "字典下载失败，请重新下载！");

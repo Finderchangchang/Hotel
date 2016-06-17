@@ -161,7 +161,9 @@
                 android:id="@+id/live_lv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:divider="@null"
+                android:dividerHeight="0dp"/>
 
             <LinearLayout
                 android:id="@+id/no_data_ll"
