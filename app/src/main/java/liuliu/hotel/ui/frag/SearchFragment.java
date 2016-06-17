@@ -310,12 +310,10 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     private void IntentDetails(CustomerModel model) {
         Intent intent = new Intent();
         intent.setClass(MainActivity.mInstance, PersonDetailActivity.class);
-        String photoUrl = "";
-        if (model.getHeadphoto() != null) photoUrl = Utils.encodeBitmap(model.getHeadphoto());
-        intent.putExtra("image", photoUrl);//解析以后的头像传递给详细页面
+        intent.putExtra("image", Utils.encodeBitmap(model.getHeadphoto()));
         Bundle bundle = new Bundle();
         model.setHeadphoto(null);
-        bundle.putSerializable(Key.Person_Detail_Model, model);//传递model给详细页面
+        bundle.putSerializable(Key.Person_Detail_Model, model);
         intent.putExtras(bundle);
         startActivity(intent);
     }
