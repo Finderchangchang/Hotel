@@ -3,9 +3,13 @@ package net.tsz.afinal.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
+import android.view.View;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.tsz.afinal.R;
@@ -34,13 +38,21 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
     }
 
     public AlertDialog datePickerDialog(final EditText inputDate) {
-        LinearLayout dateTimeLayout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.my_datapicker, null);
+        RelativeLayout dateTimeLayout = (RelativeLayout) activity.getLayoutInflater().inflate(R.layout.my_datapicker, null);
         datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.my_datapicker);
         init(datePicker);
         dig = new AlertDialog.Builder(activity).setTitle(initData).setView(dateTimeLayout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                inputDate.setText(data);
+                String month= String.valueOf(datePicker.getMonth()+1);
+                if(month.length()==1){
+                    month="0"+month;
+                }
+                String day= String.valueOf(datePicker.getDayOfMonth());
+                if(day.length()==1){
+                    day="0"+day;
+                }
+                inputDate.setText(datePicker.getYear()+"-"+month+"-"+day);
             }
         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -51,9 +63,9 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
         onDateChanged(null, 0, 0, 0);
         return dig;
     }
-
+    Calendar calendar;
     public void init(DatePicker datePicker) {
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         if (!(null == datePicker || "".equals(initData))) {
             calendar = this.getCalendarByInitData(initData);
         } else {
@@ -84,10 +96,6 @@ public class DatePickerDialog implements DatePicker.OnDateChangedListener {
         String year = initDate.substring(0, 4);
         String month = initDate.substring(5, 7);
         String day = initDate.substring(8, 10);
-//        String year = spliteString(initDate, "年", "0", "4");//日期
-//        //String monthandday = spliteString(initDate, "月", "index", "front");//月日
-//        String month = spliteString(initDate, "月", "6", "front");
-//        String day = spliteString(initDate, "日", "index", "front");
 
         int iyear = Integer.valueOf(year.trim()).intValue();
         int imonth = Integer.valueOf(month.trim()).intValue() - 1;
