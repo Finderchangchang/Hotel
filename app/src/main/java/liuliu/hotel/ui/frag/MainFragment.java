@@ -98,7 +98,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
             listener.LeavePerson(++maxPage, false);
             listener.LoadMain();
         } else {//无网状态
-            initNoDataView(true);
+            initNoDataView();
         }
         mAdapter = new CommonAdapter<CustomerModel>(MainActivity.mInstance, modelList, layoutId) {
             @Override
@@ -252,7 +252,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         boolean result = true;
         if (isRefresh) {//下拉刷新
             if (list.size() == 0) {
-                initNoDataView(false);
+                initNoDataView();
             } else {
                 modelList.removeAll(modelList);
                 MainActivity.mInstance.ToastShort("刷新成功");
@@ -266,7 +266,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
             }
         } else {//上划加载更多
             if (list.size() == 0) {
-                initNoDataView(false);
+                initNoDataView();
             } else {
                 no_data_tv.setVisibility(View.GONE);
                 if (("False").equals(haveRefresh)) {
@@ -303,6 +303,9 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onRefresh() {
         new Thread(new Runnable() {
@@ -333,7 +336,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
                     MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
                     main_lv.refreshComplete();//关闭顶部下拉动画
                     //首次无网状态刷新
-                    if (modelList.size() == 0) initNoDataView(false);
+                    if (modelList.size() == 0) initNoDataView();
                     break;
                 default:
                     break;
@@ -343,15 +346,11 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
 
     /**
      * 加载底部无网络
-     *
-     * @param isFirst 第一次登陆
      */
-    private void initNoDataView(boolean isFirst) {
+    private void initNoDataView() {
         bottom_ll.setVisibility(View.VISIBLE);
         bottom_ll.setClickable(true);
         bottom_ll.setText(Utils.getString(R.string.no_online));
-        if (!isFirst) {
-            MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
-        }
+        MainActivity.mInstance.ToastShort(Utils.getString(R.string.check_online));
     }
 }

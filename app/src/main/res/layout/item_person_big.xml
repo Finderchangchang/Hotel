@@ -33,8 +33,7 @@
             <in.srain.cube.image.CubeImageView
                 android:id="@+id/person_iv"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:visibility="gone" />
+                android:layout_height="100dp"/>
 
             <ImageView
                 android:id="@+id/item_header"

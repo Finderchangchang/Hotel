@@ -22,8 +22,12 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import net.tsz.afinal.R;
 import net.tsz.afinal.view.LabelView;
+
+import java.io.ByteArrayOutputStream;
 
 import in.srain.cube.image.CubeImageView;
 import in.srain.cube.image.ImageLoader;
@@ -114,10 +118,13 @@ public class ViewHolder {
         return this;
     }
 
-    public ViewHolder setCubeBitmap(int viewId, Bitmap bitmap, ImageLoader loader) {
+    public ViewHolder setCubeBitmap(int viewId, Bitmap bitmap) {
         CubeImageView iv = getView(viewId);
         if (bitmap != null) {
-//            iv.loadImage(loader,bitmap);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            Glide.with(mContext).load(bytes).into(iv);
         }
         return this;
     }
