@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         mItems = new ArrayList<>();
         listbtn = new ArrayList<>();
         mInstance = this;
+        llDialog = new NormalDialog(this);
     }
 
     @Override

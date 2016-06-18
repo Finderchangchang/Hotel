@@ -214,7 +214,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
      */
     private void initFooterView() {
         footerView = View.inflate(MainActivity.mInstance, R.layout.item_bottom, null);
-        footerView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 70));
+        footerView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 100));
         bottom_ll = (TextView) footerView.findViewById(R.id.bottom_ll);
         bottom_ll.setOnClickListener(new View.OnClickListener() {
             @Override

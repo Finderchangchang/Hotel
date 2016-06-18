@@ -46,7 +46,6 @@
                 android:id="@+id/left_top_labv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:backgroundColor="@color/colorAccent"
                 app:direction="leftTop"
                 app:num=""
