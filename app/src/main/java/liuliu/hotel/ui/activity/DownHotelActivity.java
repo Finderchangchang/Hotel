@@ -84,9 +84,10 @@ public class DownHotelActivity extends BaseActivity implements IDownHotelView {
         switch (view.getId()) {
             case R.id.down_btn:
                 if (down_btn.getText().equals("下载")) {
-                    dialog = Utils.ProgressDialog(this, dialog, "第一次配置较慢，请耐心等待。。。", false);
-                    dialog.show();
+
                     if (daima_et.getText().toString().trim().length() == 10) {
+                        dialog = Utils.ProgressDialog(this, dialog, "第一次配置较慢，请耐心等待。。。", false);
+                        dialog.show();
                         Utils.WriteString(SaveKey.KEY_Hotel_Id, daima_et.getText().toString().trim());
                         daima_et.setEnabled(false);
                         down_btn.setEnabled(false);

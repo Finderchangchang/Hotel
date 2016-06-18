@@ -93,8 +93,10 @@ public class CustomerModel implements Serializable {
                 Headphoto.compress(Bitmap.CompressFormat.JPEG, 100, photo);
                 byte[] ba = photo.toByteArray();
                 String photodata = Base64Util.encode(ba);
+                System.out.println("photo***:::"+photodata);
                 xml = xml.replace("InputHeadPhoto", photodata);
             } else {
+                System.out.println("photo***:::");
                 xml = xml.replace("InputHeadPhoto", "");
             }
             xml = xml.replace("InputComment", "");

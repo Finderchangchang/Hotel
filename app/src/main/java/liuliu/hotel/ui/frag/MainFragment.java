@@ -1,6 +1,10 @@
 package liuliu.hotel.ui.frag;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -104,7 +108,14 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
                 if (null == model.getHeadphoto()) {
-                    holder.setImageResource(R.id.item_header, R.mipmap.item_default);
+                    Resources res = getResources();
+
+                    Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.item_default);
+                    String bytestring = Utils.encodeBitmap(bmp);
+
+                    Bitmap btn = Utils.getBitmapByte(bytestring);
+                    holder.setImageBitmap(R.id.item_header, btn);
+                    // holder.setImageResource(R.id.item_header, R.mipmap.item_default);
                 } else {
 //                    holder.setCubeImage(R.id.person_iv, model.getHeadphoto(), MainActivity.mInstance.mLoader);
                     holder.setImageBitmap(R.id.item_header, model.getHeadphoto());

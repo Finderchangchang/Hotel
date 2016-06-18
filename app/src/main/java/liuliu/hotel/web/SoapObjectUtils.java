@@ -68,8 +68,9 @@ public class SoapObjectUtils {
                                 model.setAddress(soapObject.getProperty("XZ").toString());
                                 model.setRoomId(soapObject.getProperty("FH").toString());
                                 //model.setArea(soapObject.getProperty("SSXQ").toString());
-                                if(model.getName().equals("胡海洋")){
-                                    String k=soapObject.getProperty("NBZP").toString();
+                                if(model.getName().equals("小兵")){
+                                   String kkk=soapObject.getProperty("NBZP").toString();
+                                    System.out.println(kkk);
                                 }
                                 model.setHeadphoto(Utils.getBitmapByte(soapObject.getProperty("NBZP").toString()));
                                 model.setCheckInSign(soapObject.getProperty("FSBZ").toString());
