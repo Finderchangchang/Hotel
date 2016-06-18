@@ -90,7 +90,7 @@ public class CustomerModel implements Serializable {
             xml = xml.replace("InputCheckInSigen", Utils.URLEncode(getCheckInSign()));
             if (Headphoto != null) {
                 ByteArrayOutputStream photo = new ByteArrayOutputStream();
-                Headphoto.compress(Bitmap.CompressFormat.JPEG, 95, photo);
+                Headphoto.compress(Bitmap.CompressFormat.JPEG, 100, photo);
                 byte[] ba = photo.toByteArray();
                 String photodata = Base64Util.encode(ba);
                 xml = xml.replace("InputHeadPhoto", photodata);

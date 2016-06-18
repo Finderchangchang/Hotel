@@ -75,7 +75,9 @@ public class MainSearchListener {
             @Override
             public void callBack(SoapObject result) {
                 List<CustomerModel> list = null;
+                System.out.println("-----"+result);
                 if (null != result) {
+
                     InvokeReturn invokeReturn = SoapObjectUtils.parseSoapObject(result, "SearchNative");
                     if (invokeReturn.isSuccess()) {
                         list = new ArrayList<CustomerModel>();
@@ -134,7 +136,6 @@ public class MainSearchListener {
                 if (mSearch != null) {
                     mSearch.LeaveHotel(leave_result, customerModel.getCheckOutTime());
                 }
-
             }
         });
     }

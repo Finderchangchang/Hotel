@@ -73,6 +73,7 @@ public class PersonDetailActivity extends BaseActivity {
         setTitleBar("旅客详情");
         if (null != model.getHeadphoto()) {
             user_img_iv.setImageBitmap(AUtils.centerSquareScaleBitmap(model.getHeadphoto(), 100));
+            //user_img_iv.setImageBitmap(model.getHeadphoto());
         } else {
             user_img_iv.setImageResource(R.mipmap.main_zhengjian);
         }

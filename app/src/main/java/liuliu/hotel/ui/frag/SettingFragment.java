@@ -131,16 +131,18 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
             }
             //蓝牙设置选择
             // MainActivity.mInstance.ToastShort("list size:"+listblue.size());
-            Contentdialog.setListView(listblue);
-            Contentdialog.show();
-            Contentdialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
-                @Override
-                public void onClick(int position, CodeModel val) {
-                    myBlooth.setText(val.getVal());
-                    Utils.WriteString("BlueToothName", listblue.get(position).getVal());
-                    Utils.WriteString("BlueToothAddress", listAddress.get(position));
-                }
-            });
+            if(listblue.size()>0) {
+                Contentdialog.setListView(listblue);
+                Contentdialog.show();
+                Contentdialog.setOnItemClick(new SpinnerDialog.OnItemClick() {
+                    @Override
+                    public void onClick(int position, CodeModel val) {
+                        myBlooth.setText(val.getVal());
+                        Utils.WriteString("BlueToothName", listblue.get(position).getVal());
+                        Utils.WriteString("BlueToothAddress", listAddress.get(position));
+                    }
+                });
+            }
         }
     }
 
