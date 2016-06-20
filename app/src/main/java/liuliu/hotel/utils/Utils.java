@@ -436,7 +436,7 @@ public class Utils {
     public static String encodeBitmap(Bitmap bitmap) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,80, baos);
             return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
                     .trim();
         } catch (Exception e) {
