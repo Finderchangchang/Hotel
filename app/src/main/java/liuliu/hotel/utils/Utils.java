@@ -260,15 +260,16 @@ public class Utils {
 
     //base64 string转换为bitmap
     public static Bitmap getBitmapByte(String str) {
+        Bitmap bitmap = null;
         try {
             byte[] buffer = Base64.decode(str.getBytes(), Base64.DEFAULT);
             if (buffer != null && buffer.length > 0) {
-                return BitmapFactory.decodeByteArray(buffer, 0, buffer.length);
+                bitmap = BitmapFactory.decodeByteArray(buffer, 0, buffer.length);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return bitmap;
     }
 
     /**
@@ -435,7 +436,7 @@ public class Utils {
     public static String encodeBitmap(Bitmap bitmap) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,80, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
             return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
                     .trim();
         } catch (Exception e) {

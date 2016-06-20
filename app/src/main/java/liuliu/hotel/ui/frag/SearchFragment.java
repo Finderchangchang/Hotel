@@ -101,14 +101,14 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                     holder.setLabView(R.id.left_top_labv, false);
                     holder.setButtonText(R.id.leave_hotel_btn, "详情");
                 }
-
-//                if (null == model.getHeadphoto()) {
-//                    holder.setImageResource(R.id.item_header, R.mipmap.item_default);
-//                } else {
-//                    holder.setImageBitmap(R.id.item_header, AUtils.centerSquareScaleBitmap(model.getHeadphoto(), 70));
-//                }
+                if (null == model.getHeadphoto()) {
+                    holder.setImageResource(R.id.item_header, R.mipmap.item_default);
+                } else {
+//                    holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
+                    holder.setCubeBitmap(R.id.person_iv, model.getHeadphoto());
+                }
                 holder.setText(R.id.person_name_tv, model.getName());
-                holder.setCubeBitmap(R.id.person_iv, model.getHeadphoto());
+//                holder.setCubeBitmap(R.id.person_iv, model.getHeadphoto());
 
                 if (model.getSex().equals("2")) {
                     holder.setText(R.id.sex_tv, "女");
