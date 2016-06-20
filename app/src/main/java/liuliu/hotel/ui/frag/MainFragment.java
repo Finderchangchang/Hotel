@@ -108,16 +108,16 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
             @Override
             public void convert(ViewHolder holder, final CustomerModel model, int position) {
                 if (null == model.getHeadphoto()) {
-                    Resources res = getResources();
-
-                    Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.item_default);
-                    String bytestring = Utils.encodeBitmap(bmp);
-
-                    Bitmap btn = Utils.getBitmapByte(bytestring);
-                    holder.setImageBitmap(R.id.item_header, btn);
-                    // holder.setImageResource(R.id.item_header, R.mipmap.item_default);
+//                    Resources res = getResources();
+//
+//                    Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.item_default);
+//                    String bytestring = Utils.encodeBitmap(bmp);
+//
+//                    Bitmap btn = Utils.getBitmapByte(bytestring);
+//                    holder.setImageBitmap(R.id.item_header, btn);
+                     holder.setImageResource(R.id.item_header, R.mipmap.item_default);
                 } else {
-//                    holder.setCubeImage(R.id.person_iv, model.getHeadphoto(), MainActivity.mInstance.mLoader);
+                    //holder.setCubeImage(R.id.person_iv, model.getHeadphoto(), MainActivity.mInstance.mLoader);
                     holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
                 }
                 holder.setText(R.id.person_name_tv, model.getName());
