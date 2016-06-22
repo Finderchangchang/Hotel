@@ -104,8 +104,8 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
                 if (null == model.getHeadphoto()) {
                     holder.setImageResource(R.id.item_header, R.mipmap.item_default);
                 } else {
-//                    holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
-                    holder.setCubeBitmap(R.id.person_iv, model.getHeadphoto());
+                   holder.setImageBitmap(R.id.item_header, model.getHeadphoto());
+                   // holder.setCubeBitmap(R.id.person_iv, model.getHeadphoto());
                 }
                 holder.setText(R.id.person_name_tv, model.getName());
 //                holder.setCubeBitmap(R.id.person_iv, model.getHeadphoto());
@@ -311,11 +311,15 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
     private void IntentDetails(CustomerModel model) {
         Intent intent = new Intent();
         intent.setClass(MainActivity.mInstance, PersonDetailActivity.class);
-        intent.putExtra("image", Utils.encodeBitmap(model.getHeadphoto()));
+        Bitmap bitmap = model.getHeadphoto();
+        intent.putExtra("image", Utils.encodeBitmap(bitmap));
         Bundle bundle = new Bundle();
+
         model.setHeadphoto(null);
         bundle.putSerializable(Key.Person_Detail_Model, model);
         intent.putExtras(bundle);
         startActivity(intent);
+        model.setHeadphoto(bitmap);
+        bitmap = null;
     }
 }

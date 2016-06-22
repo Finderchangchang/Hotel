@@ -324,7 +324,8 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
             bm = Utils.getimage(this, path.toString());
             // person_path = path.toString();
             if (bm != null) {
-                user_img_iv.setImageBitmap(Utils.centerSquareScaleBitmap(bm, 60));
+                bm=Utils.centerSquareScaleBitmap(bm, 60);
+                user_img_iv.setImageBitmap(bm);
                 user_img_iv.setTag(bm);
             } else {
                 user_img_iv.setImageResource(R.mipmap.main_zhengjian);

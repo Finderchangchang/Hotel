@@ -73,15 +73,15 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
     List<CodeModel> MZlist = new ArrayList<>();
     List<CodeModel> JGlist = new ArrayList<>();
     FinalDb db = null;
+    TextView bottom_ll;
+    private DisplayMetrics dis;
+    int layoutId = R.layout.item_person;
 
     @Override
     public void initViews() {
         setContentView(R.layout.frag_main);
         db = MainActivity.mInstance.finalDb;
     }
-
-    private DisplayMetrics dis;
-    int layoutId = R.layout.item_person;
 
     @Override
     public void initEvents() {
@@ -158,12 +158,16 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
                     public void onClick(View v) {
                         Intent intent = new Intent();
                         intent.setClass(MainActivity.mInstance, PersonDetailActivity.class);
-                        intent.putExtra("image", Utils.encodeBitmap(model.getHeadphoto()));
+                        Bitmap bitmap = model.getHeadphoto();
+                        intent.putExtra("image", Utils.encodeBitmap(bitmap));
                         Bundle bundle = new Bundle();
+
                         model.setHeadphoto(null);
                         bundle.putSerializable(Key.Person_Detail_Model, model);
                         intent.putExtras(bundle);
                         startActivity(intent);
+                        model.setHeadphoto(bitmap);
+                        bitmap = null;
                     }
                 });
             }
@@ -174,7 +178,6 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         hotel_name_tv.setText(MainActivity.mInstance.finalDb.findAll(DBLGInfo.class).get(0).getLGMC());
     }
 
-    TextView bottom_ll;
 
     private String getCodeValuebyKey(List<CodeModel> list, String key) {
         for (CodeModel code : list) {
