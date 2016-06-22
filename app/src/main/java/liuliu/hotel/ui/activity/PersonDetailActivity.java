@@ -51,9 +51,11 @@ public class PersonDetailActivity extends BaseActivity {
     TextView detail_address_tv;
     @CodeNote(id = R.id.card_type_tv)
     TextView card_type_tv;//证件类型
-    @CodeNote(id=R.id.detail_create_time)TextView createTime;
-    @CodeNote(id=R.id.detail_leave_time)TextView leaveTime;
-//    @CodeNote(id = R.id.default_img_iv)
+    @CodeNote(id = R.id.detail_create_time)
+    TextView createTime;
+    @CodeNote(id = R.id.detail_leave_time)
+    TextView leaveTime;
+    //    @CodeNote(id = R.id.default_img_iv)
     //    @CodeNote(id = R.id.default_img_iv)
 //    ImageView default_img_iv;//默认图片效果
     CustomerModel model;//入住旅客信息
@@ -72,8 +74,7 @@ public class PersonDetailActivity extends BaseActivity {
         model.setHeadphoto(Utils.getBitmapByte(getIntent().getStringExtra("image")));
         setTitleBar("旅客详情");
         if (null != model.getHeadphoto()) {
-            //user_img_iv.setImageBitmap(AUtils.centerSquareScaleBitmap(model.getHeadphoto(), 100));
-            user_img_iv.setImageBitmap(model.getHeadphoto());
+            user_img_iv.setImageBitmap(AUtils.centerSquareScaleBitmap(model.getHeadphoto(), 100));
         } else {
             user_img_iv.setImageResource(R.mipmap.main_zhengjian);
         }
@@ -113,9 +114,9 @@ public class PersonDetailActivity extends BaseActivity {
         person_nation_tv.setText(model.getNation());
         detail_address_tv.setText(model.getAddress());
         createTime.setText(model.getCheckInTime());
-        if(model.getCheckOutTime().equals("anyType{}")){
+        if (model.getCheckOutTime().equals("anyType{}")) {
             leaveTime.setText("无");
-        }else {
+        } else {
             leaveTime.setText(model.getCheckOutTime());
         }
     }

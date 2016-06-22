@@ -27,8 +27,8 @@
         <!--android:textSize="13sp" />-->
 
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:layout_width="80dp"
+            android:layout_height="80dp">
 
             <in.srain.cube.image.CubeImageView
                 android:id="@+id/person_iv"
@@ -57,7 +57,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="李婷婷"
                         android:textColor="@color/item_lab"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/sex_tv"
@@ -126,7 +126,7 @@
                         android:layout_marginRight="10dp"
                         android:text="202号202号202号202号"
                         android:textColor="@color/item_lab"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -149,9 +149,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="50dp"
-                        android:text="河北保定"
+                        android:text="河北保定河北保定河北保定河北保定河北保定"
                         android:textColor="@color/item_lab"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -175,7 +175,7 @@
                         android:layout_marginRight="10dp"
                         android:text="05月12日 12:23"
                         android:textColor="@color/deep_lab"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -184,7 +184,7 @@
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="25dp"
+                android:layout_centerVertical="true"
                 android:background="@drawable/item_btn_style"
                 android:focusable="false"
                 android:text="离店"
