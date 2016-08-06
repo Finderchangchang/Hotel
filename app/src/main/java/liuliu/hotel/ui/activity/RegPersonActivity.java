@@ -324,6 +324,9 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
             bm = Utils.getimage(this, path.toString());
             // person_path = path.toString();
             if (bm != null) {
+                int jiaodu=Utils.readPictureDegree(path.toString());
+                bm= Utils.rotaingImageView(jiaodu,bm);
+                //ToastShort(jiaodu+"角度");
                 bm=Utils.centerSquareScaleBitmap(bm, 60);
                 user_img_iv.setImageBitmap(bm);
                 user_img_iv.setTag(bm);
