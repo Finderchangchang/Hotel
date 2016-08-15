@@ -95,10 +95,10 @@ public class SearchFragment extends BaseFragment implements IFSearchView {
             public void convert(ViewHolder holder, final CustomerModel model, final int position) {
                 String time;
                 if (("anyType{}").equals(model.getCheckOutTime())) {//在住
-                    holder.setLabView(R.id.left_top_labv, true);
+                    holder.setVisible(R.id.left_top_labv, true);
                     holder.setButtonText(R.id.leave_hotel_btn, "离店");
                 } else {//离店
-                    holder.setLabView(R.id.left_top_labv, false);
+                    holder.setVisible(R.id.left_top_labv, false);
                     holder.setButtonText(R.id.leave_hotel_btn, "详情");
                 }
                 if (null == model.getHeadphoto()) {

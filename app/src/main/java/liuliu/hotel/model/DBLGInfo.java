@@ -17,6 +17,15 @@ public class DBLGInfo implements Serializable {
     private String QYSCM;//企业授权码、注册码
     private String SSXQ;//辖区
     private String LoginPwd;
+    private String FJS;//房间数
+
+    public String getFJS() {
+        return FJS;
+    }
+
+    public void setFJS(String FJS) {
+        this.FJS = FJS;
+    }
 
     public String getSSXQ() {
         return SSXQ;

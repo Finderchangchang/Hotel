@@ -293,13 +293,14 @@ public class RegPersonActivity extends BaseActivity implements IDownHotelView {
     private void setPerson(PersonModel person) {
         user_name_iet.setText(person.getPersonName());
         idcard_iet.setText(person.getPersonCardId());
-        xingbie_val_tv.setText("");
+        //xingbie_val_tv.setText(getValue(person.getPersonSex()));
         address_iet.setText(person.getPersonAddress());
-        minzu_val_tv.setText(person.getPersonNation());
+        minzu_val_tv.setText(getValue(person.getPersonNation()));
         customerModel.setBirthday(person.getPersonBirthday());
         if (person.getPersonCardImage() != null) {
             if (!person.getPersonCardImage().equals("")) {
                 Bitmap bitmap = Utils.getBitmapByte(person.getPersonCardImage());
+                bm=bitmap;
                 user_img_iv.setImageBitmap(bitmap);
                 customerModel.setUrl(person.getPersonImgUrl());
             }

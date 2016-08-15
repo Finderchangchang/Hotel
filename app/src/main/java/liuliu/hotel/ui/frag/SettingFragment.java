@@ -99,7 +99,6 @@ public class SettingFragment extends BaseFragment implements IDownHotelView {
                 break;
             case R.id.lanya_setting_wode_ll:
                 getBluetooth();
-
                 break;
         }
     }

@@ -153,10 +153,12 @@ public class AUtils {
      * @param hcount   在住房间数
      */
     public static void showChart(Context context, int count, float range, PieChart pieChart, int allcount, int hcount) {
-        int baifenbi = 0;
+        double baifenbi = 0.00;
+        float all=allcount;
+        float hc=hcount;
         if (allcount != 0) {
-            float num = hcount / allcount;
-            baifenbi = Integer.parseInt(new java.text.DecimalFormat("0").format(num));
+            float num = hc / all;
+            baifenbi = Double.valueOf(new java.text.DecimalFormat("0.0000").format(num));
         }
 
 

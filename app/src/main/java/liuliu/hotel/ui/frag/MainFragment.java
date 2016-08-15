@@ -247,7 +247,9 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
     @Override
     public void GetPersonNum(int hcount, int allhcount, int personcount) {
         live_num_tv.setText(personcount + "");
-        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, allhcount, hcount);//显示百分比盘
+        String fjs=db.findAll(DBLGInfo.class).get(0).getFJS();
+
+        AUtils.showChart(MainActivity.mInstance, 2, 120, liveing_chart, Integer.parseInt(fjs), hcount);//显示百分比盘
     }
 
     /**

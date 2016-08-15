@@ -34,16 +34,21 @@
                 android:id="@+id/person_iv"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/item_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/item_default"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
-            <net.tsz.afinal.view.LabelView
+            <ImageView
+                android:id="@+id/left_top_labv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/zaizhu" />
+            <!--<net.tsz.afinal.view.LabelView
                 android:id="@+id/left_top_labv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +57,8 @@
                 app:num=""
                 app:numStyle="normal"
                 app:text="在住"
-                app:textSize="9sp" />
+                app:textSize="9sp"
+                />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -112,10 +118,12 @@
                     android:layout_marginTop="3dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/home_num_img" />
+
                     <TextView
                         android:id="@+id/hotel_num_tvs"
                         android:layout_width="wrap_content"
@@ -126,16 +134,19 @@
                         android:textColor="@color/item_lab"
                         android:textSize="10sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/dingwei_img" />
+
                     <TextView
                         android:id="@+id/address_tv"
                         android:layout_width="wrap_content"
@@ -146,16 +157,19 @@
                         android:textColor="@color/item_lab"
                         android:textSize="10sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/time_person" />
+
                     <TextView
                         android:id="@+id/item_rz_time"
                         android:layout_width="wrap_content"
@@ -167,6 +181,7 @@
                         android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>
+
             <Button
                 android:id="@+id/leave_hotel_btn"
                 android:layout_width="50dp"
@@ -180,6 +195,7 @@
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"

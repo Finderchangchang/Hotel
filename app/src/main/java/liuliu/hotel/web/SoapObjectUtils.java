@@ -46,6 +46,7 @@ public class SoapObjectUtils {
                         lg.setLGMC(soaplist.getProperty("LGMC").toString());
                         lg.setQYSCM(soaplist.getProperty("QYSCM").toString());
                         lg.setSSXQ(soaplist.getProperty("SSXQ").toString());
+                        lg.setFJS(soaplist.getProperty("FJS").toString());
                         list.add(lg);
                     } else if (method.equals("GetCodeInfoByCodeName") || method.equals("SearchNative") || method.equals("GetAllUndownloadTZTGInfo")) {
                         for (int i = 0; i < soaplist.getPropertyCount(); i++) {

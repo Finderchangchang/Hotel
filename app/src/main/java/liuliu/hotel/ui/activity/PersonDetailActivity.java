@@ -111,7 +111,7 @@ public class PersonDetailActivity extends BaseActivity {
             }
         }
         person_idcard_tv.setText(model.getCardId());//证件号码
-        person_nation_tv.setText(model.getNation());
+        person_nation_tv.setText(model.getRoomId());
         detail_address_tv.setText(model.getAddress());
         createTime.setText(model.getCheckInTime());
         if (model.getCheckOutTime().equals("anyType{}")) {
