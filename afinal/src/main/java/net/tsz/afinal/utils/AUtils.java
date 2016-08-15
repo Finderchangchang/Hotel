@@ -158,7 +158,8 @@ public class AUtils {
         float hc=hcount;
         if (allcount != 0) {
             float num = hc / all;
-            baifenbi = Double.valueOf(new java.text.DecimalFormat("0.0000").format(num));
+            String n=new java.text.DecimalFormat("0.0000").format(num);
+            baifenbi = Double.valueOf(n);
         }
 
 
@@ -192,7 +193,8 @@ public class AUtils {
 //      mChart.setOnAnimationListener(this);
 
         if (allcount != 0) {
-            pieChart.setCenterText("在住率" + baifenbi * 100 + "%");  //饼状图中间的文字
+            double b=baifenbi * 100;
+            pieChart.setCenterText("在住率" + new java.text.DecimalFormat("0.00").format(b)+ "%");  //饼状图中间的文字
         } else {
             pieChart.setCenterText("在住率" + "0%");  //饼状图中间的文字
         }

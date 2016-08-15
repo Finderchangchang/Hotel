@@ -45,7 +45,7 @@ public class DownHotelListener {
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("lgdm", hotelId);
         properties.put("BSM", imei);//手机识别码
-        properties.put("SJM", "123456");
+        properties.put("SJM", code);
         properties.put("SJH", phoneNum);
         properties.put("SJPP", phoneType);
         WebServiceUtils.callWebService(true, "GetLGInfoByLGDM", properties, new WebServiceUtils.WebServiceCallBack() {
