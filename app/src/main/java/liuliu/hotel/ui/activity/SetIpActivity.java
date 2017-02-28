@@ -60,7 +60,6 @@ public class SetIpActivity extends BaseActivity {
                     Utils.WriteString(SaveKey.KEY_IP, ip_et.getText().toString());
                     Utils.WriteString(SaveKey.KEY_PORT, duankou_et.getText().toString());
                     if (result != null) {
-
                         switch (result) {
                             case "login":
                                 LoginActivity.mInstance.finish();
@@ -73,7 +72,6 @@ public class SetIpActivity extends BaseActivity {
                             case "down":
                                 this.finish();
                                 break;
-
                         }
                     }else {
                         checkPost();

@@ -318,7 +318,6 @@ public class globalfunc extends Application {
 		_birthday += "-";
 		_birthday += birthday.substring(6, 8);
 		return _birthday;
-
 	}
 
 	/**
@@ -378,18 +377,14 @@ public class globalfunc extends Application {
 	 * 格式化月份或者天数。 比如月份是1，调用此函数后返回01，比如月份是12，调用此函数后不变 day 同上
 	 * */
 	public String FormatMonthOrDay(String monthorday) {
-
 		String NewMonthOrday = monthorday;
 		if (NewMonthOrday.equals("") || NewMonthOrday == null) {
 			return "";
 		}
-
 		if (NewMonthOrday.length() < 2) {
 			NewMonthOrday = "0" + NewMonthOrday;
 		}
-
 		return NewMonthOrday;
-
 	}
 
 	/**

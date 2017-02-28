@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/item_style"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:visibility="gone">
 
     <ImageView
         android:id="@+id/person_iv"

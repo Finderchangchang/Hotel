@@ -23,7 +23,6 @@ public class NoticeDetailActivity extends BaseActivity {
     TextView time;
     @CodeNote(id = R.id.notice_value)
     TextView value;
-
     DBTZTGInfo info = null;
 
     @Override

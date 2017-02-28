@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import in.srain.cube.Cube;
 
 
@@ -29,6 +31,7 @@ public class BaseApplication extends Application {
          * 初始化定位sdk，建议在Application中创建
          */
         mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+        CrashReport.initCrashReport(getApplicationContext(), "e05daa150b", false);
     }
 
     public static Context getContext() {

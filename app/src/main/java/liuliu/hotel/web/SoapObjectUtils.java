@@ -97,8 +97,6 @@ public class SoapObjectUtils {
                     invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());
                 }
             }
-
-
         } else {
             invokeReturn.setSuccess(false);
             invokeReturn.setMessage(provinceSoapObject.getProperty("Message").toString());

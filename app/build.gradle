@@ -29,4 +29,5 @@ dependencies {
     compile files('libs/ksoap2-android-assembly-2.5.pendencies.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'homhomlin.lib:ptrrv-library:1.3.1'//下拉刷新
+    compile 'com.tencent.bugly:crashreport:latest.release'//bugly
 }
