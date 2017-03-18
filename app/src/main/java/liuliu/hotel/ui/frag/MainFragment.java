@@ -1,10 +1,7 @@
 package liuliu.hotel.ui.frag;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +36,8 @@ import liuliu.hotel.model.DBLGInfo;
 import liuliu.hotel.ui.activity.MainActivity;
 import liuliu.hotel.ui.activity.PersonDetailActivity;
 import liuliu.hotel.ui.activity.RegPersonActivity;
+import liuliu.hotel.utils.SearchNewApkListener;
+import liuliu.hotel.utils.UpdateManager;
 import liuliu.hotel.utils.Utils;
 import liuliu.hotel.view.RyAdapter;
 
@@ -66,6 +65,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
     private static final int MSG_CODE_LOADMORE = 1;
 
     private static final int TIME = 1000;
+    private SearchNewApkListener searchNewApkListener;
     CommonAdapter mAdapter;
     private int maxPage = 0;
     View topView;
@@ -76,11 +76,17 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
     TextView bottom_ll;
     private DisplayMetrics dis;
     int layoutId = R.layout.item_person;
-
+    private String Version = "";
+    //更新提示
+    private UpdateManager mUpdateManager;
     @Override
     public void initViews() {
         setContentView(R.layout.frag_main);
         db = MainActivity.mInstance.finalDb;
+        //现版本号
+        searchNewApkListener = new SearchNewApkListener(getActivity(),this);
+        Version = searchNewApkListener.getVersion();
+        searchNewApkListener.checkApkUrl();
     }
 
     @Override
@@ -313,6 +319,21 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         }
     }
 
+    @Override
+    public void checkVersion(String version) {
+        if (!Version.equals(version)){
+            //这里来检测版本是否需要更新
+            Version=version;
+            getActivity().runOnUiThread(update);
+        }
+    }
+    Runnable update = new Runnable() {
+        @Override
+        public void run() {
+            mUpdateManager = new UpdateManager(getActivity(),Version);
+            mUpdateManager.checkUpdateInfo();
+        }
+    };
     /**
      *
      */
@@ -325,6 +346,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
                     mHandler.sendEmptyMessage(REFRESH_COMPLETE);
                 } else {
                     mHandler.sendEmptyMessage(NO_ONLINE);
+
                 }
             }
         }).start();
@@ -332,6 +354,7 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
 
     private final static int REFRESH_COMPLETE = 0;
     private final static int NO_ONLINE = 1;
+    
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {

@@ -15,4 +15,6 @@ public interface INoticeView {
      * @param mList
      */
     void loadView(List<DBTZTGInfo> mList);
+
+
 }

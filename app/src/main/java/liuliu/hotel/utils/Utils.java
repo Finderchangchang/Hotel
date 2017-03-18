@@ -20,14 +20,8 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -35,17 +29,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import java.lang.reflect.Constructor;
-import java.net.URLEncoder;
-import java.util.Calendar;
 
 import liuliu.hotel.R;
-import liuliu.hotel.base.BaseActivity;
 import liuliu.hotel.base.BaseApplication;
 import liuliu.hotel.config.SaveKey;
 
@@ -53,6 +45,10 @@ import liuliu.hotel.config.SaveKey;
  * Created by Administrator on 2016/5/19.
  */
 public class Utils {
+    Context context;
+    public Utils(Context con) {
+        context = con;
+    }
     public static String getString(int key) {
         return BaseApplication.getContext().getString(key);
     }

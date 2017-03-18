@@ -33,4 +33,9 @@ public interface IFMainView {
      * @param result true,离店成功。false,离店失败
      */
     void LeaveHotel(boolean result);
+
+    /*
+    检查最新版本
+     */
+    void checkVersion(String version);
 }

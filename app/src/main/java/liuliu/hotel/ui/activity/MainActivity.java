@@ -2,7 +2,6 @@ package liuliu.hotel.ui.activity;
 
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -56,7 +55,6 @@ public class MainActivity extends BaseActivity {
     List<ItemModel> mItems;
     int mClick = 0;
     List<ChangeItem> listbtn;
-
     @Override
     public void initViews() {
         setContentView(R.layout.activity_main);
@@ -115,6 +113,7 @@ public class MainActivity extends BaseActivity {
         if (setting_frag != null) {
             transaction.hide(setting_frag);
         }
+
         switch (position) {
             case 0:
                 if (main_frag == null) {
@@ -137,6 +136,7 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             case 2:
+
                 if (setting_frag == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
                     setting_frag = new SettingFragment();
