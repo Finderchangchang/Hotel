@@ -12,6 +12,8 @@ import liuliu.hotel.http.ReqCallBack;
 import liuliu.hotel.model.APKVersionsModel;
 import liuliu.hotel.model.ResultModel;
 
+import static liuliu.hotel.config.SaveKey.KEY_PORT;
+
 /**
  * 作者：zz on 2016/7/3 16:31
  */
@@ -28,7 +30,7 @@ public class SearchNewApkListener {
     public void checkApkUrl(){
         utils = new Utils(mContext);
         //ip地址
-        String stringIP = utils.ReadString("IP");
+        String stringIP = utils.ReadString("IP")+":"+utils.ReadString(KEY_PORT);
         //版本号
         String stringVersions = getVersion();
 
@@ -50,6 +52,7 @@ public class SearchNewApkListener {
             }
             @Override
             public void onReqFailed(String errorMsg) {
+
                 view.checkVersion("");
             }
         });

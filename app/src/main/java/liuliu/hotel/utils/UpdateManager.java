@@ -25,6 +25,7 @@ import java.net.URL;
 
 import liuliu.hotel.R;
 
+import static liuliu.hotel.config.SaveKey.KEY_PORT;
 import static liuliu.hotel.ui.activity.MainActivity.mInstance;
 
 
@@ -94,8 +95,9 @@ public class UpdateManager {
     private void showNoticeDialog(){
         utils = new Utils(mContext);
         String stringIP =  utils.ReadString("IP");
-        apkUrl = "http://"+stringIP+"/Content/Apk/"+stringVersion+".apk";
-        apkUrl = "http://"+"192.168.1.113:8010"+"/Content/Apk/"+stringVersion+".apk";
+        String port=utils.ReadString(KEY_PORT);
+        apkUrl = "http://"+stringIP+":"+port+"/Content/Apk/"+stringVersion+".apk";
+        //apkUrl = "http://"+"192.168.1.113:8010"+"/Content/Apk/"+stringVersion+".apk";
         //apkUrl = "http://192.168.1.113:8010/Content/Apk/1.1.apk";
         Builder builder = new Builder(mContext);
         builder.setTitle("软件版本更新");
@@ -173,7 +175,6 @@ public class UpdateManager {
                     }
                     fos.write(buf,0,numread);
                 }while(!interceptFlag);//点击取消就停止下载.
-
                 fos.close();
                 is.close();
             } catch (MalformedURLException e) {
