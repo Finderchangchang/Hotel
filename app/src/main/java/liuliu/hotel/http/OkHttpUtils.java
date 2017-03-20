@@ -27,11 +27,8 @@ public class OkHttpUtils {
         String requestUrl = String.format("http://%s/api/values?action=%s&pattern=APP&token=" + token, port, method);
         RequestBody body = RequestBody.create(MEDIA_TYPE_MARKDOWN, json);
         Request request = new Request.Builder().url(requestUrl).post(body).build();
-
         OkHttpClient okHttpClient = new OkHttpClient();
-
         final Call call = okHttpClient.newCall(request);
-
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

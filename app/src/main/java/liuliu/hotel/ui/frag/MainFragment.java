@@ -85,8 +85,8 @@ public class MainFragment extends BaseFragment implements IFMainView, RefreshLis
         db = MainActivity.mInstance.finalDb;
         //现版本号
         searchNewApkListener = new SearchNewApkListener(getActivity(),this);
-//        Version = searchNewApkListener.getVersion();
-//        searchNewApkListener.checkApkUrl();
+        Version = searchNewApkListener.getVersion();
+        searchNewApkListener.checkApkUrl();
     }
 
     @Override
