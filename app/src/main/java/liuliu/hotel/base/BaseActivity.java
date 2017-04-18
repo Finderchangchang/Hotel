@@ -1,14 +1,13 @@
 package liuliu.hotel.base;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.tsz.afinal.BActiviy;
 import net.tsz.afinal.FinalDb;
-import net.tsz.afinal.view.NormalDialog;
 
 import in.srain.cube.image.ImageLoader;
 import in.srain.cube.image.ImageLoaderFactory;
@@ -21,7 +20,7 @@ import liuliu.hotel.ui.activity.MainActivity;
  * Created by LiuWeiJie on 2015/7/22 0022.
  * Email:1031066280@qq.com
  */
-public abstract class BaseActivity extends BActiviy {
+public abstract class BaseActivity extends AppCompatActivity {
     public FinalDb finalDb;
     TextView title_name_tv;
     public Toolbar toolbar;

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\res\\merged\\release\\mipmap\\main_zhengjian.png",
+        "source": "E:\\Project\\wai\\Hotel\\afinal\\src\\main\\res\\mipmap\\main_zhengjian.png"
+    },
+    {
+        "merged": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\res\\merged\\release\\mipmap\\item_default.png",
+        "source": "E:\\Project\\wai\\Hotel\\afinal\\src\\main\\res\\mipmap\\item_default.png"
+    },
+    {
+        "merged": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\res\\merged\\release\\mipmap\\right_back.png",
+        "source": "E:\\Project\\wai\\Hotel\\afinal\\src\\main\\res\\mipmap\\right_back.png"
+    }
+]

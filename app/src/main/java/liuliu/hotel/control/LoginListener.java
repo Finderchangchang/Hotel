@@ -101,7 +101,7 @@ public class LoginListener {
                                 info.setIsRead(0);
                                 //info.setFBSJ(Utils.DataTimeTO(info.getFBSJ()));
                                 mList.add(info);
-                                info.setFBSJ(info.getFBSJ().replace("/","-"));
+                                info.setFBSJ(info.getFBSJ().replace("/", "-"));
                                 finalDb.save(info);
                             }
 //                        mView.loadView();

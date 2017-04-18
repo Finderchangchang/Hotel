@@ -17,8 +17,36 @@
         <attr name="headerHeight" format="dimension" />
         <attr name="headerVisibleHeight" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="TitleBar">
+        <attr name="left_iv" format="reference"></attr>
+        <attr name="left_tv" format="string"></attr>
+        <attr name="center_iv" format="reference"></attr>
+        <attr name="center_tv" format="string"></attr>
+        <attr name="right_iv" format="reference"></attr>
+        <attr name="right_tv" format="string"></attr>
+        <attr name="no_bottom_line" format="boolean"></attr>
+    </declare-styleable>
+    <declare-styleable name="MenuView">
+        <attr name="menu_left_iv" format="reference" /><!--左侧图-->
+        <attr name="menu_right_iv" format="reference" /><!--右侧箭头-->
+        <attr name="menu_left_tv" format="string" /><!--左侧文字-->
+        <attr name="menu_right_tv" format="string" /><!--右侧文字-->
+        <attr name="menu_left_tv_color" format="color" /><!--左侧文字颜色-->
+        <attr name="menu_right_tv_color" format="color" /><!--右侧文字颜色-->
+    </declare-styleable>
+    <declare-styleable name="HeadEditText">
+        <attr name="head_left_tv" format="string" /><!--左侧文字-->
+        <attr name="head_right_tv" format="string" /><!--右侧文字-->
+        <attr name="head_have_et" format="boolean" /><!--true右侧为EditText，false右侧为TextView-->
+        <attr name="head_left_tv_size" format="dimension" /><!--左侧文字大小-->
+        <attr name="head_left_tv_color" format="color" /><!--左侧文字颜色-->
+        <attr name="head_right_tv_size" format="dimension" /><!--右侧文字大小-->
+        <attr name="head_right_tv_color" format="color" /><!--右侧文字颜色-->
+        <attr name="head_hint_et" format="string" /><!--右侧输入框EditText的hint()文字-->
+        <attr name="head_text_et" format="string" /><!--右侧输入框EditText的输入文字-->
+        <attr name="head_pwd_et" format="boolean" /><!--true密码输入，false右侧为TextView-->
+    </declare-styleable>
     <declare-styleable name="LabelTextView">
-
         <attr name="backgroundColor" format="color" />
         <attr name="textColor" format="color" />
         <attr name="numColor" format="color" />
@@ -50,7 +78,5 @@
             <enum name="leftTop" value="-45" />
             <enum name="rightTop" value="45" />
         </attr>
-
-
     </declare-styleable>
 </resources>

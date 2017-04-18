@@ -11,4 +11,7 @@
     <color name="item_normal_btn_bg">#027ab9</color>
     <color name="item_pressed_btn_bg">#026fa8</color>
     <color name="gb_line">#aaaaaa</color>
+    <color name="item_line">#d5d5d5</color>
+    <color name="list_item_line">#E1E1E1</color>
+    <color name="main_item_bottom_bg">#f0f0f0</color>
 </resources>

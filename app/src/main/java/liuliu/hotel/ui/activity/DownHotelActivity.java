@@ -3,6 +3,7 @@ package liuliu.hotel.ui.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 
 import net.tsz.afinal.annotation.view.CodeNote;
 import net.tsz.afinal.model.CodeModel;
+import net.tsz.afinal.utils.CommonAdapter;
+import net.tsz.afinal.utils.ViewHolder;
+
+import org.jetbrains.annotations.NotNull;
 
 import liuliu.hotel.R;
 import liuliu.hotel.base.BaseActivity;

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import net.tsz.afinal.BActiviy;
 
 /**
  * Fragment的基类
@@ -31,7 +30,7 @@ public abstract class BaseFragment extends Fragment {
         if (parent != null) {
             parent.removeView(viewRoot);
         }
-        BActiviy.initInjectedView(this, viewRoot);
+        //BActiviy.initInjectedView(this, viewRoot);
         initEvents();
         return viewRoot;
     }

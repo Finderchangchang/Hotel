@@ -2,6 +2,8 @@ package liuliu.hotel.model;
 
 import java.util.List;
 
+import liuliu.hotel.method.Version;
+
 /**
  * Created by Administrator on 2015/11/11.
  */
@@ -30,6 +32,15 @@ public class InvokeReturn {
     /// 操作返回的对象。
     /// </summary>
     private List<Object> data;
+    private Version obj;
+
+    public Version getObj() {
+        return obj;
+    }
+
+    public void setObj(Version obj) {
+        this.obj = obj;
+    }
 
     public String getCode() {
         return code;

@@ -1,0 +1,102 @@
+[
+    {
+        "outputFile": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-zh\\values-zh.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\exploded-aar\\in.srain.cube\\cube-sdk\\1.0.44\\res\\values-zh\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 165,
+                        "endColumn": 57,
+                        "endOffset": 218
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 113,
+                    "endColumn": 74,
+                    "endOffset": 183
+                },
+                "from": {
+                    "file": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\exploded-aar\\in.srain.cube\\cube-sdk\\1.0.44\\res\\values-zh\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 223,
+                        "endColumn": 74,
+                        "endOffset": 293
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 188,
+                    "endColumn": 66,
+                    "endOffset": 250
+                },
+                "from": {
+                    "file": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\exploded-aar\\in.srain.cube\\cube-sdk\\1.0.44\\res\\values-zh\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 298,
+                        "endColumn": 66,
+                        "endOffset": 360
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 255,
+                    "endColumn": 72,
+                    "endOffset": 323
+                },
+                "from": {
+                    "file": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\exploded-aar\\in.srain.cube\\cube-sdk\\1.0.44\\res\\values-zh\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 365,
+                        "endColumn": 72,
+                        "endOffset": 433
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 328,
+                    "endColumn": 63,
+                    "endOffset": 387
+                },
+                "from": {
+                    "file": "E:\\Project\\wai\\Hotel\\afinal\\build\\intermediates\\exploded-aar\\in.srain.cube\\cube-sdk\\1.0.44\\res\\values-zh\\values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 438,
+                        "endColumn": 63,
+                        "endOffset": 497
+                    }
+                }
+            }
+        ]
+    }
+]

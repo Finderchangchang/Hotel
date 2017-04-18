@@ -14,8 +14,8 @@ import in.srain.cube.Cube;
  * 描述:
  */
 public class BaseApplication extends Application {
-    private static BaseApplication sInstance;
-    private static Context context;
+    public static BaseApplication sInstance;
+    public static Context context;
 
     public Vibrator mVibrator;
 
