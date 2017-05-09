@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -26,6 +25,7 @@ import com.ivsign.android.IDCReader.IdcardInfoExtractor
 import com.ivsign.android.IDCReader.IdcardValidator
 
 import net.tsz.afinal.annotation.view.CodeNote
+import net.tsz.afinal.model.CodeModel
 import net.tsz.afinal.view.ImageEditText
 import net.tsz.afinal.view.SpinnerDialog
 
@@ -37,24 +37,16 @@ import liuliu.hotel.base.BaseActivity
 import liuliu.hotel.control.IDownHotelView
 import liuliu.hotel.control.RegPersonListener
 import liuliu.hotel.model.BlueToothModel
-
-import net.tsz.afinal.model.CodeModel
-
 import liuliu.hotel.model.CustomerModel
-import liuliu.hotel.model.DBLGInfo
-import liuliu.hotel.model.InvokeReturn
 import liuliu.hotel.model.PersonModel
-import liuliu.hotel.model.SerialNumModel
 import liuliu.hotel.utils.Utils
 import liuliu.hotel.web.DBHelper
-import liuliu.hotel.web.WebServiceUtils
-import liuliu.hotel.web.XmlUtils
 
 /**
  * 旅客入住
  * Created by Administrator on 2016/5/21.
  */
-class RegPersonActivity : BaseActivity(), IDownHotelView {
+class AddPersonActivity : BaseActivity(), IDownHotelView {
     @CodeNote(id = R.id.save_btn, click = "onClick")
     internal var save_btn: Button? = null
     @CodeNote(id = R.id.user_img_iv, click = "onClick")
@@ -79,13 +71,13 @@ class RegPersonActivity : BaseActivity(), IDownHotelView {
     internal var idcard_iet: ImageEditText? = null//证件号
     @CodeNote(id = R.id.address_iet)
     internal var address_iet: ImageEditText? = null//地址
-    internal var dialog: SpinnerDialog? = null
+    internal var dialog: SpinnerDialog
     @CodeNote(id = R.id.reg_person_read, click = "onClick")
     internal var btnRead: Button? = null
     internal var path = StringBuffer()
-    internal var listener: RegPersonListener? = null
-    internal var customerModel: CustomerModel? = null
-    internal var xbCode: MutableList<CodeModel>? = null
+    internal var listener: RegPersonListener
+    internal var customerModel: CustomerModel
+    internal var xbCode: MutableList<CodeModel>
     internal var MZcode: List<CodeModel> = ArrayList()
     internal var ZJLXcode: List<CodeModel> = ArrayList()
     internal var bm: Bitmap? = null
@@ -93,7 +85,7 @@ class RegPersonActivity : BaseActivity(), IDownHotelView {
     override fun initViews() {
         setContentView(R.layout.activity_reg_person)
         setTitleBar("旅客登记")
-//        mInstance = this
+        mInstance = this
         listener = RegPersonListener(this, this, finalDb)
         customerModel = CustomerModel()
         CopyFile.CopyWltlib(this)
@@ -167,7 +159,7 @@ class RegPersonActivity : BaseActivity(), IDownHotelView {
         // 利用系统自带的相机应用:拍照
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         path = StringBuffer()
-        path.append(this@RegPersonActivity.getExternalFilesDir(null)).append("/header.jpg")
+        path.append(this@AddPersonActivity.getExternalFilesDir(null)).append("/header.jpg")
         val file = File(path.toString())
         val uri = Uri.fromFile(file)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
@@ -265,8 +257,8 @@ class RegPersonActivity : BaseActivity(), IDownHotelView {
             customerModel.headphoto = null
         }
         //customerModel.setHeadphoto(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-//        val num = DBHelper(finalDb, this).getSeralNum()
-//        customerModel.serialId = num
+        val num = DBHelper(finalDb, this).getSeralNum()
+        customerModel.serialId = num
         customerModel.roomId = home_num_iet!!.text
         customerModel.checkInSign = versionName
     }
@@ -395,7 +387,7 @@ class RegPersonActivity : BaseActivity(), IDownHotelView {
         return result
     }
 
-//    companion object {
-//        var mInstance: RegPersonActivity
-//    }
+    companion object {
+        var mInstance: AddPersonActivity
+    }
 }

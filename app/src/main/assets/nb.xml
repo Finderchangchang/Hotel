@@ -1,0 +1,20 @@
+<DBFh>
+    <HotelId>InputHotelId</HotelId>
+    <AuthorizationCode>InputAuthorizationCode</AuthorizationCode>
+    <SerialId>InputSerialId</SerialId>
+    <Name>InputName</Name>
+    <Sex>InputSex</Sex>
+    <Nation>InputNation</Nation>
+    <Birthday>InputBirthday</Birthday>
+    <CardType>InputCardType</CardType>
+    <CardId>InputCardId</CardId>
+    <Native>InputNative</Native>
+    <Address>InputAddress</Address>
+    <RoomId>InputRoomId</RoomId>
+    <CheckInTime>InputCheckInTime</CheckInTime>
+    <CheckOutTime>InputCheckOutTime</CheckOutTime>
+    <ReceiveTime>InputReceiveTime</ReceiveTime>
+    <CheckInSign>InputCheckInSigen</CheckInSign>
+    <HeadPhoto>InputHeadPhoto</HeadPhoto>
+    <Comment>InputComment</Comment>
+</DBFh>

@@ -1,18 +1,21 @@
-package liuliu.hotel.ui.activity;
+package liuliu.hotel.ui.activity
 
-import liuliu.hotel.base.BaseActivity;
+import android.view.View
+import android.widget.EditText
+
+import liuliu.hotel.base.BaseActivity
 
 /**
  * Created by Administrator on 2016/5/21.
  */
-public class LoadingActivity extends BaseActivity {
-    @Override
-    public void initViews() {
+class LoadingActivity : BaseActivity() {
+    override fun initViews() {
 
     }
 
-    @Override
-    public void initEvents() {
-
+    override fun initEvents() {
+        val result = false
+        val et = EditText(this)
+        et.visibility = if (result) View.VISIBLE else View.GONE
     }
 }
